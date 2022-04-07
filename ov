@@ -16,12 +16,8 @@ elif [ $1 = "manage" -o $1 = "m" ]; then
   shift
   docker run -it -v $(pwd)/db.sqlite3:/app/db.sqlite3 ov python3 manage.py "$@"
 
-elif [ $1 = "container" -o $1 = "c" ]; then
+elif [ $1 = "cmd" -o $1 = "c" ]; then
   shift
   docker run -it ov "$@"
-
-elif [ $1 = "python" -o $1 = "py" ]; then
-  shift
-  docker run -it --entrypoint "/usr/local/bin/python3" ov "$@"
 
 fi
