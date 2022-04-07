@@ -1,9 +1,27 @@
 #!/bin/bash
 
 if [ $1 = "dev" -o $1 = "d" ]; then
-  docker run -itp 8000:8000 -v $(pwd)/db.sqlite3:/app/db.sqlite3 ov
+  shift
+  docker run -itp 8000:8000 -v $(pwd)/db.sqlite3:/app/db.sqlite3 ov "$@"
 
 elif [ $1 = "build" -o $1 = "b" ]; then
-  docker build -t ov .
+  shift
+  docker build -t ov . "$@"
+
+elif [ $1 = "shell" -o $1 = "s" ]; then
+  shift
+  docker run -it -v $(pwd)/db.sqlite3:/app/db.sqlite3 --entrypoint python3 ov manage.py shell "$@"
+  
+elif [ $1 = "manage" -o $1 = "m" ]; then
+  shift
+  docker run -it -v $(pwd)/db.sqlite3:/app/db.sqlite3 --entrypoint python3 ov manage.py "$@"
+
+elif [ $1 = "container" -o $1 = "c" ]; then
+  shift
+  docker run -it ov "$@"
+
+elif [ $1 = "python" -o $1 = "py" ]; then
+  shift
+  docker run -it --entrypoint "/usr/local/bin/python3" ov "$@"
 
 fi
