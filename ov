@@ -18,6 +18,6 @@ elif [ $1 = "manage" -o $1 = "m" ]; then
 
 elif [ $1 = "cmd" -o $1 = "c" ]; then
   shift
-  docker run -it ov "$@"
+  docker run -it -v $(pwd)/:/app/ ov "$@"
 
 fi
