@@ -24,6 +24,7 @@ class ExhibitPageApiSchema(BaseModel):
     body: str
     cover_image: ImageApiSchema
     hero_image: ImageApiSchema
+    hero_thumb: ImageApiSchema
 
 
 class ExhibitPage(Page):
@@ -62,5 +63,9 @@ class ExhibitPage(Page):
         APIField(
             'hero_image',
             serializer=ImageRenditionField('fill-1920x1080'),
+        ),
+        APIField(
+            'hero_thumb',
+            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
     ]
