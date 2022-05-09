@@ -44,7 +44,4 @@ class ExhibitPage(Page):
         MultiFieldPanel([InlinePanel('authors', label='Author', heading='Author(s)')]),
     ]
 
-    api_fields = [
-        APIField('body'),
-        APIField('cover_image'),
-    ]
+    api_fields = [APIField('body'), APIField('cover_image'), APIField('authors')]
