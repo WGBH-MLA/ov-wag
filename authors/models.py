@@ -1,15 +1,30 @@
 from django.db import models
 from wagtail.api import APIField
 from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, RichTextFieldPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
+from modelcluster.fields import ParentalKey
+
+
+class AuthorsOrderable(Orderable):
+    page = ParentalKey('exhibit.ExhibitPage', related_name='authors', null=True)
+    author = models.ForeignKey(
+        'authors.Author',
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    panels = [SnippetChooserPanel('author')]
 
 
 class Author(models.Model):
     """Author of a page"""
 
     name = models.CharField(max_length=100, help_text='Author name')
-    # email = models.CharField(max_length=100, blank=True, help_text='author email')
 
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -36,3 +51,6 @@ class Author(models.Model):
     def __str__(self):
         """str representation of this Author"""
         return self.name
+
+
+register_snippet(Author)
