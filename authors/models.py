@@ -1,6 +1,8 @@
 from django.db import models
 from wagtail.api import APIField
 from wagtail.core.fields import RichTextField
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, RichTextFieldPanel
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class Author(models.Model):
@@ -18,6 +20,12 @@ class Author(models.Model):
     )
 
     bio = RichTextField(blank=True, help_text='Brief author bio')
+
+    panels = [
+        MultiFieldPanel(
+            [FieldPanel('name'), ImageChooserPanel('image'), RichTextFieldPanel('bio')]
+        )
+    ]
 
     api_fields = [
         APIField('name'),
