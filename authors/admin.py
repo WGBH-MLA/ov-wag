@@ -7,7 +7,7 @@ class AuthorAdmin(ModelAdmin):
 
     model = Author
     menu_label = 'Authors'
-    menu_icon = 'placeholder'
+    menu_icon = 'group'
     add_to_settings_menu = False
     exclude_from_explorer = False
     list_display = ('name', 'image', 'bio')
