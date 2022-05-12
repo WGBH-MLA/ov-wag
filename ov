@@ -46,4 +46,6 @@ elif [ $1 = "cmd" -o $1 = "c" ]; then
 
 else echo -e $HELP
 
+else echo -e $HELP
+
 fi
