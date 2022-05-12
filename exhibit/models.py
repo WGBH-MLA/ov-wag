@@ -1,8 +1,8 @@
 from django.db import models
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.api.fields import ImageRenditionField
-from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.search import index
 from wagtail.api import APIField
 from pydantic import BaseModel
@@ -68,4 +68,5 @@ class ExhibitPage(Page):
             'hero_thumb',
             serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
+        APIField('authors'),
     ]
