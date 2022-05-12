@@ -1,6 +1,23 @@
 #!/bin/bash
+HELP="Open Vault init script\n\n
 
-if [ $1 = "dev" -o $1 = "d" ]; then
+USAGE:\n\n
+
+  ./ov COMMAND [args] \n\n
+
+COMMANDS:\n\n
+
+  (b) build \t  build the docker image\n
+  (c) cmd \t    run a bash command with the docker image\n
+  (d) dev \t    start a development server\n
+  (h) help \t   prints this help text\n
+  (s) shell \t  enter into a python shell with the app context\n
+  (m) manage \t run a manage.py command
+"
+if [ -z $1 ]; then
+  echo -e $HELP
+
+elif [ $1 = "dev" -o $1 = "d" ]; then
   shift
   docker run -itp 8000:8000 -v $(pwd)/:/app/ ov "$@"
 
@@ -19,5 +36,7 @@ elif [ $1 = "manage" -o $1 = "m" ]; then
 elif [ $1 = "cmd" -o $1 = "c" ]; then
   shift
   docker run -it -v $(pwd)/:/app/ ov "$@"
+
+else echo -e $HELP
 
 fi
