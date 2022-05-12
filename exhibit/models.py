@@ -52,6 +52,7 @@ class ExhibitPage(Page):
         FieldPanel('body', classname="full"),
         FieldPanel('cover_image', classname="full"),
         FieldPanel('hero_image', classname="full"),
+        MultiFieldPanel([InlinePanel('authors', label='Author', heading='Author(s)')]),
     ]
 
     api_fields = [
