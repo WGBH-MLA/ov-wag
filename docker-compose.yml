@@ -19,6 +19,7 @@ services:
     image: postgres:14.2-alpine
     volumes:
       - ./db:/var/lib/postgresql/data
+    user: ${UID}:${GID}
     restart: always
     env_file:
       - .db
