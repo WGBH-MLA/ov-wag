@@ -7,12 +7,12 @@ USAGE:\n\n
 
 COMMANDS:\n\n
 
-  (b) build \t  build the docker image\n
-  (c) cmd \t    run a bash command with the docker image\n
-  (d) dev \t    start a development server\n
-  (h) help \t   prints this help text\n
-  (s) shell \t  enter into a python shell with the app context\n
-  (m) manage \t run a manage.py command
+\t  b | build \t  build the docker image\n
+\t  c | cmd \t    run a bash command with the docker image\n
+\t  d | dev \t    start a development server\n
+\t  h | help \t   prints this help text\n
+\t  s | shell \t  enter into a python shell with the app context\n
+\t  m | manage \t run a manage.py command
 "
 if [ -z $1 ]; then
   echo -e $HELP
