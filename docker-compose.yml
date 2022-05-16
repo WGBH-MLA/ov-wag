@@ -10,11 +10,15 @@ services:
       - db
     environment:
       OV_DB_HOST: db
-      OV_DB_PORT: 5432
-      OV_DB_USER: postgres
-      OV_DB_PASSWORD:
+    #   OV_DB_PASSWORD:
     env_file:
       - .env
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 5s
   db:
     image: postgres:14.2-alpine
     volumes:
