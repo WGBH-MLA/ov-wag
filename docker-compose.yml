@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  wagtail:
+    build: .
+    image: ov
+    volumes:
+      - ./:/app/
+    depends_on:
+      - db
+    environment:
+      OV_DB_HOST: db
+      OV_DB_PORT: 5432
+      OV_DB_USER: postgres
+      OV_DB_PASSWORD:
+    env_file:
+      - .env
+  db:
+    image: postgres:14.2-alpine
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    restart: always
+    env_file:
+      - .db
