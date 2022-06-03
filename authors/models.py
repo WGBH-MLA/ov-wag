@@ -7,6 +7,17 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
+from rest_framework.fields import Field
+
+
+class ImageSerializedField(Field):
+    def to_representation(self, value):
+        return {
+            'url': value.file.url,
+            'title': value.title,
+            'width': value.width,
+            'height': value.height,
+        }
 
 
 class AuthorsOrderable(Orderable):
@@ -24,8 +35,13 @@ class AuthorsOrderable(Orderable):
     def name(self):
         return self.author.name
 
+    @property
+    def image(self):
+        return self.author.image
+
     api_fields = [
         APIField('name'),
+        APIField('image', serializer=ImageSerializedField()),
     ]
 
 
