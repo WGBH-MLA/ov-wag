@@ -20,6 +20,14 @@ class AuthorsOrderable(Orderable):
 
     panels = [SnippetChooserPanel('author')]
 
+    @property
+    def name(self):
+        return self.author.name
+
+    api_fields = [
+        APIField('name'),
+    ]
+
 
 class Author(models.Model):
     """Author of a page"""
