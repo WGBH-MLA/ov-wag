@@ -42,10 +42,8 @@ INSTALLED_APPS = [
     'wagtail.core',
     'wagtail.api.v2',
     'rest_framework',
-
     'modelcluster',
     'taggit',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
@@ -94,8 +91,12 @@ WSGI_APPLICATION = 'ov_wag.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': os.environ.get('OV_DB_ENGINE'),
+        'HOST': os.environ.get('OV_DB_HOST'),
+        'PORT': os.environ.get('OV_DB_PORT'),
+        'NAME': os.environ.get('OV_DB_NAME'),
+        'USER': os.environ.get('OV_DB_USER'),
+        'PASSWORD': os.environ.get('OV_DB_PASSWORD'),
     }
 }
 

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  wagtail:
+    build: .
+    image: ov
+    volumes:
+      - ./:/app/
+    depends_on:
+      - db
+    environment:
+      OV_DB_HOST: db
+    #   OV_DB_PASSWORD:
+    env_file:
+      - .env
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 5s
+  db:
+    image: postgres:14.2-alpine
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    user: ${UID}:${GID}
+    restart: always
+    env_file:
+      - .db

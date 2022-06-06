@@ -8,3 +8,10 @@ __pycache__
 *.pyc
 .DS_Store
 /venv/
+
+# Database
+db/
+
+# Environment files
+.env
+.db
