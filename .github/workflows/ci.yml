@@ -1,7 +1,16 @@
 name: ci
-on: [ push ]
+
+on:
+  - push
+  - pull_request
+
 jobs:
-  run-tests:
+
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      - run: echo "works"
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ov_wag:$(date +%s)
