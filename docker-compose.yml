@@ -6,13 +6,6 @@ services:
     image: ov
     volumes:
       - ./:/app/
-    depends_on:
-      - db
-    environment:
-      OV_DB_HOST: db
-    #   OV_DB_PASSWORD:
-    env_file:
-      - .env
     deploy:
       restart_policy:
         condition: on-failure
