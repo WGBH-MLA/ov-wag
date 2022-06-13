@@ -8,12 +8,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    container:
-      image: ubuntu
-      options: --user 1001
     steps:
     - uses: actions/checkout@v3
-    - name: 🐋 Build the Docker image
-      run: docker build . --file Dockerfile --tag ov_wag:$(date +%s)
     - name: ☑️ Run Tests
       run: ./ov test
