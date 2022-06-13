@@ -15,4 +15,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ov_wag:$(date +%s)
     - name: Run Tests
-      run: ./ov m test
+      run: ./ov test
