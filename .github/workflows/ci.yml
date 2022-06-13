@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
+    - name: 🐋 Build the Docker image
       run: docker build . --file Dockerfile --tag ov_wag:$(date +%s)
-    - name: Run Tests
+    - name: ☑️ Run Tests
       run: ./ov test
