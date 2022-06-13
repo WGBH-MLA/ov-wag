@@ -7,9 +7,8 @@ on:
 jobs:
 
   build:
-
-    runs-on: ubuntu-latest
     container:
+      runs-on: ubuntu-latest
       options: --user 1001
     steps:
     - uses: actions/checkout@v3
