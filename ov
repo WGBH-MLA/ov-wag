@@ -19,6 +19,7 @@ COMMANDS:\n\n
 COMPOSE="docker compose -f docker-compose.yml"
 DEV="-f dev.yml"
 MANAGE="run wagtail python3 manage.py"
+
 if [ -z $1 ]; then
   echo -e $HELP
 

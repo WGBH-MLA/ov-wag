@@ -18,5 +18,3 @@ services:
       - ./db:/var/lib/postgresql/data
     user: ${UID}:${GID}
     restart: always
-    env_file:
-      - .db

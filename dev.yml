@@ -11,3 +11,6 @@ services:
     #   OV_DB_PASSWORD:
     env_file:
       - .env
+  db:
+    env_file:
+      - .db
