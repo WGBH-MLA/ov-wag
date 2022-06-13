@@ -30,7 +30,7 @@ elif [ $1 = "dev" -o $1 = "d" ]; then
 
 elif [ $1 = "build" -o $1 = "b" ]; then
   shift
-  docker build -t ov . "$@"
+  $COMPOSE build "$@"
 
 elif [ $1 = "shell" -o $1 = "s" ]; then
   shift
