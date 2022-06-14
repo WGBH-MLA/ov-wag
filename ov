@@ -50,7 +50,7 @@ elif [ $1 = "cmd" -o $1 = "c" ]; then
 elif [ $1 = "test" -o $1 = "t" ]; then
   shift
   # Run tests in isolation
-  $COMPOSE run -e OV_DB_ENGINE="django.db.backends.sqlite3" -e OV_DB_NAME=testdb -e MEDIA_ROOT=/app/bliggle wagtail python3 manage.py test
+  $COMPOSE run -e OV_DB_ENGINE="django.db.backends.sqlite3" -e OV_DB_NAME=testdb wagtail python3 manage.py test
 
 else echo -e $HELP
 
