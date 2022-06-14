@@ -37,15 +37,14 @@ WORKDIR /app
 # Set this directory to be owned by the "wagtail" user. This Wagtail project
 # uses SQLite, the folder needs to be owned by the user that
 # will be writing to the database file.
-RUN chown wagtail:wagtail /app
+# RUN chown wagtail:wagtail /app
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
-RUN whoami
 
 # make empty media directory
 # needed for Github Actions
-RUN mkdir -p /app/media/
+# RUN mkdir -p /app/media/
 
 # Copy the source code of the project into the container.
 COPY --chown=wagtail:wagtail . .
