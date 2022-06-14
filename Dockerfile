@@ -41,6 +41,7 @@ RUN chown wagtail:wagtail /app
 
 # Use user "wagtail" to run the build commands below and the server itself.
 USER wagtail
+RUN whoami
 
 # make empty media directory
 # needed for Github Actions
