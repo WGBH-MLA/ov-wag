@@ -7,13 +7,23 @@ services:
     volumes:
       - ./:/app/
     working_dir: /app
-    command: python3 manage.py migrate --noinput; gunicorn ov_wag.wsgi:application --reload
+    entrypoint: /app/docker_entrypoints/dev.sh
     deploy:
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 3
         window: 5s
+  wagtail-tests:
+    build: .
+    image: ov
+    volumes:
+      - ./:/app/
+    working_dir: /app
+    entrypoint: /app/docker_entrypoints/test.sh
+    environment:
+      - OV_DB_ENGINE=django.db.backends.sqlite3
+      - OV_DB_NAME=testdb
   db:
     image: postgres:14.2-alpine
     volumes:
