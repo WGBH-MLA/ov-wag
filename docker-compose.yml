@@ -7,10 +7,7 @@ services:
     volumes:
       - ./:/app/
     working_dir: /app
-    command:
-      # - tail -f /dev/null
-      # - python manage.py migrate --noinput
-      # - gunicorn ov_wag.wsgi:application --reload
+    command: python3 manage.py migrate --noinput; gunicorn ov_wag.wsgi:application --reload
     deploy:
       restart_policy:
         condition: on-failure
