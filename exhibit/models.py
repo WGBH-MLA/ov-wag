@@ -8,14 +8,11 @@ from wagtail.api import APIField
 from pydantic import BaseModel
 
 
-class ImageMetaApiSchema(BaseModel):
-    download_url: str
-
-
 class ImageApiSchema(BaseModel):
-    id: int
-    title: str
-    meta: ImageMetaApiSchema
+    url: str
+    width: int
+    height: int
+    alt: str
 
 
 class ExhibitPageApiSchema(BaseModel):
