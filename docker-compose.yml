@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   wagtail:
-    build: .
+    build:
+      context: .
+      target: production
     image: ov
     volumes:
       - ./:/app/
@@ -15,7 +17,9 @@ services:
         max_attempts: 3
         window: 5s
   wagtail-tests:
-    build: .
+    build:
+      context: .
+      target: base
     image: ov
     volumes:
       - ./:/app/
