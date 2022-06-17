@@ -3,4 +3,14 @@ version: '3.8'
 services:
   wagtail:
     ports:
-      - 8000:8000
+      - 8000:80
+    depends_on:
+      - db
+    environment:
+      OV_DB_HOST: db
+    #   OV_DB_PASSWORD:
+    env_file:
+      - .env
+  db:
+    env_file:
+      - .db

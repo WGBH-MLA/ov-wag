@@ -42,7 +42,9 @@ class ApiTests(APITestCase):
         response = self.client.get(f'/api/v2/pages/{exhibit_page.id}/', format='json')
         json = response.json()
         ExhibitPageApiSchema(**json)
-        self.assertIsNotNone(json['cover_image']['meta']['download_url'])
+        self.assertIsNotNone(json['cover_image']['url'])
+        self.assertIsNotNone(json['hero_image']['url'])
+        self.assertIsNotNone(json['hero_thumb']['url'])
 
     def __home_page(self):
         return Site.objects.filter(is_default_site=True).first().root_page

@@ -1,6 +1,11 @@
 # Django project
-/media/
-/static/
+# Use .gitkeep pattern to for empty directories that Wagtail expects to exist.
+/media/*
+!/media/.gitkeep
+/static/*
+!/static/.gitkeep
+
+# Ignore SQLite, if we're using it.
 *.sqlite3
 
 # Python and others
