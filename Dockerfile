@@ -14,6 +14,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 COPY requirements.txt /
 RUN pip install -r /requirements.txt
 
+# Build the production image, with the application server
 FROM base as production
 
 # Set environment variables.
@@ -21,9 +22,9 @@ FROM base as production
 # 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
 #    command.
 ENV PYTHONUNBUFFERED=1 \
-    PORT=8000
+    PORT=80
 
-EXPOSE 8000
+EXPOSE 80
 
 # Install the application server.
 RUN pip install "gunicorn>=20.1.0,<20.2.0"
@@ -37,4 +38,4 @@ RUN pip install "gunicorn>=20.1.0,<20.2.0"
 #   PRACTICE. The database should be migrated manually or using the release
 #   phase facilities of your hosting platform. This is used only so the
 #   Wagtail instance can be started with a simple "docker run" command.
-CMD set -xe; python manage.py migrate --noinput; gunicorn ov_wag.wsgi:application --reload
+# CMD set -xe; python manage.py migrate --noinput; gunicorn ov_wag.wsgi:application --reload
