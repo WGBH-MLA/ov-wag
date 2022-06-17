@@ -20,7 +20,7 @@ services:
     build:
       context: .
       target: base
-    image: ov
+    image: ov-tests
     volumes:
       - ./:/app/
     working_dir: /app
