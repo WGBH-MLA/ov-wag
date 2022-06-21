@@ -1,5 +1,7 @@
 # ov_wag
 
+![CI](https://github.com/WGBH-MLA/ov_wag/actions/workflows/ci.yml/badge.svg)
+
 Experimental - Open Vault Exhibits on Wagtail CMS
 
 ## Usage
