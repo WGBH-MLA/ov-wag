@@ -9,6 +9,10 @@ from exhibit.tests.factories import ExhibitPageFactory
 
 
 class ApiTests(APITestCase):
+    def assertValidSchema(self, item):
+        ExhibitPageApiSchema(**item)
+        return True
+
     def test_get_pages(self):
         """
         GET /api/v2/pages
@@ -41,7 +45,7 @@ class ApiTests(APITestCase):
         exhibit_page = ExhibitPageFactory.create(parent=self.__home_page())
         response = self.client.get(f'/api/v2/exhibit/{exhibit_page.id}/', format='json')
         json = response.json()
-        ExhibitPageApiSchema(**json)
+        self.assertValidSchema(json)
 
     def test_exhibit_api_schema_multiple(self):
         """
@@ -54,7 +58,7 @@ class ApiTests(APITestCase):
         json = response.json()
         print('json', json)
         for item in json['items']:
-            ExhibitPageApiSchema(**item)
+            self.assertValidSchema(item)
 
     def __home_page(self):
         return Site.objects.filter(is_default_site=True).first().root_page
