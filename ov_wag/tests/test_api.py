@@ -56,7 +56,6 @@ class ApiTests(APITestCase):
         exhibit_page = ExhibitPageFactory.create(parent=self.__home_page())
         response = self.client.get(f'/api/v2/exhibit/', format='json')
         json = response.json()
-        print('json', json)
         for item in json['items']:
             self.assertValidSchema(item)
 
