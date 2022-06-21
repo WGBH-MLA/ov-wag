@@ -8,5 +8,7 @@ class ExhibitAPIViewSet(BaseAPIViewSet):
     listing_default_fields = BaseAPIViewSet.listing_default_fields + [
         'title',
         'authors',
+        'cover_image',
+        'hero_image',
         'hero_thumb',
     ]

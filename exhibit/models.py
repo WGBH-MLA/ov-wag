@@ -60,6 +60,10 @@ class ExhibitPage(Page):
             serializer=ImageRenditionField('fill-1600x500'),
         ),
         APIField(
+            'cover_thumb',
+            serializer=ImageRenditionField('fill-480x270', source='cover_image'),
+        ),
+        APIField(
             'hero_image',
             serializer=ImageRenditionField('fill-1920x1080'),
         ),
