@@ -32,19 +32,29 @@ class ApiTests(APITestCase):
         response = self.client.get(f'/api/v2/pages/{exhibit_page.id}/', format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_exhibit_cover_image(self):
+    def test_exhibit_api_schema_single(self):
         """
-        GET /api/v2/pages/{id} for Exhibit pages
+        GET /api/v2/exhibit/{id} for Exhibit pages
 
         Compare response against ExhibitSchema
         """
         exhibit_page = ExhibitPageFactory.create(parent=self.__home_page())
-        response = self.client.get(f'/api/v2/pages/{exhibit_page.id}/', format='json')
+        response = self.client.get(f'/api/v2/exhibit/{exhibit_page.id}/', format='json')
         json = response.json()
         ExhibitPageApiSchema(**json)
-        self.assertIsNotNone(json['cover_image']['url'])
-        self.assertIsNotNone(json['hero_image']['url'])
-        self.assertIsNotNone(json['hero_thumb']['url'])
+
+    def test_exhibit_api_schema_multiple(self):
+        """
+        GET /api/v2/exhibit for Exhibit pages
+
+        Compare response against ExhibitSchema
+        """
+        exhibit_page = ExhibitPageFactory.create(parent=self.__home_page())
+        response = self.client.get(f'/api/v2/exhibit/', format='json')
+        json = response.json()
+        print('json', json)
+        for item in json['items']:
+            ExhibitPageApiSchema(**item)
 
     def __home_page(self):
         return Site.objects.filter(is_default_site=True).first().root_page

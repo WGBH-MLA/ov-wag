@@ -20,6 +20,7 @@ class ExhibitPageApiSchema(BaseModel):
     title: str
     body: str
     cover_image: ImageApiSchema
+    cover_thumb: ImageApiSchema
     hero_image: ImageApiSchema
     hero_thumb: ImageApiSchema
 
