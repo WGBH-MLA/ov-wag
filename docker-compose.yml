@@ -8,7 +8,6 @@ services:
     image: ov
     volumes:
       - ./:/app/
-    working_dir: /app
     entrypoint: /app/docker_entrypoints/dev.sh
     deploy:
       restart_policy:
@@ -23,7 +22,6 @@ services:
     image: ov-tests
     volumes:
       - ./:/app/
-    working_dir: /app
     entrypoint: /app/docker_entrypoints/test.sh
     environment:
       - OV_DB_ENGINE=django.db.backends.sqlite3

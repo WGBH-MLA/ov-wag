@@ -14,6 +14,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 COPY requirements.txt /
 RUN pip install -r /requirements.txt
 
+WORKDIR /app
+
 # Build the production image, with the application server
 FROM base as production
 
