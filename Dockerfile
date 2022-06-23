@@ -39,3 +39,4 @@ RUN pip install "gunicorn>=20.1.0,<20.2.0"
 #   phase facilities of your hosting platform. This is used only so the
 #   Wagtail instance can be started with a simple "docker run" command.
 # CMD set -xe; python manage.py migrate --noinput; gunicorn ov_wag.wsgi:application --reload
+COPY . .
