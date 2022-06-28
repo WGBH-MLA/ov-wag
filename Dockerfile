@@ -14,6 +14,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 COPY requirements.txt /
 RUN pip install -r /requirements.txt
 
+WORKDIR /app
+
 # Build the production image, with the application server
 FROM base as production
 
@@ -29,13 +31,6 @@ EXPOSE 80
 # Install the application server.
 RUN pip install "gunicorn>=20.1.0,<20.2.0"
 
-# Runtime command that executes when "docker run" is called, it does the
-# following:
-#   1. Migrate the database.
-#   2. Start the application server.
-# WARNING:
-#   Migrating database at the same time as starting the server IS NOT THE BEST
-#   PRACTICE. The database should be migrated manually or using the release
-#   phase facilities of your hosting platform. This is used only so the
-#   Wagtail instance can be started with a simple "docker run" command.
-# CMD set -xe; python manage.py migrate --noinput; gunicorn ov_wag.wsgi:application --reload
+COPY . .
+
+ENTRYPOINT /app/docker_entrypoints/deploy.sh
