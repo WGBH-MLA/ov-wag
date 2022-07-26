@@ -1,5 +1,5 @@
 """
-WSGI config for ov_wag project.
+WSGI config for ov-wag project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
