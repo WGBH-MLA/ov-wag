@@ -5,7 +5,7 @@ services:
     build:
       context: .
       target: production
-    image: ov
+    image: ov-wag
     volumes:
       - ./:/app/
     entrypoint: /app/docker_entrypoints/dev.sh
