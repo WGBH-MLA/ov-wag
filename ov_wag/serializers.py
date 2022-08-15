@@ -1,4 +1,5 @@
 from rest_framework.fields import Field
+from wagtail.core.templatetags import wagtailcore_tags
 
 
 class ImageSerializedField(Field):
@@ -9,3 +10,8 @@ class ImageSerializedField(Field):
             'width': value.width,
             'height': value.height,
         }
+
+
+class RichTextSerializer(Field):
+    def to_representation(self, value):
+        return wagtailcore_tags.richtext(value)
