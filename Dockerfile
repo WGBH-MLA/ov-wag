@@ -19,6 +19,9 @@ WORKDIR /app
 # Build the production image, with the application server
 FROM base as production
 
+# Create directory for logs
+RUN mkdir -p /logs
+
 # Set environment variables.
 # 1. Force Python stdout and stderr streams to be unbuffered.
 # 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
