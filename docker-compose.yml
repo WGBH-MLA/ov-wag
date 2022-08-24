@@ -29,6 +29,6 @@ services:
   db:
     image: postgres:14.2-alpine
     volumes:
-      - ./db:/var/lib/postgresql/data
+      - ./db:/var/lib/postgresql/data:Z
     user: ${UID}:${GID}
     restart: always
