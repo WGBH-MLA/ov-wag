@@ -6,6 +6,7 @@ from wagtail.images.api.fields import ImageRenditionField
 from wagtail.search import index
 from wagtail.api import APIField
 from pydantic import BaseModel
+from ov_wag.serializers import RichTextSerializer
 
 
 class ImageApiSchema(BaseModel):
@@ -55,7 +56,7 @@ class ExhibitPage(Page):
 
     api_fields = [
         APIField('title'),
-        APIField('body'),
+        APIField('body', serializer=RichTextSerializer()),
         APIField(
             'cover_image',
             serializer=ImageRenditionField('fill-1600x500'),
