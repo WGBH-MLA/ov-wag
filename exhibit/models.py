@@ -87,7 +87,10 @@ class ExhibitPage(Page):
         MultiFieldPanel(
             [
                 InlinePanel(
-                    'other_exhibits', label='Other Exhibits', heading='Other Exhibits'
+                    'other_exhibits',
+                    label='Other Exhibits',
+                    heading='Other Exhibits',
+                    max_num=3,
                 )
             ]
         ),
