@@ -2,9 +2,7 @@ from django.db import models
 from wagtail.api import APIField
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, RichTextFieldPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
 from ov_wag.serializers import ImageSerializedField
@@ -19,7 +17,7 @@ class AuthorsOrderable(Orderable):
         on_delete=models.CASCADE,
     )
 
-    panels = [SnippetChooserPanel('author')]
+    panels = [FieldPanel('author')]
 
     @property
     def name(self):
@@ -51,9 +49,7 @@ class Author(models.Model):
     bio = RichTextField(blank=True, help_text='Brief author bio')
 
     panels = [
-        MultiFieldPanel(
-            [FieldPanel('name'), ImageChooserPanel('image'), RichTextFieldPanel('bio')]
-        )
+        MultiFieldPanel([FieldPanel('name'), FieldPanel('image'), FieldPanel('bio')])
     ]
 
     api_fields = [
