@@ -15,3 +15,19 @@ class ImageSerializedField(Field):
 class RichTextSerializer(Field):
     def to_representation(self, value):
         return wagtailcore_tags.richtext(value)
+
+
+class AuthorsSerializer(Field):
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, value):
+        authors = value.exhibit.authors
+        return [
+            {
+                'id': author.id,
+                'name': author.name,
+                # 'image': author.image,
+            }
+            for author in authors.all()
+        ]
