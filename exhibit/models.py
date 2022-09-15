@@ -12,6 +12,7 @@ from ov_wag.serializers import (
     ImageSerializedField,
     AuthorsSerializer,
 )
+from .serializers import ExhibitsSerializer
 
 
 class ExhibitsOrderable(Orderable):
@@ -120,5 +121,5 @@ class ExhibitPage(Page):
             serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
         APIField('authors'),
-        APIField('other_exhibits'),
+        APIField('other_exhibits', serializer=ExhibitsSerializer()),
     ]
