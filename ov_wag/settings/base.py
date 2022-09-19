@@ -173,3 +173,6 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILAPI_BASE_URL = os.environ.get('OV_API_URL')
+
+WAGTAIL_BASE_URL = os.environ.get('OV_BASE_URL')
+WAGTAILADMIN_BASE_URL = os.environ.get('OV_ADMIN_BASE_URL', '')

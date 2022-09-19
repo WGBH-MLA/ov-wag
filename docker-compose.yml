@@ -4,7 +4,7 @@ services:
   wagtail:
     build:
       context: .
-      target: production
+      target: base
     image: ov-wag
     volumes:
       - ./:/app/
