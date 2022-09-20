@@ -117,6 +117,6 @@ class ExhibitPage(Page):
             'hero_thumb',
             serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
-        APIField('authors'),
+        APIField('authors', serializer=AuthorsSerializer()),
         APIField('other_exhibits', serializer=ExhibitsSerializer()),
     ]
