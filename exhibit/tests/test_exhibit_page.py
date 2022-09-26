@@ -1,6 +1,6 @@
 from django.test import TestCase
-from ..models import *
-from .factories import *
+from ..models import ExhibitPage
+from .factories import ExhibitPageFactory
 
 # Create your tests here.
 class ExhibitPageTests(TestCase):
