@@ -9,6 +9,7 @@ COMMANDS:\n\n
 
 \t  b | build \t  build the docker image\n
 \t  c | cmd \t    run a bash command with the wagtail docker image\n
+\t  coverage \t   run the coverage tests
 \t  d | dev \t    start a development server\n
 \t  h | help \t   prints this help text\n
 \t  s | shell \t  enter into a python shell with the app context\n
@@ -52,6 +53,11 @@ elif [ $1 = "test" -o $1 = "t" ]; then
   shift
   # Run tests in isolation
   $COMPOSE run wagtail-tests
+
+elif [ $1 = "coverage" -o $1 = "cover" ]; then
+  shift
+  # Run tests in isolation
+  $COMPOSE run --entrypoint coverage wagtail-tests run -m pytest
 
 else echo -e $HELP
 
