@@ -1,0 +1,25 @@
+name: 📈 Test Coverage
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: 📝 Generate Coverage report
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📰 Checkout
+        uses: actions/checkout@v3
+
+      - name: ✅ Run Coverage Tests
+        run: ./ov cover
+
+  coveralls:
+    name: 📈 Publish results to coveralls.io
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📔 Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          path-to-lcov: coverage.lcov
+          github-token: ${{ secrets.GITHUB_TOKEN }}
