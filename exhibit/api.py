@@ -13,5 +13,4 @@ class ExhibitAPIViewSet(BaseAPIViewSet):
         'cover_thumb',
         'hero_image',
         'hero_thumb',
-        'other_exhibits',
     ]
