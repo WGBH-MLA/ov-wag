@@ -13,11 +13,6 @@ jobs:
       - name: ✅ Run Coverage Tests
         run: ./ov cover
 
-  coveralls:
-    name: 📈 Publish results to coveralls.io
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
       - name: 📔 Coveralls
         uses: coverallsapp/github-action@master
         with:
