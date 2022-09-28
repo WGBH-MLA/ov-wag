@@ -1,11 +1,11 @@
 from rest_framework.fields import Field
 from ov_wag.serializers import ImageSerializedField
-from authors.serializers import AuthorsSerializer
+from authors.serializers import AuthorSerializer
 
 
 class ExhibitStubSerializer(Field):
     image = ImageSerializedField()
-    authors = AuthorsSerializer()
+    authors = AuthorSerializer(many=True)
 
     def to_representation(self, value):
         return {
