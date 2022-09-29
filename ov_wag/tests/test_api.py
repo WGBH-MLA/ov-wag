@@ -1,10 +1,8 @@
-from django.urls import reverse
 from rest_framework import status
-from unittest import TestCase
 from rest_framework.test import APITestCase
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Site
 import wagtail_factories
-from exhibit.models import ExhibitPage, ExhibitPageApiSchema
+from exhibit.models import ExhibitPageApiSchema
 from exhibit.tests.factories import ExhibitPageFactory
 
 

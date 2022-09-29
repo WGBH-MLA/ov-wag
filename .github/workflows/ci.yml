@@ -1,14 +1,17 @@
-name: ci
+name: 🧪 CI Tests
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+      - master
+  pull_request:
 
 jobs:
-
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: ☑️ Run Tests
-      run: ./ov test
+      - name: 📰 Checkout
+        uses: actions/checkout@v3
+
+      - name: ☑️ Run Tests
+        run: ./ov test

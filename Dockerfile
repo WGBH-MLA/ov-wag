@@ -16,6 +16,11 @@ RUN pip install -r /requirements.txt
 
 WORKDIR /app
 
+# Build the test image, which includes the test applications
+FROM base as test
+COPY requirements-test.txt /
+RUN pip install -r /requirements-test.txt
+
 # Build the production image, with the application server
 FROM base as production
 

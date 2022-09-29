@@ -1,12 +1,13 @@
-import factory
-import wagtail_factories
+from factory import SubFactory
+from wagtail_factories import ImageChooserBlockFactory, PageFactory
 from exhibit.models import ExhibitPage
 
 
-class ExhibitPageFactory(wagtail_factories.PageFactory):
+class ExhibitPageFactory(PageFactory):
 
-    cover_image = factory.SubFactory(wagtail_factories.ImageChooserBlockFactory)
-    hero_image = factory.SubFactory(wagtail_factories.ImageChooserBlockFactory)
+    cover_image = SubFactory(ImageChooserBlockFactory)
+    hero_image = SubFactory(ImageChooserBlockFactory)
+    # other_exhibits =
 
     class Meta:
         model = ExhibitPage

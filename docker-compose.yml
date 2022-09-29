@@ -18,7 +18,7 @@ services:
   wagtail-tests:
     build:
       context: .
-      target: base
+      target: test
     image: ov-tests
     volumes:
       - ./:/app/
