@@ -8,7 +8,8 @@ USAGE:\n\n
 COMMANDS:\n\n
 
 \t  b | build \t  build the docker image\n
-\t  c | cmd \t    run a bash command with the docker image\n
+\t  c | cmd \t    run a bash command with the wagtail docker image\n
+\t  coverage \t   run the coverage tests
 \t  d | dev \t    start a development server\n
 \t  h | help \t   prints this help text\n
 \t  s | shell \t  enter into a python shell with the app context\n
@@ -18,7 +19,7 @@ COMMANDS:\n\n
 
 COMPOSE="docker compose -f docker-compose.yml"
 DEV="-f dev.yml"
-MANAGE="run --entrypoint python3 wagtail manage.py"
+MANAGE="run --entrypoint python wagtail manage.py"
 
 if [ -z $1 ]; then
   echo -e $HELP
@@ -43,14 +44,21 @@ elif [ $1 = "manage" -o $1 = "m" ]; then
   $COMPOSE $DEV $MANAGE "$@"
 
 elif [ $1 = "cmd" -o $1 = "c" ]; then
-  shift
+  ENTRYPOINT=$2
+  shift 2
   # docker run -it -v $(pwd)/:/app/ ov "$@"
-  $COMPOSE $DEV run -it wagtail "$@"
+  $COMPOSE $DEV run -it --entrypoint $ENTRYPOINT wagtail "$@"
 
 elif [ $1 = "test" -o $1 = "t" ]; then
   shift
   # Run tests in isolation
   $COMPOSE run wagtail-tests
+
+elif [ $1 = "coverage" -o $1 = "cover" ]; then
+  shift
+  # Generate coverage report
+  $COMPOSE run --entrypoint coverage wagtail-tests run -m pytest
+  $COMPOSE run --entrypoint coverage wagtail-tests lcov
 
 else echo -e $HELP
 

@@ -1,6 +1,6 @@
 # ov-wag
 
-![CI](https://github.com/WGBH-MLA/ov-wag/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/WGBH-MLA/ov-wag/actions/workflows/ci.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/WGBH-MLA/ov-wag/badge.svg)](https://coveralls.io/github/WGBH-MLA/ov-wag)
 
 Experimental - Open Vault Exhibits on Wagtail CMS
 
