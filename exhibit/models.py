@@ -7,9 +7,8 @@ from wagtail.search import index
 from wagtail.api import APIField
 from pydantic import BaseModel
 from modelcluster.fields import ParentalKey
-from ov_wag.serializers import RichTextSerializer, ImageSerializedField
-from authors.serializers import AuthorsSerializer
-from .serializers import ExhibitsSerializer
+from ov_wag.serializers import RichTextSerializer
+from authors.serializers import AuthorSerializer
 
 
 class ExhibitsOrderable(Orderable):
@@ -37,8 +36,11 @@ class ExhibitsOrderable(Orderable):
 
     api_fields = [
         APIField('title'),
-        APIField('cover_image', serializer=ImageSerializedField()),
-        APIField('authors', serializer=AuthorsSerializer()),
+        APIField(
+            'cover_image',
+            serializer=ImageRenditionField('fill-320x100'),
+        ),
+        APIField('authors', serializer=AuthorSerializer(many=True)),
     ]
 
 
@@ -117,6 +119,6 @@ class ExhibitPage(Page):
             'hero_thumb',
             serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
-        APIField('authors', serializer=AuthorsSerializer()),
-        APIField('other_exhibits', serializer=ExhibitsSerializer()),
+        APIField('authors'),
+        APIField('other_exhibits'),
     ]

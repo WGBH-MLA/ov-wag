@@ -1,11 +1,11 @@
 from django.db import models
 from wagtail.api import APIField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.images.api.fields import ImageRenditionField
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
-from ov_wag.serializers import ImageSerializedField
 
 
 class AuthorsOrderable(Orderable):
@@ -29,7 +29,7 @@ class AuthorsOrderable(Orderable):
 
     api_fields = [
         APIField('name'),
-        APIField('image', serializer=ImageSerializedField()),
+        APIField('image', serializer=ImageRenditionField('fill-100x100')),
     ]
 
 
