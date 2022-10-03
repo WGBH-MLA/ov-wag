@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('exhibit', '0002_exhibitpage_cover_image'),
-        ('authors', '0001_initial'),
+        ('author', '0001_initial'),
     ]
 
     operations = [
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('author', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='authors.author')),
+                ('author', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='author.author')),
                 ('page', modelcluster.fields.ParentalKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='authors', to='exhibit.exhibitpage')),
             ],
             options={

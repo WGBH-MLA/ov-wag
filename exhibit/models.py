@@ -8,7 +8,7 @@ from wagtail.api import APIField
 from pydantic import BaseModel
 from modelcluster.fields import ParentalKey
 from ov_wag.serializers import RichTextSerializer
-from authors.serializers import AuthorSerializer
+from author.serializers import AuthorSerializer
 
 
 class ExhibitsOrderable(Orderable):

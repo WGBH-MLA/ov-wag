@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
 from wagtail.images.api.fields import ImageRenditionField
-from authors.models import Author
+from author.models import Author
 
 
 class AuthorSerializer(ModelSerializer):
