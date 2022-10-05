@@ -41,7 +41,7 @@ class ApiTests(APITestCase):
         Compare response against ExhibitSchema
         """
         exhibit_page = ExhibitPageFactory.create(parent=self.__home_page())
-        response = self.client.get(f'/api/v2/exhibit/{exhibit_page.id}/', format='json')
+        response = self.client.get(f'/api/v2/exhibits/{exhibit_page.id}/', format='json')
         json = response.json()
         self.assertValidSchema(json)
 
@@ -52,7 +52,7 @@ class ApiTests(APITestCase):
         Compare response against ExhibitSchema
         """
         exhibit_page = ExhibitPageFactory.create(parent=self.__home_page())
-        response = self.client.get(f'/api/v2/exhibit/', format='json')
+        response = self.client.get(f'/api/v2/exhibits/', format='json')
         json = response.json()
         for item in json['items']:
             self.assertValidSchema(item)

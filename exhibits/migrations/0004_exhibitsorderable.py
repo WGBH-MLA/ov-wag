@@ -8,7 +8,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('exhibit', '0003_exhibitpage_hero_image'),
+        ('exhibits', '0003_exhibitpage_hero_image'),
     ]
 
     operations = [
