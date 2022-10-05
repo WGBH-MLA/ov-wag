@@ -28,6 +28,7 @@ class AuthorsOrderable(Orderable):
         return self.author.image
 
     api_fields = [
+        APIField('author_id'),
         APIField('name'),
         APIField('image', serializer=ImageRenditionField('fill-100x100')),
     ]
@@ -53,6 +54,7 @@ class Author(models.Model):
     ]
 
     api_fields = [
+        APIField('id'),
         APIField('name'),
         APIField('image'),
         APIField('bio'),

@@ -35,6 +35,7 @@ class ExhibitsOrderable(Orderable):
         return self.exhibit.authors
 
     api_fields = [
+        APIField('exhibit_id'),
         APIField('title'),
         APIField(
             'cover_image',
