@@ -8,7 +8,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('exhibit', '0003_exhibitpage_hero_image'),
+        ('exhibits', '0003_exhibitpage_hero_image'),
     ]
 
     operations = [
@@ -17,8 +17,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('exhibit', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='exhibit.exhibitpage')),
-                ('page', modelcluster.fields.ParentalKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='other_exhibits', to='exhibit.exhibitpage')),
+                ('exhibit', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='exhibits.exhibitpage')),
+                ('page', modelcluster.fields.ParentalKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='other_exhibits', to='exhibits.exhibitpage')),
             ],
             options={
                 'ordering': ['sort_order'],

@@ -1,6 +1,6 @@
 from factory import SubFactory
 from wagtail_factories import ImageChooserBlockFactory, PageFactory
-from exhibit.models import ExhibitPage
+from exhibits.models import ExhibitPage
 
 
 class ExhibitPageFactory(PageFactory):
