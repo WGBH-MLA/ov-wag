@@ -12,9 +12,9 @@ from authors.serializers import AuthorSerializer
 
 
 class ExhibitsOrderable(Orderable):
-    page = ParentalKey('exhibit.ExhibitPage', related_name='other_exhibits', null=True)
+    page = ParentalKey('exhibits.ExhibitPage', related_name='other_exhibits', null=True)
     exhibit = models.ForeignKey(
-        'exhibit.ExhibitPage',
+        'exhibits.ExhibitPage',
         blank=True,
         null=True,
         on_delete=models.CASCADE,

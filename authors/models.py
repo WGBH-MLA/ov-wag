@@ -9,7 +9,7 @@ from modelcluster.fields import ParentalKey
 
 
 class AuthorsOrderable(Orderable):
-    page = ParentalKey('exhibit.ExhibitPage', related_name='authors', null=True)
+    page = ParentalKey('exhibits.ExhibitPage', related_name='authors', null=True)
     author = models.ForeignKey(
         'authors.Author',
         blank=True,
