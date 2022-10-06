@@ -90,10 +90,9 @@ class ExhibitPage(Page):
             FieldPanel('hero_image'),
         ], heading='Images'),
         FieldPanel('body', classname='collapsed'),
-        InlinePanel('authors', label='Author', heading='Author(s)'),
+        InlinePanel('authors', heading='Author(s)'),
         InlinePanel(
                     'other_exhibits',
-                    label='Other Exhibits',
                     heading='Other Exhibits',
                     max_num=3,
                 )
