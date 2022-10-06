@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from wagtail.api.v2.views import BaseAPIViewSet
+from .models import Collection
 
-# Create your views here.
+
+class CollectionAPIViewSet(BaseAPIViewSet):
+    model = Collection
+
+    listing_default_fields = BaseAPIViewSet.listing_default_fields + [
+        'title',
+        'about',
+        'cover_image',
+    ]
