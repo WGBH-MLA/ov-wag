@@ -85,8 +85,10 @@ class ExhibitPage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('cover_image'),
-        FieldPanel('hero_image'),
+        MultiFieldPanel([
+            FieldPanel('cover_image'),
+            FieldPanel('hero_image'),
+        ], heading='Images'),
         FieldPanel('body', classname='collapsed'),
         InlinePanel('authors', label='Author', heading='Author(s)'),
         InlinePanel(
