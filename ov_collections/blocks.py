@@ -30,3 +30,38 @@ class ArchivalFootageBlock(StructBlock):
         icon = 'form'
 
     footage = ListBlock(StructBlock([('footage', ContentBlock())]))
+
+
+class PhotographsBlock(StructBlock):
+    class Meta:
+        icon = 'image'
+
+    photos = ListBlock(StructBlock([('photos', ContentBlock())]))
+
+
+class OriginalFootageBlock(StructBlock):
+    class Meta:
+        icon = 'doc-full-inverse'
+
+    footage = ListBlock(StructBlock([('footage', ContentBlock())]))
+
+
+class ProgramsBlock(StructBlock):
+    class Meta:
+        icon = 'clipboard-list'
+
+    programs = ListBlock(StructBlock([('programs', ContentBlock())]))
+
+
+class RelatedContentBlock(StructBlock):
+    class Meta:
+        icon = 'list-ul'
+
+    content = ListBlock(StructBlock([('related_content', ContentBlock())]))
+
+
+class CreditsBlock(StructBlock):
+    class Meta:
+        icon = 'group'
+
+    credits = ListBlock(StructBlock([('credits', ContentBlock())]))
