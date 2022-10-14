@@ -23,3 +23,10 @@ class InterviewsBlock(StructBlock):
         icon = 'openquote'
 
     interviews = ListBlock(StructBlock([('interview', ContentBlock())]))
+
+
+class ArchivalFootageBlock(StructBlock):
+    class Meta:
+        icon = 'form'
+
+    footage = ListBlock(StructBlock([('footage', ContentBlock())]))

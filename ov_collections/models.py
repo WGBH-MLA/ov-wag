@@ -7,7 +7,7 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.api import APIField
-from .blocks import InterviewsBlock
+from .blocks import InterviewsBlock, ArchivalFootageBlock
 
 
 class Collection(Page):
@@ -18,7 +18,8 @@ class Collection(Page):
             ('heading', blocks.CharBlock(form_classname='title')),
             ('text', blocks.TextBlock()),
             ('image', ImageChooserBlock()),
-            ('Interviews', InterviewsBlock()),
+            ('interviews', InterviewsBlock()),
+            ('archival_footage', ArchivalFootageBlock()),
         ],
         use_json_field=True,
     )
