@@ -14,7 +14,6 @@ from .blocks import (
     OriginalFootageBlock,
     ProgramsBlock,
     RelatedContentBlock,
-    CreditsBlock,
 )
 
 
@@ -23,16 +22,16 @@ class Collection(Page):
 
     content = StreamField(
         [
-            ('heading', blocks.CharBlock(form_classname='title')),
-            ('text', blocks.TextBlock()),
-            ('image', ImageChooserBlock()),
             ('interviews', InterviewsBlock()),
             ('archival_footage', ArchivalFootageBlock()),
             ('photographs', PhotographsBlock()),
             ('original_footage', OriginalFootageBlock()),
             ('programs', ProgramsBlock()),
             ('related_content', RelatedContentBlock()),
-            ('credits', CreditsBlock()),
+            ('credits', blocks.RichTextBlock()),
+            ('heading', blocks.CharBlock(form_classname='title')),
+            ('text', blocks.TextBlock()),
+            ('image', ImageChooserBlock()),
         ],
         use_json_field=True,
     )
