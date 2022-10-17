@@ -61,4 +61,5 @@ class Collection(Page):
             'cover_image',
             serializer=ImageRenditionField('fill-1600x500'),
         ),
+        APIField('content')
     ]
