@@ -29,35 +29,35 @@ class InterviewsBlock(StructBlock):
     class Meta:
         icon = 'openquote'
 
-    interviews = ListBlock(StructBlock([('interview', ContentImageBlock())]))
+    content = ListBlock(StructBlock([('interview', ContentImageBlock())]))
 
 
 class ArchivalFootageBlock(StructBlock):
     class Meta:
         icon = 'form'
 
-    footage = ListBlock(StructBlock([('footage', ContentImageBlock())]))
+    content = ListBlock(StructBlock([('footage', ContentImageBlock())]))
 
 
 class PhotographsBlock(StructBlock):
     class Meta:
         icon = 'image'
 
-    photos = ListBlock(StructBlock([('photos', ContentImageBlock())]))
+    content = ListBlock(StructBlock([('photos', ContentImageBlock())]))
 
 
 class OriginalFootageBlock(StructBlock):
     class Meta:
         icon = 'doc-full-inverse'
 
-    footage = ListBlock(StructBlock([('footage', ContentImageBlock())]))
+    content = ListBlock(StructBlock([('footage', ContentImageBlock())]))
 
 
 class ProgramsBlock(StructBlock):
     class Meta:
         icon = 'clipboard-list'
 
-    programs = ListBlock(StructBlock([('programs', ContentBlock())]))
+    content = ListBlock(StructBlock([('programs', ContentBlock())]))
 
 
 class RelatedContentBlock(StructBlock):
