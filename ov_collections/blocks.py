@@ -14,7 +14,7 @@ class ContentBlock(StructBlock):
         required=True, max_length=1024, help_text='The title of this content'
     )
     link = URLBlock(required=True)
-    
+
     def get_api_representation(self, value, context=None):
         return {
             'title': value.get('title'),
@@ -44,7 +44,17 @@ class InterviewsBlock(StructBlock):
     class Meta:
         icon = 'openquote'
 
-    content = ListBlock(StructBlock([('interview', ContentImageBlock())]))
+    content = ListBlock(ContentImageBlock())
+
+    def get_api_representation(self, values, context=None):
+        if values:
+            contents = values.get('content')
+            results = []
+            for interview in contents:
+                results.append(
+                    ContentImageBlock().get_api_representation(interview, context)
+                )
+            return results
 
 
 class ArchivalFootageBlock(StructBlock):
@@ -79,4 +89,7 @@ class RelatedContentBlock(StructBlock):
     class Meta:
         icon = 'list-ul'
 
-    content = ListBlock(StructBlock([('related_content', ContentBlock())]))
+    def get_api_representation(self, values, context=None):
+        return [value for value in values.get('content')]
+
+    content = ListBlock(ContentBlock())
