@@ -61,28 +61,28 @@ class ArchivalFootageBlock(StructBlock):
     class Meta:
         icon = 'form'
 
-    content = ListBlock(StructBlock([('footage', ContentImageBlock())]))
+    content = ListBlock(ContentImageBlock())
 
 
 class PhotographsBlock(StructBlock):
     class Meta:
         icon = 'image'
 
-    content = ListBlock(StructBlock([('photos', ContentImageBlock())]))
+    content = ListBlock(ContentImageBlock())
 
 
 class OriginalFootageBlock(StructBlock):
     class Meta:
         icon = 'doc-full-inverse'
 
-    content = ListBlock(StructBlock([('footage', ContentImageBlock())]))
+    content = ListBlock(ContentImageBlock())
 
 
 class ProgramsBlock(StructBlock):
     class Meta:
         icon = 'clipboard-list'
 
-    content = ListBlock(StructBlock([('programs', ContentBlock())]))
+    content = ListBlock(ContentBlock())
 
 
 class RelatedContentBlock(StructBlock):
@@ -90,6 +90,6 @@ class RelatedContentBlock(StructBlock):
         icon = 'list-ul'
 
     def get_api_representation(self, values, context=None):
-        return [value for value in values.get('content')]
+        return list(values.get('content'))
 
     content = ListBlock(ContentBlock())
