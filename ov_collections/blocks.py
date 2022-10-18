@@ -15,6 +15,13 @@ class ContentBlock(StructBlock):
     )
     link = URLBlock(required=True)
     
+    def get_api_representation(self, value, context=None):
+        return {
+            'title': value.get('title'),
+            'link': value.get('link'),
+        }
+
+
 class ContentImageBlock(ContentBlock):
     """Generic content block with image
     - image
@@ -22,7 +29,15 @@ class ContentImageBlock(ContentBlock):
 
     image = ImageChooserBlock(required=True)
 
-
+    def get_api_representation(self, value, context=None):
+        results = super().get_api_representation(value, context)
+        results['image'] = value.get('image').get_rendition('width-1000').attrs_dict
+        return results
+        # return {
+        #     'title': value.get('title'),
+        #     'link': value.get('link'),
+        #     'image': value.get('image').get_rendition('width-1000').attrs_dict,
+        # }
 
 
 class InterviewsBlock(StructBlock):
