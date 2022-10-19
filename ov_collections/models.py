@@ -1,5 +1,5 @@
 from django.db import models
-from wagtail import blocks
+from wagtail.blocks import ListBlock, RichTextBlock, TextBlock, CharBlock
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.search import index
@@ -7,14 +7,7 @@ from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.api import APIField
-from .blocks import (
-    InterviewsBlock,
-    ArchivalFootageBlock,
-    PhotographsBlock,
-    OriginalFootageBlock,
-    ProgramsBlock,
-    RelatedContentBlock,
-)
+from .blocks import ContentImageBlock, ContentBlock
 
 
 class Collection(Page):
@@ -22,15 +15,18 @@ class Collection(Page):
 
     content = StreamField(
         [
-            ('interviews', InterviewsBlock()),
-            ('archival_footage', ArchivalFootageBlock()),
-            ('photographs', PhotographsBlock()),
-            ('original_footage', OriginalFootageBlock()),
-            ('programs', ProgramsBlock()),
-            ('related_content', RelatedContentBlock()),
-            ('credits', blocks.RichTextBlock()),
-            ('heading', blocks.CharBlock(form_classname='title')),
-            ('text', blocks.TextBlock()),
+            ('interviews', ListBlock(ContentImageBlock(), icon='openquote')),
+            ('archival_footage', ListBlock(ContentImageBlock(), icon='form')),
+            ('photographs', ListBlock(ContentImageBlock(), icon='image')),
+            (
+                'original_footage',
+                ListBlock(ContentImageBlock(), icon='doc-full-inverse'),
+            ),
+            ('programs', ListBlock(ContentBlock(), icon='clipboard-list')),
+            ('related_content', ListBlock(ContentBlock(), icon='list-ul')),
+            ('credits', RichTextBlock()),
+            ('heading', CharBlock(form_classname='title')),
+            ('text', TextBlock()),
             ('image', ImageChooserBlock()),
         ],
         use_json_field=True,
