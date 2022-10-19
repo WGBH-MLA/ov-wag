@@ -11,7 +11,7 @@ from .blocks import ContentImageBlock, ContentBlock
 
 
 class Collection(Page):
-    about = RichTextField(blank=True)
+    introduction = RichTextField(blank=True)
 
     content = StreamField(
         [
@@ -41,18 +41,18 @@ class Collection(Page):
     )
 
     search_fields = Page.search_fields + [
-        index.SearchField('about'),
+        index.SearchField('introduction'),
     ]
 
     content_panels = Page.content_panels + [
-        FieldPanel('about'),
+        FieldPanel('introduction'),
         FieldPanel('cover_image'),
         FieldPanel('content'),
     ]
 
     api_fields = [
         APIField('title'),
-        APIField('about'),
+        APIField('introduction'),
         APIField(
             'cover_image',
             serializer=ImageRenditionField('fill-1600x500'),

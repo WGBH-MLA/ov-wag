@@ -7,6 +7,6 @@ class CollectionAPIViewSet(BaseAPIViewSet):
 
     listing_default_fields = BaseAPIViewSet.listing_default_fields + [
         'title',
-        'about',
+        'introduction',
         'cover_image',
     ]
