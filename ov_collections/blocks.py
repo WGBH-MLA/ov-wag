@@ -35,9 +35,6 @@ class ContentImageBlock(ContentBlock):
 
 
 class ContentListBlock(StructBlock):
-    """Content List Block
-    A ListBlock of ContentBlocks
-    """
     content = ListBlock(ContentBlock())
 
     def get_api_representation(self, values, context=None):
@@ -45,9 +42,6 @@ class ContentListBlock(StructBlock):
 
 
 class ContentListImageBlock(StructBlock):
-    """Content List Block
-    A ListBlock of ContentImageBlocks
-    """
     content = ListBlock(ContentImageBlock())
 
     def get_api_representation(self, values, context=None):
@@ -64,39 +58,27 @@ class InterviewsBlock(ContentListImageBlock):
     class Meta:
         icon = 'openquote'
 
-class ArchivalFootageBlock(StructBlock):
+
+class ArchivalFootageBlock(ContentListImageBlock):
     class Meta:
         icon = 'form'
 
-    content = ListBlock(ContentImageBlock())
 
-
-class PhotographsBlock(StructBlock):
+class PhotographsBlock(ContentListImageBlock):
     class Meta:
         icon = 'image'
 
-    content = ListBlock(ContentImageBlock())
 
-
-class OriginalFootageBlock(StructBlock):
+class OriginalFootageBlock(ContentListImageBlock):
     class Meta:
         icon = 'doc-full-inverse'
 
-    content = ListBlock(ContentImageBlock())
 
-
-class ProgramsBlock(StructBlock):
+class ProgramsBlock(ContentListBlock):
     class Meta:
         icon = 'clipboard-list'
 
-    content = ListBlock(ContentBlock())
 
-
-class RelatedContentBlock(StructBlock):
+class RelatedContentBlock(ContentListBlock):
     class Meta:
         icon = 'list-ul'
-
-    def get_api_representation(self, values, context=None):
-        return list(values.get('content'))
-
-    content = ListBlock(ContentBlock())
