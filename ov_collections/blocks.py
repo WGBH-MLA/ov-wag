@@ -15,12 +15,6 @@ class ContentBlock(StructBlock):
     )
     link = URLBlock(required=True)
 
-    def get_api_representation(self, value, context=None):
-        return {
-            'title': value.get('title'),
-            'link': value.get('link'),
-        }
-
 
 class ContentImageBlock(ContentBlock):
     """Generic content block with image
@@ -31,7 +25,7 @@ class ContentImageBlock(ContentBlock):
 
     def get_api_representation(self, value, context=None):
         results = super().get_api_representation(value, context)
-        results['image'] = value.get('image').get_rendition('width-1000').attrs_dict
+        results['image'] = value.get('image').get_rendition('width-400').attrs_dict
         return results
         # return {
         #     'title': value.get('title'),
@@ -40,22 +34,35 @@ class ContentImageBlock(ContentBlock):
         # }
 
 
-class InterviewsBlock(StructBlock):
-    class Meta:
-        icon = 'openquote'
+class ContentListBlock(StructBlock):
+    """Content List Block
+    A ListBlock of ContentBlocks
+    """
+    content = ListBlock(ContentBlock())
 
+    def get_api_representation(self, values, context=None):
+        return list(values.get('content'))
+
+
+class ContentListImageBlock(StructBlock):
+    """Content List Block
+    A ListBlock of ContentImageBlocks
+    """
     content = ListBlock(ContentImageBlock())
 
     def get_api_representation(self, values, context=None):
         if values:
+            serializer = ContentImageBlock()
             contents = values.get('content')
-            results = []
-            for interview in contents:
-                results.append(
-                    ContentImageBlock().get_api_representation(interview, context)
-                )
-            return results
+            return [
+                serializer.get_api_representation(interview, context)
+                for interview in contents
+            ]
 
+
+class InterviewsBlock(ContentListImageBlock):
+    class Meta:
+        icon = 'openquote'
 
 class ArchivalFootageBlock(StructBlock):
     class Meta:
