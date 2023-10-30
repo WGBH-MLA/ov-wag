@@ -5,7 +5,7 @@ services:
     build:
       context: .
       target: base
-    image: ov-wag
+    image: ghcr.io/wgbh-mla/ov-wag:pr-76
     volumes:
       - ./:/app/
     entrypoint: /app/docker_entrypoints/dev.sh
@@ -15,20 +15,7 @@ services:
         delay: 5s
         max_attempts: 3
         window: 5s
-  wagtail-tests:
-    build:
-      context: .
-      target: test
-    image: ov-tests
-    volumes:
-      - ./:/app/
-    entrypoint: /app/docker_entrypoints/test.sh
-    environment:
-      - OV_DB_ENGINE=django.db.backends.sqlite3
-      - OV_DB_NAME=testdb
   db:
     image: postgres:14.2-alpine
-    volumes:
-      - ./db:/var/lib/postgresql/data:Z
     user: ${UID}:${GID}
     restart: always
