@@ -1,0 +1,63 @@
+site_name: ov-wag
+site_description: Wagtail backend for Open Vault
+repo_url: https://github.com/WGBH-MLA/ov-wag
+edit_uri: ''
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji 
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+  - def_list
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+
+theme:
+  name: material
+  palette:
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      toggle:
+        icon: material/lightbulb-on-outline
+        name: Switch to dark mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.indexes
+    - toc.integrate
+    - navigation.top
+    - content.code.annotate
+  custom_dir: overrides
+
+plugins:
+  - search
+  - mkdocstrings
+  - mkdocs-jupyter
+
+watch:
+  - docs
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/WGBH-MLA/ov-wag
+  version:
+    provider: mike
