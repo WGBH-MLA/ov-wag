@@ -16,6 +16,10 @@ services:
         max_attempts: 3
         window: 5s
   db:
-    image: postgres:14.2-alpine
-    user: ${UID}:${GID}
+    image: postgres:16-alpine
     restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
