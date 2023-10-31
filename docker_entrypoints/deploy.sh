@@ -4,7 +4,8 @@
 python3 manage.py collectstatic --noinput
 
 # Run the production server
-gunicorn ov_wag.wsgi:application \
+gunicorn -w 2 --worker-class uvicorn.workers.UvicornWorker \
   --reload \
   --access-logfile /logs/access.log \
-  --error-logfile /logs/error.log
+  --error-logfile /logs/error.log \
+  ov_wag.asgi:application

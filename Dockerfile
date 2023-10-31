@@ -37,7 +37,7 @@ ENV PYTHONUNBUFFERED=1 \
 EXPOSE 80
 
 # Install the application server.
-RUN pip install "gunicorn>=20.1.0,<20.2.0"
+RUN pip install "gunicorn>=21.2,<22.0" "uvicorn>0.23,<0.24"
 
 COPY . .
 
