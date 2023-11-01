@@ -1,10 +1,37 @@
 
 [project]
-# PEP 621 project metadata
-# See https://www.python.org/dev/peps/pep-0621/
-dependencies = ["Django<4.2,>=4.1.1", "wagtail<4.1,>=4.0.4", "wagtail-factories<3.2,>=3.1.0", "pydantic<2.0,>=1.10.2", "psycopg2<2.10,>=2.9.3"]
-requires-python = ">=3.11"
+name = 'ov-wag'
+dynamic = ['version']
+description = 'WGBH Open Vault Wagtail backend'
+authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
+dependencies = ['Django<4.2,>=4.1.1', 'wagtail<4.1,>=4.0.4', 'wagtail-factories<3.2,>=3.1.0', 'pydantic<2.0,>=1.10.2', 'psycopg2<2.10,>=2.9.3']
+requires-python = '>=3.8.1,<4.0'
+readme = 'README.md'
+license = { text = 'MIT' }
+
+[project.urls]
+documentation = 'https://wgbh-mla.github.io/ov-wag/'
+homepage = 'https://github.com/WGBH-MLA/ov-wag'
+repository = 'https://github.com/WGBH-MLA/ov-wag'
+
+
+[project.scripts]
+ov = 'cli:app'
 
 [build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
+requires = ['pdm-backend']
+build-backend = 'pdm.backend'
+
+[tool.pdm]
+version = { source = 'file', path = 'ov_wag/_version.py' }
+
+[tool.pdm.dev-dependencies]
+cli = [
+    'typer~=0.9',
+    'trogon~=0.5',
+    'loguru~=0.7',
+]
+
+[tool.pytest.ini_options]
+testpaths = ['authos', 'exhibits', 'ov_collections', 'ov_wag', 'search']
+DJANGO_SETTINGS_MODULE = 'ov_wag.settings.test'
