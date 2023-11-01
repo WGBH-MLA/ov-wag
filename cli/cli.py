@@ -1,41 +1,28 @@
-#!/usr/bin/env python3
-from subprocess import run as sub_run
 from typing import List, Optional
 
 from loguru import logger as log
-from trogon import Trogon
+from trogon import Trogon, tui
 from typer import Argument, Context, Exit, Option, Typer
+from typer.main import get_group
 from typing_extensions import Annotated
+
+from .utils import AliasGroup, run, version_callback
 
 # from typer.main import get_group
 COMPOSE = "docker compose -f docker-compose.yml"
 DEV = "-f dev.yml"
 MANAGE = "run --entrypoint python wagtail manage.py"
 
-app = Typer(context_settings={'help_option_names': ['-h', '--help']})
+app = Typer(cls=AliasGroup, context_settings={'help_option_names': ['-h', '--help']})
 
 
-def run(cmd: str):
-    sub_run(cmd, shell=True, check=True)
-
-
-@app.command()
-def tui(ctx: Context):
+@app.command('t | tui')
+def terminal_ui(ctx: Context):
     """Run an interactive TUI"""
-    Trogon(app, click_context=ctx).run()
+    Trogon(get_group(app), click_context=ctx).run()
 
 
-def version_callback(value: bool):
-    """Print the version of the program and exit"""
-    if value:
-        from .ov_wag._version import __version__
-
-        print(f'v{__version__}')
-
-        raise Exit()
-
-
-@app.command()
+@app.command('d | dev')
 def dev(
     args: Annotated[
         Optional[List[str]],
@@ -46,7 +33,7 @@ def dev(
     run(f'{COMPOSE} {DEV} up {" ".join(args)}')
 
 
-@app.command()
+@app.command('b | build')
 def build(
     args: Annotated[
         Optional[List[str]],
@@ -57,27 +44,27 @@ def build(
     run(f'{COMPOSE} build {" ".join(args)}')
 
 
-@app.command()
+@app.command('s | shell')
 def shell():
     """Enter into a python shell inside the dev environment"""
     run(f'{COMPOSE} {DEV} {MANAGE} shell')
 
 
-@app.command()
+@app.command('m | manage')
 def manage(cmd: Annotated[List[str], Argument(help='The manage.py command to run')]):
     """Run a manage.py function"""
     run(f'{COMPOSE} {DEV} {MANAGE} {" ".join(cmd)}')
 
 
-@app.command('cmd')
+@app.command('c | cmd')
 def cmd(
     cmd: Annotated[List[str], Argument(help='The command to run')],
     entrypoint: Annotated[
         str, Option('--entrypoint', '-e', help='The entrypoint to use')
-    ] = 'bash',
+    ] = '"bash -c"',
 ):
-    """Run a manage.py function"""
-    run(f'{COMPOSE} {DEV} run -it --entrypoint $ENTRYPOINT wagtail {" ".join(cmd)}')
+    """Run a command inside the dev environment"""
+    run(f'{COMPOSE} {DEV} run -it --entrypoint {entrypoint} wagtail "{" ".join(cmd)}"')
 
 
 @app.callback()
