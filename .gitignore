@@ -22,4 +22,4 @@ db/
 
 # Environment files
 .env
-.db
+~!.env.example
