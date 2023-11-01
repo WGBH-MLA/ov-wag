@@ -1,3 +1,6 @@
+# PDM local config
+.pdm-python
+
 # Django project
 # Use .gitkeep pattern to for empty directories that Wagtail expects to exist.
 /media/*
