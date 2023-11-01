@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'home',
     'search',
     'exhibits',
+    'ov_collections',
     'authors',
     'wagtail.contrib.forms',
     'wagtail.contrib.modeladmin',

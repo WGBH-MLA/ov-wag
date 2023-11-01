@@ -4,6 +4,7 @@ from wagtail.images.api.v2.views import ImagesAPIViewSet
 from wagtail.documents.api.v2.views import DocumentsAPIViewSet
 from authors.views import AuthorsAPIViewSet
 from exhibits.views import ExhibitsAPIViewSet
+from ov_collections.views import CollectionAPIViewSet
 
 # Create the router. "wagtailapi" is the URL namespace
 api_router = WagtailAPIRouter('wagtailapi')
@@ -17,3 +18,4 @@ api_router.register_endpoint('images', ImagesAPIViewSet)
 api_router.register_endpoint('documents', DocumentsAPIViewSet)
 api_router.register_endpoint('authors', AuthorsAPIViewSet)
 api_router.register_endpoint('exhibits', ExhibitsAPIViewSet)
+api_router.register_endpoint('collections', CollectionAPIViewSet)
