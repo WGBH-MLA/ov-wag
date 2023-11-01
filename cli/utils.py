@@ -1,4 +1,4 @@
-from re import compile as re_compile
+from re import split
 from subprocess import run as sub_run
 
 from typer import Exit
@@ -25,7 +25,7 @@ class AliasGroup(TyperGroup):
     Blatenly stolen from: https://github.com/tiangolo/typer/issues/132#issuecomment-1714516903
     """
 
-    _CMD_SPLIT_P = re_compile(r"| ?")
+    _CMD_SPLIT_P = r'[,| ?\/]'
 
     def get_command(self, ctx, cmd_name):
         cmd_name = self._group_cmd_name(cmd_name)
@@ -33,6 +33,6 @@ class AliasGroup(TyperGroup):
 
     def _group_cmd_name(self, default_name):
         for cmd in self.commands.values():
-            if cmd.name and default_name in self._CMD_SPLIT_P.split(cmd.name):
+            if cmd.name and default_name in split(self._CMD_SPLIT_P, cmd.name):
                 return cmd.name
         return default_name

@@ -1,25 +1,19 @@
 from typing import List, Optional
 
 from loguru import logger as log
-from trogon import Trogon, tui
-from typer import Argument, Context, Exit, Option, Typer
+from trogon import Trogon
+from typer import Argument, Context, Option, Typer
 from typer.main import get_group
 from typing_extensions import Annotated
 
 from .utils import AliasGroup, run, version_callback
 
-# from typer.main import get_group
 COMPOSE = "docker compose -f docker-compose.yml"
 DEV = "-f dev.yml"
 MANAGE = "run --entrypoint python wagtail manage.py"
+TESTS = '-f tests.yml'
 
 app = Typer(cls=AliasGroup, context_settings={'help_option_names': ['-h', '--help']})
-
-
-@app.command('t | tui')
-def terminal_ui(ctx: Context):
-    """Run an interactive TUI"""
-    Trogon(get_group(app), click_context=ctx).run()
 
 
 @app.command('d | dev')
@@ -64,7 +58,27 @@ def cmd(
     ] = '"bash -c"',
 ):
     """Run a command inside the dev environment"""
-    run(f'{COMPOSE} {DEV} run -it --entrypoint {entrypoint} wagtail "{" ".join(cmd)}"')
+    run(
+        f'{COMPOSE} {DEV} run -it --entrypoint {entrypoint} wagtail "{ " ".join(cmd) }"'
+    )
+
+
+@app.command('t | test')
+def test():
+    """Run the test suite"""
+    run(f'{COMPOSE} {TESTS} run wagtail-tests')
+
+
+@app.command('cover | coverage')
+def coverage():
+    """Run the test suite with coverage"""
+    run(f'{COMPOSE} {TESTS} run --entrypoint coverage wagtail-tests lcov')
+
+
+@app.command('tui')
+def terminal_ui(ctx: Context):
+    """Run an interactive TUI"""
+    Trogon(get_group(app), click_context=ctx).run()
 
 
 @app.callback()
