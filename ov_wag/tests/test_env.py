@@ -1,5 +1,5 @@
+from os import path
 from unittest import TestCase
-from os import environ, path
 
 
 class EnvTests(TestCase):
@@ -9,7 +9,7 @@ class EnvTests(TestCase):
 
         debug: ls -la MEDIA_ROOT
         """
-        from ..settings.base import MEDIA_ROOT
+        from ov_wag.settings.base import MEDIA_ROOT
 
         self.assertTrue(path.isdir(MEDIA_ROOT))
 

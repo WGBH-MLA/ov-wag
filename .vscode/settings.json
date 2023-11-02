@@ -1,11 +1,7 @@
 {
-    "python.testing.unittestArgs": [
+    "python.testing.pytestArgs": [
         "-v",
-        "-s",
-        "./ov_wag",
-        "-p",
-        "test_*.py"
     ],
-    "python.testing.pytestEnabled": false,
-    "python.testing.unittestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false
 }
