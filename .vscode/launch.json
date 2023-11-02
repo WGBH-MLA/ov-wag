@@ -33,7 +33,7 @@
             // "python": "${workspaceFolder}/venv/bin/python",
             "args": [
                 "-w ${input:numWorkers}",
-                "-b 127.0.0.1:4000",
+                "-b 0.0.0.0:4000",
                 "ov-wag.wsgi:applications",
             ],
             "django": true,
