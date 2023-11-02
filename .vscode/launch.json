@@ -17,10 +17,9 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/manage.py",
-            "python": "${workspaceFolder}/venv/bin/python",
             "args": [
                 "runserver",
-                "0.0.0.0:8001"
+                "0.0.0.0:8000"
             ],
             "django": true,
             "justMyCode": false
@@ -30,7 +29,6 @@
             "type": "python",
             "request": "launch",
             "program": "gunicorn",
-            // "python": "${workspaceFolder}/venv/bin/python",
             "args": [
                 "-w ${input:numWorkers}",
                 "-b 0.0.0.0:4000",
@@ -44,7 +42,6 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/manage.py",
-            "python": "${workspaceFolder}/venv/bin/python",
             "args": [
                 "migrate",
                 "--noinput"
@@ -57,7 +54,6 @@
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/manage.py",
-            "python": "${workspaceFolder}/venv/bin/python",
             "args": [
                 "test",
             ],
