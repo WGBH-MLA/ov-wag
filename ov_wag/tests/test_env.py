@@ -1,6 +1,5 @@
 from unittest import TestCase
-from os import environ, system, path
-from pprint import pp
+from os import environ, path
 
 
 class EnvTests(TestCase):
