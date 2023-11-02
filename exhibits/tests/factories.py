@@ -4,7 +4,6 @@ from exhibits.models import ExhibitPage
 
 
 class ExhibitPageFactory(PageFactory):
-
     cover_image = SubFactory(ImageChooserBlockFactory)
     hero_image = SubFactory(ImageChooserBlockFactory)
     # other_exhibits =
