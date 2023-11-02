@@ -1,6 +1,5 @@
 from unittest import TestCase
-from os import environ, system, path
-from pprint import pp
+from os import environ, path
 
 
 class EnvTests(TestCase):
@@ -13,7 +12,6 @@ class EnvTests(TestCase):
         self.assertIn('PYTHON_VERSION', dict(environ))
 
         # Uncomment to show full environ in logs
-        # pp(dict(environ))
 
     def test_media_dir(self):
         """
@@ -26,4 +24,3 @@ class EnvTests(TestCase):
         self.assertTrue(path.isdir(MEDIA_ROOT))
 
         # Uncomment to show media directory in logs
-        # system('ls -la ' + MEDIA_ROOT)

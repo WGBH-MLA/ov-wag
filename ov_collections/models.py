@@ -1,13 +1,14 @@
 from django.db import models
-from wagtail.blocks import ListBlock, RichTextBlock, TextBlock, CharBlock
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.search import index
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.api import APIField
+from wagtail.blocks import CharBlock, ListBlock, RichTextBlock, TextBlock
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.core.models import Page
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.api import APIField
-from .blocks import ContentImageBlock, ContentBlock
+from wagtail.search import index
+
+from .blocks import ContentBlock, ContentImageBlock
 
 
 class Collection(Page):
@@ -68,11 +69,10 @@ class Collection(Page):
         related_name='+',
     )
 
-    search_fields = Page.search_fields + [
-        index.SearchField('introduction'),
-    ]
+    search_fields = [*Page.search_fields, index.SearchField('introduction')]
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel('introduction'),
         FieldPanel('cover_image'),
         FieldPanel('content'),

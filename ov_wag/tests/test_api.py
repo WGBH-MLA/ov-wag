@@ -1,13 +1,14 @@
+import wagtail_factories
 from rest_framework import status
 from rest_framework.test import APITestCase
 from wagtail.core.models import Site
-import wagtail_factories
+
 from exhibits.models import ExhibitPageApiSchema
 from exhibits.tests.factories import ExhibitPageFactory
 
 
 class ApiTests(APITestCase):
-    def assertValidSchema(self, item):
+    def assert_valid_schema(self, item):
         ExhibitPageApiSchema(**item)
         return True
 
@@ -45,7 +46,7 @@ class ApiTests(APITestCase):
             f'/api/v2/exhibits/{exhibit_page.id}/', format='json'
         )
         json = response.json()
-        self.assertValidSchema(json)
+        self.assert_valid_schema(json)
 
     def test_exhibit_api_schema_multiple(self):
         """
@@ -53,11 +54,11 @@ class ApiTests(APITestCase):
 
         Compare response against ExhibitSchema
         """
-        exhibit_page = ExhibitPageFactory.create(parent=self.__home_page())
-        response = self.client.get(f'/api/v2/exhibits/', format='json')
+        ExhibitPageFactory.create(parent=self.__home_page())
+        response = self.client.get('/api/v2/exhibits/', format='json')
         json = response.json()
         for item in json['items']:
-            self.assertValidSchema(item)
+            self.assert_valid_schema(item)
 
     def __home_page(self):
         return Site.objects.filter(is_default_site=True).first().root_page

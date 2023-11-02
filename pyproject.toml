@@ -12,3 +12,29 @@ build-backend = "pdm.backend"
 
 [tool.black]
 extend-exclude = 'migrations'
+
+[tool.ruff]
+extend-exclude = ['migrations']
+ignore = ['Q000']
+select = [
+    'B', # flake8-bugbear
+    'C4', # flake8-comprehensions
+    'C90', # mccabe
+    'E', # pycodestyle errors
+    'ERA', # eradicate
+    'F', # pyflakes
+    # 'I', # isort
+    'INT', # flake8-gettext
+    'N', # pep8-naming
+    'PIE', # flake8-pie,
+    'PLC', # pylint - convention
+    'PLE', # pylint - error
+    'PLW', # pylint - warning
+    'Q', # flake8-quotes
+    'RET', # flake8-return,
+    'RUF', # Ruff-specific rules
+    'SIM', # flake8-simplify
+    'UP', # pyupgrade
+    'W', # pycodestyle warnings
+
+]

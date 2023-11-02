@@ -22,9 +22,7 @@ class Command(BaseCommand):
             old_name = old_name[0]
             new_name = new_name[0]
             cursor.execute(
-                "UPDATE django_content_type SET app_label='{}' WHERE app_label='{}'".format(
-                    new_name, old_name
-                )
+                f"UPDATE django_content_type SET app_label='{new_name}' WHERE app_label='{old_name}'"  # noqa E501
             )
             cursor.execute(
                 "UPDATE django_migrations SET app='{}' WHERE app='{}'".format(
@@ -32,9 +30,7 @@ class Command(BaseCommand):
                 )
             )
 
-            for model in models:
+            for model_name in models:
                 cursor.execute(
-                    "ALTER TABLE {old_name}_{model_name} RENAME TO {new_name}_{model_name}".format(
-                        old_name=old_name, new_name=new_name, model_name=model
-                    )
+                    f"ALTER TABLE {old_name}_{model_name} RENAME TO {new_name}_{model_name}"  # noqa E501
                 )

@@ -1,14 +1,15 @@
 from django.db import models
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
+from modelcluster.fields import ParentalKey
+from pydantic import BaseModel
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.api import APIField
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable, Page
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.search import index
-from wagtail.api import APIField
-from pydantic import BaseModel
-from modelcluster.fields import ParentalKey
-from ov_wag.serializers import RichTextSerializer
+
 from authors.serializers import AuthorSerializer
+from ov_wag.serializers import RichTextSerializer
 
 
 class ExhibitsOrderable(Orderable):
@@ -80,25 +81,16 @@ class ExhibitPage(Page):
         related_name='+',
     )
 
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-    ]
+    search_fields = [*Page.search_fields, index.SearchField('body')]
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         MultiFieldPanel(
-            [
-                FieldPanel('cover_image'),
-                FieldPanel('hero_image'),
-            ],
-            heading='Images',
+            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
         ),
         FieldPanel('body', classname='collapsed'),
         InlinePanel('authors', heading='Author(s)'),
-        InlinePanel(
-            'other_exhibits',
-            heading='Other Exhibits',
-            max_num=3,
-        ),
+        InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
     ]
 
     api_fields = [
