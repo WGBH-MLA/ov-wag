@@ -5,7 +5,7 @@
 groups = ["default"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:5ba172a2e7cbfce5c9f2356df945dd7f097dfd0f470491a9a1561b62fd487494"
+content_hash = "sha256:a41c32388d7cca1bfe41e180054f2bad9ee24b500ba22ab75c21b7d38f66a7ff"
 
 [[package]]
 name = "anyascii"
