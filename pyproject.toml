@@ -18,6 +18,12 @@ repository = 'https://github.com/WGBH-MLA/ov-wag'
 [project.scripts]
 ov = 'cli:app'
 
+[project.optional-dependencies]
+cli = [
+    "typer~=0.9",
+    "loguru~=0.7",
+    "trogon~=0.5",
+]
 [build-system]
 requires = ['pdm-backend']
 build-backend = 'pdm.backend'
@@ -25,11 +31,10 @@ build-backend = 'pdm.backend'
 [tool.pdm]
 version = { source = 'file', path = 'ov_wag/_version.py' }
 
-[tool.pdm.dev-dependencies]
-cli = [
-    'typer~=0.9',
-    'trogon~=0.5',
-    'loguru~=0.7',
+test = [
+    "pytest>=7.4.3",
+    "pytest-django>=4.6.0",
+    "coverage>=7.3.2",
 ]
 
 [tool.pytest.ini_options]

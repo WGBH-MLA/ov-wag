@@ -2,10 +2,10 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["default", "cli"]
+groups = ["default", "cli", "test"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:6616d8cf49700c5d9012a1638fa691f65d23b6a7318c78a4e14bb17ea1067043"
+content_hash = "sha256:e3b84a847337f650baa8c816a3a16bfdef577cc6a1e3ceb54464f626631c7ed6"
 
 [[package]]
 name = "anyascii"
