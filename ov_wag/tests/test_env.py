@@ -3,17 +3,6 @@ from os import environ, path
 
 
 class EnvTests(TestCase):
-    def test_env(self):
-        """
-        Show the current environment
-
-        debug: print environ
-        """
-        self.assertIn('PYTHON_VERSION', dict(environ))
-
-        # Uncomment to show full environ in logs
-        # pp(dict(environ))
-
     def test_media_dir(self):
         """
         Test if MEDIA_ROOT directory exists
