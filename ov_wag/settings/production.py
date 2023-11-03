@@ -1,5 +1,4 @@
-from .base import *
-from os import environ
+from ov_wag.settings.base import *
 
 DEBUG = False
 

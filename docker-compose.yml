@@ -19,6 +19,12 @@ services:
   db:
     image: postgres:16-alpine
     restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=${OV_DB_NAME}
+      - POSTGRES_USER=${OV_DB_USER}
+      - POSTGRES_PASSWORD=${OV_DB_PASSWORD}
     volumes:
       - db:/var/lib/postgresql/data
 
