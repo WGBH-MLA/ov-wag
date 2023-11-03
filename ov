@@ -7,14 +7,14 @@ USAGE:\n\n
 
 COMMANDS:\n\n
 
-\t  b | build \t  build the docker image\n
-\t  c | cmd \t    run a bash command with the wagtail docker image\n
-\t  coverage \t   run the coverage tests
-\t  d | dev \t    start a development server\n
-\t  h | help \t   prints this help text\n
-\t  s | shell \t  enter into a python shell with the app context\n
-\t  t | test \t   run the wagtail test suite
-\t  m | manage \t run a manage.py command
+\t  b | build \t     build the docker image\n
+\t  c | cmd \t       run a bash command with the wagtail docker image\n
+\t  cov | coverage\t run the coverage tests\n
+\t  d | dev \t       start a development server\n
+\t  h | help \t      prints this help text\n
+\t  s | shell \t     enter into a python shell with the app context\n
+\t  t | test \t      run the wagtail test suite\n
+\t  m | manage \t    run a manage.py command\n\n
 "
 
 COMPOSE="docker compose -f docker-compose.yml"
