@@ -5,7 +5,8 @@ services:
     build:
       context: .
       target: base
-    image: ghcr.io/wgbh-mla/ov-wag:pr-76
+    # Use the `image` property to run a prebuilt image from GHCR instead of building locally. Requires disabling the `build` section above.
+    # image: ghcr.io/wgbh-mla/ov-wag:main
     volumes:
       - ./:/app/
     entrypoint: /app/docker_entrypoints/dev.sh

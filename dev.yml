@@ -8,7 +8,6 @@ services:
       - db
     environment:
       OV_DB_HOST: db
-    #   OV_DB_PASSWORD:
     env_file:
       - .env
   db:
