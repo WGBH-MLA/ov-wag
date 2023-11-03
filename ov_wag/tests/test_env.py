@@ -19,4 +19,4 @@ class EnvTests(TestCase):
         """Test if the environment variables are set"""
         from os import environ as env
 
-        self.assertTrue(env.get("DJANGO_SETTINGS_MODULE"))
+        self.assertTrue(env.get('DJANGO_SETTINGS_MODULE') == 'ov_wag.settings.test')
