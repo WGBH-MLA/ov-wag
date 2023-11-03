@@ -1,6 +1,6 @@
 from contextlib import suppress
 
-from .base import *  # noqa F403
+from ov_wag.settings.base import *  # noqa F403
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
