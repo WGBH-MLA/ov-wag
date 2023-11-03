@@ -15,11 +15,15 @@
 __pycache__
 *.pyc
 .DS_Store
-/venv/
 
-# Database
-db/
+# Virtual environment
+.venv
 
-# Environment files
+# Environment variable files
 .env
-.db
+!.env.example
+
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/launch.json
