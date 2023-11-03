@@ -8,3 +8,13 @@ requires-python = ">=3.11"
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
+
+[tool.pdm.dev-dependencies]
+docs = [
+    "mkdocs>=1.5.3",
+    "mkdocs-material>=9.4.7",
+    "mike>=2.0.0",
+    "mkdocstrings[python]>=0.23.0",
+    "mkdocs-git-revision-date-localized-plugin>=1.2.1",
+    "mkdocs-jupyter>=0.24.6",
+]

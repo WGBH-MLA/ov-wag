@@ -1,28 +1,47 @@
-site_name: ov-wag
+site_name: 'Open Vault: Wagtail'
 site_description: Wagtail backend for Open Vault
 repo_url: https://github.com/WGBH-MLA/ov-wag
+site_url: https://wgbh-mla.github.io/ov-wag/
 edit_uri: ''
 
 markdown_extensions:
-  - pymdownx.highlight
-  - pymdownx.superfences
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - meta
+  - pymdownx.caret
+  - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji 
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
-
-  - def_list
-  - admonition
-  - pymdownx.details
-  - attr_list
-  - md_in_html
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
   - tables
+  - toc:
+      permalink: true
+      toc_depth: 4
 
 theme:
   name: material
+  logo: assets/ov-logo.png
+  favicon: assets/ov-favicon.png
   palette:
     - media: '(prefers-color-scheme: dark)'
       scheme: slate
@@ -35,29 +54,42 @@ theme:
         icon: material/lightbulb-on-outline
         name: Switch to dark mode
   features:
-    - navigation.instant
-    - navigation.tracking
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.sections
-    - navigation.expand
-    - navigation.indexes
-    - toc.integrate
-    - navigation.top
-    - content.code.annotate
-  custom_dir: overrides
+    - content.code.annotate # Enable code annotations for a specific block
+    - header.autohide # Hide header when scrolling
+    - navigation.instant # Load requests with XHR without reloading page
+    - navigation.sections # Top level sections rendered as group in sidebar
+    - navigation.tabs # Top level sections rendered as navbar
+    - navigation.tabs.sticky # Tabs visible on scroll
+    - navigation.top # Back to top button
+    - navigation.tracking # Adds url#anchor to address bar
+    - navigation.expand # Expand all collapsed sections by default
+    - toc.integrate # Nav bar is always rendered on the left
+    - search.highlight # Highlight occurances in result when searching for a term
+    - search.suggest # Suggest results in search
+  custom_dir: docs/overrides
 
 plugins:
   - search
   - mkdocstrings
   - mkdocs-jupyter
-
+  - git-revision-date-localized:
+      type: timeago
+      enable_creation_date: true
 watch:
   - docs
 
 extra:
   social:
-    - icon: fontawesome/brands/github
-      link: https://github.com/WGBH-MLA/ov-wag
+    - name: Open Vault - Demo
+      icon: fontawesome/solid/vault
+      link: http://ovfrontend.k8s.wgbhdigital.org/
+    - name: GitHub repository
+      icon: fontawesome/brands/github
+      link: https://github.com/WGBH-MLA/ov-deploy/
   version:
     provider: mike
+
+extra_css:
+  - style/gbh.css
+  - style/auth.css
+  - style/todo.css
