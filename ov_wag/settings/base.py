@@ -104,7 +104,10 @@ DATABASES = {
         'NAME': os.environ.get('OV_DB_NAME'),
         'USER': os.environ.get('OV_DB_USER'),
         'PASSWORD': os.environ.get('OV_DB_PASSWORD'),
-    }
+    },
+    'TEST': {
+        'NAME': os.environ.get('OV_DB_NAME'),
+    },
 }
 
 
