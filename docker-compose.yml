@@ -5,7 +5,8 @@ services:
     build:
       context: .
       target: base
-    image: ov-wag
+    # Use the `image` property to run a prebuilt image from GHCR instead of building locally. Requires disabling the `build` section above.
+    # image: ghcr.io/wgbh-mla/ov-wag:main
     volumes:
       - ./:/app/
     entrypoint: /app/docker_entrypoints/dev.sh
@@ -15,20 +16,11 @@ services:
         delay: 5s
         max_attempts: 3
         window: 5s
-  wagtail-tests:
-    build:
-      context: .
-      target: test
-    image: ov-tests
-    volumes:
-      - ./:/app/
-    entrypoint: /app/docker_entrypoints/test.sh
-    environment:
-      - OV_DB_ENGINE=django.db.backends.sqlite3
-      - OV_DB_NAME=testdb
   db:
-    image: postgres:14.2-alpine
-    volumes:
-      - ./db:/var/lib/postgresql/data:Z
-    user: ${UID}:${GID}
+    image: postgres:16-alpine
     restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+
+volumes:
+  db:
