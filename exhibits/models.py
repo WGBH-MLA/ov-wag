@@ -1,3 +1,5 @@
+from typing import ClassVar, List
+
 from django.db import models
 from modelcluster.fields import ParentalKey
 from pydantic import BaseModel
@@ -21,7 +23,7 @@ class ExhibitsOrderable(Orderable):
         on_delete=models.CASCADE,
     )
 
-    panels = [FieldPanel('exhibit')]
+    panels: ClassVar[List[FieldPanel]] = [FieldPanel('exhibit')]
 
     @property
     def title(self):
@@ -35,7 +37,7 @@ class ExhibitsOrderable(Orderable):
     def authors(self):
         return self.exhibit.authors
 
-    api_fields = [
+    api_fields: ClassVar[List[APIField]] = [
         APIField('exhibit_id'),
         APIField('title'),
         APIField(
@@ -81,9 +83,12 @@ class ExhibitPage(Page):
         related_name='+',
     )
 
-    search_fields = [*Page.search_fields, index.SearchField('body')]
+    search_fields: ClassVar[List[index.SearchField]] = [
+        *Page.search_fields,
+        index.SearchField('body'),
+    ]
 
-    content_panels = [
+    content_panels: ClassVar[List[FieldPanel]] = [
         *Page.content_panels,
         MultiFieldPanel(
             [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
@@ -93,7 +98,7 @@ class ExhibitPage(Page):
         InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
     ]
 
-    api_fields = [
+    api_fields: ClassVar[List[APIField]] = [
         APIField('title'),
         APIField('body', serializer=RichTextSerializer()),
         APIField(

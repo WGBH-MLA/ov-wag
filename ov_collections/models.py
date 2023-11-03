@@ -1,3 +1,5 @@
+from typing import ClassVar, List
+
 from django.db import models
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.api import APIField
@@ -69,16 +71,19 @@ class Collection(Page):
         related_name='+',
     )
 
-    search_fields = [*Page.search_fields, index.SearchField('introduction')]
+    search_fields: ClassVar[List[index.SearchField]] = [
+        *Page.search_fields,
+        index.SearchField('introduction'),
+    ]
 
-    content_panels = [
+    content_panels: ClassVar[List[FieldPanel]] = [
         *Page.content_panels,
         FieldPanel('introduction'),
         FieldPanel('cover_image'),
         FieldPanel('content'),
     ]
 
-    api_fields = [
+    api_fields: ClassVar[List[APIField]] = [
         APIField('title'),
         APIField('introduction'),
         APIField(

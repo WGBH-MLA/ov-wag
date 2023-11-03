@@ -1,11 +1,13 @@
+from typing import ClassVar, List
+
 from django.db import models
-from wagtail.api import APIField
+from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.api import APIField
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.snippets.models import register_snippet
-from modelcluster.fields import ParentalKey
 
 
 class AuthorsOrderable(Orderable):
@@ -17,7 +19,7 @@ class AuthorsOrderable(Orderable):
         on_delete=models.CASCADE,
     )
 
-    panels = [FieldPanel('author')]
+    panels: ClassVar[List[FieldPanel]] = [FieldPanel('author')]
 
     @property
     def name(self):
@@ -27,7 +29,7 @@ class AuthorsOrderable(Orderable):
     def image(self):
         return self.author.image
 
-    api_fields = [
+    api_fields: ClassVar[List[APIField]] = [
         APIField('author_id'),
         APIField('name'),
         APIField('image', serializer=ImageRenditionField('fill-100x100')),
@@ -49,11 +51,11 @@ class Author(models.Model):
 
     bio = RichTextField(blank=True, help_text='Brief author bio')
 
-    panels = [
+    panels: ClassVar[List[FieldPanel]] = [
         MultiFieldPanel([FieldPanel('name'), FieldPanel('image'), FieldPanel('bio')])
     ]
 
-    api_fields = [
+    api_fields: ClassVar[List[APIField]] = [
         APIField('id'),
         APIField('name'),
         APIField('image'),

@@ -25,9 +25,7 @@ class Command(BaseCommand):
                 f"UPDATE django_content_type SET app_label='{new_name}' WHERE app_label='{old_name}'"  # noqa E501
             )
             cursor.execute(
-                "UPDATE django_migrations SET app='{}' WHERE app='{}'".format(
-                    new_name, old_name
-                )
+                f"UPDATE django_migrations SET app='{new_name}' WHERE app='{old_name}'"
             )
 
             for model_name in models:
