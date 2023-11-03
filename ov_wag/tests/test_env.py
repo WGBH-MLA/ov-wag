@@ -14,3 +14,9 @@ class EnvTests(TestCase):
         self.assertTrue(path.isdir(MEDIA_ROOT))
 
         # Uncomment to show media directory in logs
+
+    def test_env(self):
+        """Test if the environment variables are set"""
+        from os import environ as env
+
+        self.assertTrue(env.get("DJANGO_SETTINGS_MODULE"))
