@@ -10,7 +10,7 @@ jobs:
     with:
       pdm_args: -G test,ci
       pytest_args: -n auto --nbmake -ra -s
-      pg_db: chowda
+      pg_db: ov-test
 
   lint:
     name: 👕 Lint
