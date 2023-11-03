@@ -8,10 +8,10 @@ jobs:
     uses: WGBH-MLA/.github/.github/workflows/pytest-with-postgres.yml@main
     secrets: inherit
     with:
-      pdm_args: -G test,ci
+      pdm_args: -G test
       pytest_args: -n auto --nbmake -ra -s
       pg_db: ov-test
-
+      environment: test
   lint:
     name: 👕 Lint
     uses: WGBH-MLA/.github/.github/workflows/lint.yml@main
