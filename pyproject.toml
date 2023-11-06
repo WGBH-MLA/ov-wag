@@ -3,7 +3,7 @@
 name = 'ov-wag'
 dependencies = [
     'Django~=4.1',
-    'wagtail~=4.1',
+    'wagtail~=4.2',
     'wagtail-factories~=3.1',
     'pydantic~=1.10',
     'psycopg2~=2.9',
