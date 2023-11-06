@@ -11,7 +11,6 @@ jobs:
       pdm_args: -G test
       pytest_args: -n auto --nbmake -ra -s
       pg_db: ov
-      environment: test
   lint:
     name: 👕 Lint
     uses: WGBH-MLA/.github/.github/workflows/lint.yml@main
