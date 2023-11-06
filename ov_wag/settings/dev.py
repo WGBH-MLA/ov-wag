@@ -1,4 +1,4 @@
-from .base import *
+from ov_wag.settings.base import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -10,8 +10,6 @@ SECRET_KEY = 'django-insecure-qsu^g!8&aye$7b@ucxwa6!**1y@&1uwzcf+rs0832)t-yp7zsp
 ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
 
 
 try:

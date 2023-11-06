@@ -85,17 +85,20 @@ class ExhibitPage(Page):
     ]
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel('cover_image'),
-            FieldPanel('hero_image'),
-        ], heading='Images'),
+        MultiFieldPanel(
+            [
+                FieldPanel('cover_image'),
+                FieldPanel('hero_image'),
+            ],
+            heading='Images',
+        ),
         FieldPanel('body', classname='collapsed'),
         InlinePanel('authors', heading='Author(s)'),
         InlinePanel(
-                    'other_exhibits',
-                    heading='Other Exhibits',
-                    max_num=3,
-                )
+            'other_exhibits',
+            heading='Other Exhibits',
+            max_num=3,
+        ),
     ]
 
     api_fields = [

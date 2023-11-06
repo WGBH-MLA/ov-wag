@@ -4,10 +4,18 @@ name = 'ov-wag'
 dynamic = ['version']
 description = 'WGBH Open Vault Wagtail backend'
 authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
-dependencies = ['Django<4.2,>=4.1.1', 'wagtail<4.1,>=4.0.4', 'wagtail-factories<3.2,>=3.1.0', 'pydantic<2.0,>=1.10.2', 'psycopg2<2.10,>=2.9.3']
-requires-python = '>=3.8.1,<4.0'
 readme = 'README.md'
 license = { text = 'MIT' }
+dependencies = [
+    'Django~=4.1',
+    'wagtail~=4.0',
+    'wagtail-factories~=3.1',
+    'pydantic~=1.10',
+    'psycopg2~=2.9',
+    'python-dotenv~=1.0',
+    'gunicorn~=21.2',
+]
+requires-python = '>=3.8,<4.0'
 
 [project.urls]
 documentation = 'https://wgbh-mla.github.io/ov-wag/'
@@ -24,6 +32,7 @@ cli = [
     "loguru~=0.7",
     "trogon~=0.5",
 ]
+
 [build-system]
 requires = ['pdm-backend']
 build-backend = 'pdm.backend'
@@ -31,6 +40,13 @@ build-backend = 'pdm.backend'
 [tool.pdm]
 version = { source = 'file', path = 'ov_wag/_version.py' }
 
+[tool.black]
+extend-exclude = 'migrations'
+
+[tool.pdm.dev-dependencies]
+dev = [
+    'pre-commit~=3.5',
+]
 test = [
     "pytest>=7.4.3",
     "pytest-django>=4.6.0",
