@@ -4,7 +4,7 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   tests:
-    name: ⚗️ Application Tests
+    name: ⚗️ App Tests
     uses: WGBH-MLA/.github/.github/workflows/pytest-with-postgres.yml@main
     secrets: inherit
     with:
