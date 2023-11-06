@@ -1,13 +1,13 @@
 from typing import ClassVar, List
 
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.api import APIField
 from wagtail.blocks import CharBlock, ListBlock, RichTextBlock, TextBlock
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.models import Page
 from wagtail.search import index
 
 from .blocks import ContentBlock, ContentImageBlock

@@ -4,9 +4,9 @@ from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.api import APIField
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable
+from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
+from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 
 

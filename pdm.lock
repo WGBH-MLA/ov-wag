@@ -5,7 +5,7 @@
 groups = ["default", "dev", "test"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:e3c10e8a626436155ecf7938edaa694e9f4539d0b220619c0d8b4b7d90b041db"
+content_hash = "sha256:88b1dbbc0b377b2c26144fe2bdd312ed697d06017b5f3c0ecf6dc7d3c7a16785"
 
 [[package]]
 name = "anyascii"
@@ -1619,33 +1619,6 @@ files = [
 ]
 
 [[package]]
-name = "tablib"
-version = "3.5.0"
-requires_python = ">=3.8"
-summary = "Format agnostic tabular data library (XLS, JSON, YAML, CSV, etc.)"
-files = [
-    {file = "tablib-3.5.0-py3-none-any.whl", hash = "sha256:9821caa9eca6062ff7299fa645e737aecff982e6b2b42046928a6413c8dabfd9"},
-    {file = "tablib-3.5.0.tar.gz", hash = "sha256:f6661dfc45e1d4f51fa8a6239f9c8349380859a5bfaa73280645f046d6c96e33"},
-]
-
-[[package]]
-name = "tablib"
-version = "3.5.0"
-extras = ["xls", "xlsx"]
-requires_python = ">=3.8"
-summary = "Format agnostic tabular data library (XLS, JSON, YAML, CSV, etc.)"
-dependencies = [
-    "openpyxl>=2.6.0",
-    "tablib==3.5.0",
-    "xlrd",
-    "xlwt",
-]
-files = [
-    {file = "tablib-3.5.0-py3-none-any.whl", hash = "sha256:9821caa9eca6062ff7299fa645e737aecff982e6b2b42046928a6413c8dabfd9"},
-    {file = "tablib-3.5.0.tar.gz", hash = "sha256:f6661dfc45e1d4f51fa8a6239f9c8349380859a5bfaa73280645f046d6c96e33"},
-]
-
-[[package]]
 name = "telepath"
 version = "0.3.1"
 requires_python = ">=3.8"
@@ -1750,7 +1723,7 @@ files = [
 
 [[package]]
 name = "wagtail"
-version = "4.0.4"
+version = "4.2.4"
 requires_python = ">=3.7"
 summary = "A Django content management system."
 dependencies = [
@@ -1768,14 +1741,13 @@ dependencies = [
     "draftjs-exporter<3.0,>=2.1.5",
     "html5lib<2,>=0.999",
     "l18n>=2018.5",
+    "openpyxl<4.0,>=3.0.10",
     "requests<3.0,>=2.11.1",
-    "tablib[xls,xlsx]>=0.14.0",
     "telepath<1,>=0.1.1",
-    "xlsxwriter<4.0,>=1.2.8",
 ]
 files = [
-    {file = "wagtail-4.0.4-py3-none-any.whl", hash = "sha256:43b35e8e29bcc83a3ddf60f08e8c22fea1e819f338bcba73a4b290771233809a"},
-    {file = "wagtail-4.0.4.tar.gz", hash = "sha256:8799c7550cc033c8e85aeeaf6f91b5343d7dee72fecd5d4093499af9d3aeaa1d"},
+    {file = "wagtail-4.2.4-py3-none-any.whl", hash = "sha256:93e8d39a14a44099ca620e46613a3a2319b1d10c622dc7f0ff8658807b18190c"},
+    {file = "wagtail-4.2.4.tar.gz", hash = "sha256:4bf146194e1725cd4305bf1998f507d46f587e207d609bc2ec73a6c5cce04410"},
 ]
 
 [[package]]
@@ -1817,35 +1789,6 @@ summary = "A Python image library that sits on top of Pillow, Wand and OpenCV"
 files = [
     {file = "Willow-1.4.1-py2.py3-none-any.whl", hash = "sha256:fc4042696d090e75aef922fa1ed26d483c764f005b36cf523cf7c34e69d5dd7a"},
     {file = "Willow-1.4.1.tar.gz", hash = "sha256:0df8ff528531e00b48d40bf72ed81beac1dc82f2d42e5bbed4aff0218bef8c0d"},
-]
-
-[[package]]
-name = "xlrd"
-version = "2.0.1"
-requires_python = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
-summary = "Library for developers to extract data from Microsoft Excel (tm) .xls spreadsheet files"
-files = [
-    {file = "xlrd-2.0.1-py2.py3-none-any.whl", hash = "sha256:6a33ee89877bd9abc1158129f6e94be74e2679636b8a205b43b85206c3f0bbdd"},
-    {file = "xlrd-2.0.1.tar.gz", hash = "sha256:f72f148f54442c6b056bf931dbc34f986fd0c3b0b6b5a58d013c9aef274d0c88"},
-]
-
-[[package]]
-name = "xlsxwriter"
-version = "3.1.9"
-requires_python = ">=3.6"
-summary = "A Python module for creating Excel XLSX files."
-files = [
-    {file = "XlsxWriter-3.1.9-py3-none-any.whl", hash = "sha256:b61c1a0c786f82644936c0936ec96ee96cd3afb9440094232f7faef9b38689f0"},
-    {file = "XlsxWriter-3.1.9.tar.gz", hash = "sha256:de810bf328c6a4550f4ffd6b0b34972aeb7ffcf40f3d285a0413734f9b63a929"},
-]
-
-[[package]]
-name = "xlwt"
-version = "1.3.0"
-summary = "Library to create spreadsheet files compatible with MS Excel 97/2000/XP/2003 XLS files, on any platform, with Python 2.6, 2.7, 3.3+"
-files = [
-    {file = "xlwt-1.3.0-py2.py3-none-any.whl", hash = "sha256:a082260524678ba48a297d922cc385f58278b8aa68741596a87de01a9c628b2e"},
-    {file = "xlwt-1.3.0.tar.gz", hash = "sha256:c59912717a9b28f1a3c2a98fd60741014b06b043936dcecbc113eaaada156c88"},
 ]
 
 [[package]]
