@@ -79,6 +79,7 @@ class AuthorAdmin(SnippetViewSet):
     add_to_settings_menu = False
     exclude_from_explorer = False
     search_fields = ('name', 'bio')
+    add_to_admin_menu = True
 
 
 register_snippet(Author, viewset=AuthorAdmin)
