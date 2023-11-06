@@ -21,9 +21,11 @@ def dev(
     args: Annotated[
         Optional[List[str]],
         Option(help='Additional arguments to pass to the build step'),
-    ] = []
+    ] = None
 ):
     """Run the dev environment"""
+    if args is None:
+        args = []
     run(f'{COMPOSE} {DEV} up {" ".join(args)}')
 
 
@@ -32,7 +34,7 @@ def build(
     args: Annotated[
         Optional[List[str]],
         Option(help='Additional arguments to pass to the build step'),
-    ] = [],
+    ] = None,
 ):
     """Build the dev environment"""
     run(f'{COMPOSE} build {" ".join(args)}')
