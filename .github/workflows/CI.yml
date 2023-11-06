@@ -10,7 +10,7 @@ jobs:
     with:
       pdm_args: -G test
       pytest_args: -n auto --nbmake -ra -s
-      pg_db: ov-test
+      pg_db: ov
       environment: test
   lint:
     name: 👕 Lint
