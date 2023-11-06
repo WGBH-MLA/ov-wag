@@ -2,10 +2,10 @@
 # It is not intended for manual editing.
 
 [metadata]
-groups = ["default", "cli", "dev", "test"]
+groups = ["default", "cli", "dev", "production", "test"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:f8dec78011428d554c5ba80e819feb3a57e042b4a68239ae6b42715597be131b"
+content_hash = "sha256:d95085124b96b3044f89ab139c151c6411a6b3df0f58311dd585413a3a82b515"
 
 [[package]]
 name = "anyascii"
@@ -423,6 +423,20 @@ requires_python = ">=3.5"
 summary = "WSGI HTTP Server for UNIX"
 dependencies = [
     "packaging",
+]
+files = [
+    {file = "gunicorn-21.2.0-py3-none-any.whl", hash = "sha256:3213aa5e8c24949e792bcacfc176fef362e7aac80b76c56f6b5122bf350722f0"},
+    {file = "gunicorn-21.2.0.tar.gz", hash = "sha256:88ec8bff1d634f98e61b9f65bc4bf3cd918a90806c6f5c48bc5603849ec81033"},
+]
+
+[[package]]
+name = "gunicorn"
+version = "21.2.0"
+extras = ["standard"]
+requires_python = ">=3.5"
+summary = "WSGI HTTP Server for UNIX"
+dependencies = [
+    "gunicorn==21.2.0",
 ]
 files = [
     {file = "gunicorn-21.2.0-py3-none-any.whl", hash = "sha256:3213aa5e8c24949e792bcacfc176fef362e7aac80b76c56f6b5122bf350722f0"},

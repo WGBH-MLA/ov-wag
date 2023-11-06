@@ -32,6 +32,9 @@ cli = [
     "loguru~=0.7",
     "trogon~=0.5",
 ]
+production = [
+    "gunicorn[standard]~=21.2",
+]
 
 [build-system]
 requires = ['pdm-backend']
