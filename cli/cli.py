@@ -11,7 +11,7 @@ from .utils import AliasGroup, run, version_callback
 COMPOSE = "docker compose -f docker-compose.yml"
 DEV = "-f dev.yml"
 MANAGE = "run --entrypoint python wagtail manage.py"
-TESTS = '-f tests.yml'
+TESTS = '-f test.yml'
 
 app = Typer(cls=AliasGroup, context_settings={'help_option_names': ['-h', '--help']})
 
