@@ -98,9 +98,9 @@ WSGI_APPLICATION = 'ov_wag.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('OV_DB_ENGINE'),
+        'ENGINE': os.environ.get('OV_DB_ENGINE', 'django.db.backends.postgresql'),
         'HOST': os.environ.get('OV_DB_HOST'),
-        'PORT': os.environ.get('OV_DB_PORT'),
+        'PORT': os.environ.get('OV_DB_PORT', '5432'),
         'NAME': os.environ.get('OV_DB_NAME'),
         'USER': os.environ.get('OV_DB_USER'),
         'PASSWORD': os.environ.get('OV_DB_PASSWORD'),
