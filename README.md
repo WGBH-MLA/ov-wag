@@ -1,6 +1,6 @@
 # ov-wag
 
-![CI](https://github.com/WGBH-MLA/ov-wag/actions/workflows/ci.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/WGBH-MLA/ov-wag/badge.svg)](https://coveralls.io/github/WGBH-MLA/ov-wag)
+![CI](https://github.com/WGBH-MLA/ov-wag/actions/workflows/CI.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/WGBH-MLA/ov-wag/badge.svg)](https://coveralls.io/github/WGBH-MLA/ov-wag)
 
 # Open Vault: Wagtail
 #### From GBH
@@ -8,13 +8,20 @@ Wagtail CMS for [Open Vault](https://openvault.wgbh.org/)
 
 ## Usage
 ### Install
+The published version can be installed using pip:
+
 `pip install ov-wag`
 
 #### Local installation
-Clone the repo: `git clone https://github.com/WGBH-MLA/ov-wag.git`
+For local devopment, install [PDM](https://pdm.fming.dev/) for dependency management.
 
-Install the package in editable mode:
-`pip install -e .`
+`pip install pdm`
+
+##### Clone the repo:
+`git clone https://github.com/WGBH-MLA/ov-wag.git`
+
+##### Install the package:
+`pdm install` 
 
 ### Init script
 
