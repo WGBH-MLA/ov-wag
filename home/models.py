@@ -5,6 +5,7 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.api import APIField
 
+
 class HomePage(Page):
     body = RichTextField(blank=True)
 
@@ -12,6 +13,4 @@ class HomePage(Page):
         FieldPanel('body', classname="full"),
     ]
 
-    api_fields = [
-        APIField('body')
-    ]
+    api_fields = [APIField('body')]
