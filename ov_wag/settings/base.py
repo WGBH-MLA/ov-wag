@@ -101,9 +101,9 @@ DATABASES = {
         'ENGINE': os.environ.get('OV_DB_ENGINE', 'django.db.backends.postgresql'),
         'HOST': os.environ.get('OV_DB_HOST', 'localhost'),
         'PORT': os.environ.get('OV_DB_PORT', 5432),
-        'NAME': os.environ.get('OV_DB_NAME'),
-        'USER': os.environ.get('OV_DB_USER'),
-        'PASSWORD': os.environ.get('OV_DB_PASSWORD'),
+        'NAME': os.environ.get('OV_DB_NAME', 'ov'),
+        'USER': os.environ.get('OV_DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('OV_DB_PASSWORD', 'postgres'),
     }
 }
 
