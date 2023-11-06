@@ -5,7 +5,7 @@
 groups = ["default", "dev", "test"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:064238bfe2970dc7f6955d54bdc809ad97fed2393c4630d5fc5b0f9e87b54d16"
+content_hash = "sha256:9503d9110cf27f204d8efad24a13b6b938a7faca37f5eae900d6741a664198e1"
 
 [[package]]
 name = "anyascii"
@@ -425,18 +425,18 @@ files = [
 
 [[package]]
 name = "django"
-version = "4.1.12"
+version = "4.2.7"
 requires_python = ">=3.8"
 summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 dependencies = [
-    "asgiref<4,>=3.5.2",
+    "asgiref<4,>=3.6.0",
     "backports-zoneinfo; python_version < \"3.9\"",
-    "sqlparse>=0.2.2",
+    "sqlparse>=0.3.1",
     "tzdata; sys_platform == \"win32\"",
 ]
 files = [
-    {file = "Django-4.1.12-py3-none-any.whl", hash = "sha256:e92ce8f240a856615e96d8b955707f824c29ea0f51dff4f76777caa5e113ec72"},
-    {file = "Django-4.1.12.tar.gz", hash = "sha256:d02483ad49872238fa59875c1269293fe4f17ecee13c121893607cc0b284696b"},
+    {file = "Django-4.2.7-py3-none-any.whl", hash = "sha256:e1d37c51ad26186de355cbcec16613ebdabfa9689bbade9c538835205a8abbe9"},
+    {file = "Django-4.2.7.tar.gz", hash = "sha256:8e0f1c2c2786b5c0e39fe1afce24c926040fad47c8ea8ad30aaf1188df29fc41"},
 ]
 
 [[package]]
