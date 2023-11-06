@@ -1,4 +1,6 @@
-from ov_wag.settings.base import *
+from contextlib import suppress
+
+from ov_wag.settings.base import *  # noqa F403
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -12,7 +14,5 @@ ALLOWED_HOSTS = ['*']
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-try:
-    from .local import *
-except ImportError:
-    pass
+with suppress(ImportError):
+    from .local import *  # noqa F403
