@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'ov_collections',
     'authors',
     'wagtail.contrib.forms',
-    'wagtail.contrib.modeladmin',
     'wagtail.contrib.redirects',
     'wagtail.contrib.styleguide',
     'wagtail.embeds',

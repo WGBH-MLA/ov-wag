@@ -3,11 +3,13 @@ from typing import ClassVar, List
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.ui.tables import UpdatedAtColumn
 from wagtail.api import APIField
 from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 
 
 class AuthorsOrderable(Orderable):
@@ -67,4 +69,16 @@ class Author(models.Model):
         return self.name
 
 
-register_snippet(Author)
+class AuthorAdmin(SnippetViewSet):
+    """Author admin page"""
+
+    model = Author
+    menu_label = 'Authors'
+    icon = 'group'
+    list_display = ('name', 'image', 'bio', UpdatedAtColumn())
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    search_fields = ('name', 'bio')
+
+
+register_snippet(Author, viewset=AuthorAdmin)
