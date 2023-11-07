@@ -1,7 +1,7 @@
 import wagtail_factories
 from rest_framework import status
 from rest_framework.test import APITestCase
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from exhibits.models import ExhibitPageApiSchema
 from exhibits.tests.factories import ExhibitPageFactory

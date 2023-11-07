@@ -1,4 +1,4 @@
-from wagtail.core.blocks import StructBlock, CharBlock, URLBlock
+from wagtail.blocks import CharBlock, StructBlock, URLBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 

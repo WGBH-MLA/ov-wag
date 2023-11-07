@@ -12,7 +12,7 @@ def run(cmd: str):
 def version_callback(value: bool):
     """Print the version of the program and exit"""
     if value:
-        from .ov_wag._version import __version__
+        from ov_wag._version import __version__
 
         print(f'v{__version__}')
 

@@ -3,11 +3,11 @@ from typing import ClassVar, List
 from django.db import models
 from modelcluster.fields import ParentalKey
 from pydantic import BaseModel
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable, Page
+from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
+from wagtail.models import Orderable, Page
 from wagtail.search import index
 
 from authors.serializers import AuthorSerializer

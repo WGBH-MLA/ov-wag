@@ -1,5 +1,5 @@
 from rest_framework.fields import Field
-from wagtail.core.templatetags import wagtailcore_tags
+from wagtail.templatetags import wagtailcore_tags
 
 
 class RichTextSerializer(Field):
