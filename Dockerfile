@@ -1,5 +1,8 @@
 # Use an official Python runtime based on Debian 10 "buster" as a parent image.
-FROM python:3.10-slim-buster as base
+FROM python:3.11-slim as base
+
+WORKDIR /app
+COPY docker_entrypoints /docker_entrypoints
 
 # Install system packages required by Wagtail and Django.
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
@@ -8,19 +11,25 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libjpeg62-turbo-dev \
     zlib1g-dev \
     libwebp-dev \
- && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
-# Install the project requirements.
-COPY requirements.txt /
-RUN pip install -r /requirements.txt
+COPY pyproject.toml pdm.lock README.md ./
+COPY ov_wag ov_wag
+COPY authors authors
+COPY exhibits exhibits
+COPY ov_collections ov_collections
+COPY search search
 
-WORKDIR /app
-
+### Test ###
 # Build the test image, which includes the test applications
 FROM base as test
-COPY requirements-test.txt /
-RUN pip install -r /requirements-test.txt
+# Install the test requirements.
+RUN pip install pdm
+RUN pdm install -dG test
 
+ENTRYPOINT /docker_entrypoints/test.sh
+
+### Production ###
 # Build the production image, with the application server
 FROM base as production
 
@@ -37,8 +46,6 @@ ENV PYTHONUNBUFFERED=1 \
 EXPOSE 80
 
 # Install the application server.
-RUN pip install "gunicorn>=20.1.0,<20.2.0"
+RUN pip install .[production]
 
-COPY . .
-
-ENTRYPOINT /app/docker_entrypoints/deploy.sh
+ENTRYPOINT /docker_entrypoints/deploy.sh

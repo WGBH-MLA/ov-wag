@@ -1,6 +1,11 @@
 
 [project]
 name = 'ov-wag'
+dynamic = ['version']
+description = 'WGBH Open Vault Wagtail backend'
+authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
+readme = 'README.md'
+license = { text = 'MIT' }
 dependencies = [
     'Django~=4.2',
     'wagtail~=5.2',
@@ -12,9 +17,31 @@ dependencies = [
 ]
 requires-python = '>=3.8,<4.0'
 
+[project.urls]
+documentation = 'https://wgbh-mla.github.io/ov-wag/'
+homepage = 'https://github.com/WGBH-MLA/ov-wag'
+repository = 'https://github.com/WGBH-MLA/ov-wag'
+
+
+[project.scripts]
+ov = 'cli:app'
+
+[project.optional-dependencies]
+cli = [
+    "typer~=0.9",
+    "loguru~=0.7",
+    "trogon~=0.5",
+]
+production = [
+    "gunicorn[standard]~=21.2",
+]
+
 [build-system]
 requires = ['pdm-backend']
 build-backend = 'pdm.backend'
+
+[tool.pdm]
+version = { source = 'file', path = 'ov_wag/_version.py' }
 
 [tool.black]
 extend-exclude = 'migrations'
@@ -57,6 +84,7 @@ test = [
     "pytest-sugar>=0.9.7",
     "pytest-xdist>=3.3.1",
     "nbmake>=1.4.6",
+    "coverage>=7.3.2",
 ]
 
 [tool.pytest.ini_options]
@@ -65,5 +93,6 @@ python_files = ['tests.py', 'test_*.py', '*_tests.py']
 testpaths =[
   'authors',
   'exhibits',
+  'ov_collections',
   'ov_wag'
 ]
