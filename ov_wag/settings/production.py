@@ -3,7 +3,7 @@ from os import environ as env
 
 from ov_wag.settings.base import *  # noqa F403
 
-DEBUG = False
+DEBUG = bool(env.get('OV_DEBUG', False))
 
 SECRET_KEY = env.get('OV_SECRET_KEY')
 
