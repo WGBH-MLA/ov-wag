@@ -8,7 +8,6 @@ services:
     image: ov-tests
     volumes:
       - ./:/app/
-    entrypoint: /app/docker_entrypoints/test.sh
     environment:
       - OV_DB_ENGINE=django.db.backends.sqlite3
       - OV_DB_NAME=testdb
