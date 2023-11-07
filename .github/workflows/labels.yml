@@ -9,5 +9,4 @@ jobs:
   labels:
       name: 🔄 Sync labels
       uses: WGBH-MLA/.github/.github/workflows/labels.yml@main
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+
