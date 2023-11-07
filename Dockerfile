@@ -13,7 +13,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libwebp-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml pdm.lock README.md ./
+COPY pyproject.toml pdm.lock README.md manage.py ./
 COPY authors authors
 COPY cli cli
 COPY exhibits exhibits
