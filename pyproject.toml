@@ -7,13 +7,13 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    'Django~=4.2',
-    'wagtail~=5.2',
-    'wagtail-factories~=3.1',
-    'pydantic~=1.10',
-    'psycopg2~=2.9',
-    'python-dotenv~=1.0',
-    'gunicorn~=21.2',
+    "Django~=4.2",
+    "wagtail~=5.2",
+    "wagtail-factories~=4.1",
+    "pydantic~=2.4",
+    "psycopg2~=2.9",
+    "python-dotenv~=1.0",
+    "gunicorn~=21.2",
 ]
 requires-python = '>=3.8,<4.0'
 
@@ -74,17 +74,17 @@ select = [
 
 [tool.pdm.dev-dependencies]
 dev = [
-    'ruff~=0.1',
-    'pre-commit~=3.5',
+    "ruff~=0.1",
+    "pre-commit~=3.5",
 ]
 test = [
-    "pytest>=7.4.3",
-    "pytest-django>=4.6.0",
-    "pytest-cov>=4.1.0",
-    "pytest-sugar>=0.9.7",
-    "pytest-xdist>=3.3.1",
-    "nbmake>=1.4.6",
-    "coverage>=7.3.2",
+    "pytest~=7.4",
+    "pytest-django~=4.7",
+    "pytest-cov~=4.1",
+    "pytest-sugar~=0.9",
+    "pytest-xdist~=3.3",
+    "nbmake~=1.4",
+    "coverage~=7.3",
 ]
 
 [tool.pytest.ini_options]
