@@ -34,8 +34,7 @@ cli = [
 ]
 production = [
     'gunicorn[standard]~=21.2',
-    'django-storages~=1.14',
-    'boto3~=1.28',
+    'django-storages[s3]~=1.14'
 ]
 
 [build-system]

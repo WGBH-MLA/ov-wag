@@ -5,7 +5,7 @@
 groups = ["default", "cli", "dev", "production", "test"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:2af8aec15ffd030266b2304b0f5d5302e8a92627a2cfd876bf8eea21718b494d"
+content_hash = "sha256:e0cc4c879dc04b2e56e18353715abed5401cb2c93417b3fd59e5ce0ef58abe2a"
 
 [[package]]
 name = "anyascii"
@@ -575,6 +575,21 @@ requires_python = ">=3.7"
 summary = "Support for many storage backends in Django"
 dependencies = [
     "Django>=3.2",
+]
+files = [
+    {file = "django-storages-1.14.2.tar.gz", hash = "sha256:51b36af28cc5813b98d5f3dfe7459af638d84428c8df4a03990c7d74d1bea4e5"},
+    {file = "django_storages-1.14.2-py3-none-any.whl", hash = "sha256:1db759346b52ada6c2efd9f23d8241ecf518813eb31db9e2589207174f58f6ad"},
+]
+
+[[package]]
+name = "django-storages"
+version = "1.14.2"
+extras = ["s3"]
+requires_python = ">=3.7"
+summary = "Support for many storage backends in Django"
+dependencies = [
+    "boto3>=1.4.4",
+    "django-storages==1.14.2",
 ]
 files = [
     {file = "django-storages-1.14.2.tar.gz", hash = "sha256:51b36af28cc5813b98d5f3dfe7459af638d84428c8df4a03990c7d74d1bea4e5"},
