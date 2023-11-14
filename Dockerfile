@@ -14,10 +14,11 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     && rm -rf /var/lib/apt/lists/*
 
 COPY pyproject.toml pdm.lock README.md manage.py ./
-COPY ov_wag ov_wag
 COPY authors authors
 COPY exhibits exhibits
+COPY home home
 COPY ov_collections ov_collections
+COPY ov_wag ov_wag
 COPY search search
 
 ### Test ###
