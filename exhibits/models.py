@@ -1,4 +1,4 @@
-from typing import ClassVar, List
+from typing import ClassVar
 
 from django.db import models
 from modelcluster.fields import ParentalKey
@@ -23,7 +23,7 @@ class ExhibitsOrderable(Orderable):
         on_delete=models.CASCADE,
     )
 
-    panels: ClassVar[List[FieldPanel]] = [FieldPanel('exhibit')]
+    panels: ClassVar[list[FieldPanel]] = [FieldPanel('exhibit')]
 
     @property
     def title(self):
@@ -37,7 +37,7 @@ class ExhibitsOrderable(Orderable):
     def authors(self):
         return self.exhibit.authors
 
-    api_fields: ClassVar[List[APIField]] = [
+    api_fields: ClassVar[list[APIField]] = [
         APIField('exhibit_id'),
         APIField('title'),
         APIField(
@@ -83,12 +83,12 @@ class ExhibitPage(Page):
         related_name='+',
     )
 
-    search_fields: ClassVar[List[index.SearchField]] = [
+    search_fields: ClassVar[list[index.SearchField]] = [
         *Page.search_fields,
         index.SearchField('body'),
     ]
 
-    content_panels: ClassVar[List[FieldPanel]] = [
+    content_panels: ClassVar[list[FieldPanel]] = [
         *Page.content_panels,
         MultiFieldPanel(
             [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
@@ -98,7 +98,7 @@ class ExhibitPage(Page):
         InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
     ]
 
-    api_fields: ClassVar[List[APIField]] = [
+    api_fields: ClassVar[list[APIField]] = [
         APIField('title'),
         APIField('body', serializer=RichTextSerializer()),
         APIField(

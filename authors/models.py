@@ -1,4 +1,4 @@
-from typing import ClassVar, List
+from typing import ClassVar
 
 from django.db import models
 from modelcluster.fields import ParentalKey
@@ -21,7 +21,7 @@ class AuthorsOrderable(Orderable):
         on_delete=models.CASCADE,
     )
 
-    panels: ClassVar[List[FieldPanel]] = [FieldPanel('author')]
+    panels: ClassVar[list[FieldPanel]] = [FieldPanel('author')]
 
     @property
     def name(self):
@@ -31,7 +31,7 @@ class AuthorsOrderable(Orderable):
     def image(self):
         return self.author.image
 
-    api_fields: ClassVar[List[APIField]] = [
+    api_fields: ClassVar[list[APIField]] = [
         APIField('author_id'),
         APIField('name'),
         APIField('image', serializer=ImageRenditionField('fill-100x100')),
@@ -53,11 +53,11 @@ class Author(models.Model):
 
     bio = RichTextField(blank=True, help_text='Brief author bio')
 
-    panels: ClassVar[List[FieldPanel]] = [
+    panels: ClassVar[list[FieldPanel]] = [
         MultiFieldPanel([FieldPanel('name'), FieldPanel('image'), FieldPanel('bio')])
     ]
 
-    api_fields: ClassVar[List[APIField]] = [
+    api_fields: ClassVar[list[APIField]] = [
         APIField('id'),
         APIField('name'),
         APIField('image'),

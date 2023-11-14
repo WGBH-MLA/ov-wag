@@ -1,10 +1,10 @@
-from typing import List, Optional
+from typing import Optional
 
 from loguru import logger as log
 from trogon import Trogon
 from typer import Argument, Context, Option, Typer
 from typer.main import get_group
-from typing_extensions import Annotated
+from typing import Annotated
 
 from .utils import AliasGroup, run, version_callback
 
@@ -19,7 +19,7 @@ app = Typer(cls=AliasGroup, context_settings={'help_option_names': ['-h', '--hel
 @app.command('d | dev')
 def dev(
     args: Annotated[
-        Optional[List[str]],
+        Optional[list[str]],
         Option(help='Additional arguments to pass to the build step'),
     ] = None
 ):
@@ -32,7 +32,7 @@ def dev(
 @app.command('b | build')
 def build(
     args: Annotated[
-        Optional[List[str]],
+        Optional[list[str]],
         Option(help='Additional arguments to pass to the build step'),
     ] = None,
 ):
@@ -47,14 +47,14 @@ def shell():
 
 
 @app.command('m | manage')
-def manage(cmd: Annotated[List[str], Argument(help='The manage.py command to run')]):
+def manage(cmd: Annotated[list[str], Argument(help='The manage.py command to run')]):
     """Run a manage.py function"""
     run(f'{COMPOSE} {DEV} {MANAGE} {" ".join(cmd)}')
 
 
 @app.command('c | cmd')
 def cmd(
-    cmd: Annotated[List[str], Argument(help='The command to run')],
+    cmd: Annotated[list[str], Argument(help='The command to run')],
     entrypoint: Annotated[
         str, Option('--entrypoint', '-e', help='The entrypoint to use')
     ] = '"bash -c"',
