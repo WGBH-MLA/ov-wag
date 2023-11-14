@@ -1,0 +1,20 @@
+name: 🧪 Integration Tests
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  tests:
+    name: ⚗️ App Tests
+    uses: WGBH-MLA/.github/.github/workflows/pytest-with-postgres.yml@main
+    secrets: inherit
+    with:
+      pdm_args: -G test
+      pytest_args: -n auto --nbmake -ra -s
+      pg_db: ov
+  lint:
+    name: 👕 Lint
+    uses: WGBH-MLA/.github/.github/workflows/lint.yml@main
+
+  black:
+    name: 🖤 Black
+    uses: WGBH-MLA/.github/.github/workflows/black.yml@main

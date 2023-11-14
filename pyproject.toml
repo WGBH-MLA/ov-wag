@@ -1,20 +1,106 @@
 
 [project]
-# PEP 621 project metadata
-# See https://www.python.org/dev/peps/pep-0621/
-dependencies = ["Django<4.2,>=4.1.1", "wagtail<4.1,>=4.0.4", "wagtail-factories<3.2,>=3.1.0", "pydantic<2.0,>=1.10.2", "psycopg2<2.10,>=2.9.3"]
-requires-python = ">=3.11"
+name = 'ov-wag'
+dynamic = ['version']
+description = 'WGBH Open Vault Wagtail backend'
+authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
+readme = 'README.md'
+license = { text = 'MIT' }
+dependencies = [
+    'Django~=4.2',
+    'wagtail~=5.2',
+    'wagtail-factories~=3.1',
+    'pydantic~=1.10',
+    'psycopg2~=2.9',
+    'python-dotenv~=1.0',
+    'gunicorn~=21.2',
+]
+requires-python = '>=3.8,<4.0'
+
+[project.urls]
+documentation = 'https://wgbh-mla.github.io/ov-wag/'
+homepage = 'https://github.com/WGBH-MLA/ov-wag'
+repository = 'https://github.com/WGBH-MLA/ov-wag'
+
+
+[project.scripts]
+ov = 'cli:app'
+
+[project.optional-dependencies]
+cli = [
+    "typer~=0.9",
+    "loguru~=0.7",
+    "trogon~=0.5",
+]
+production = [
+    "gunicorn[standard]~=21.2",
+]
 
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
+[tool.pdm]
+version = { source = 'file', path = 'ov_wag/_version.py' }
+
+[tool.black]
+extend-exclude = 'migrations'
+
+[tool.ruff]
+extend-exclude = ['migrations']
+ignore = ['Q000']
+select = [
+    'B', # flake8-bugbear
+    'C4', # flake8-comprehensions
+    'C90', # mccabe
+    'E', # pycodestyle errors
+    'ERA', # eradicate
+    'F', # pyflakes
+    # 'I', # isort
+    'INT', # flake8-gettext
+    'N', # pep8-naming
+    'PIE', # flake8-pie,
+    'PLC', # pylint - convention
+    'PLE', # pylint - error
+    'PLW', # pylint - warning
+    'Q', # flake8-quotes
+    'RET', # flake8-return,
+    'RUF', # Ruff-specific rules
+    'SIM', # flake8-simplify
+    'UP', # pyupgrade
+    'W', # pycodestyle warnings
+
+]
+
 [tool.pdm.dev-dependencies]
+dev = [
+    'ruff~=0.1',
+    'pre-commit~=3.5',
+]
 docs = [
     "mkdocs>=1.5.3",
     "mkdocs-material>=9.4.7",
     "mike>=2.0.0",
     "mkdocstrings[python]>=0.23.0",
     "mkdocs-git-revision-date-localized-plugin>=1.2.1",
-    "mkdocs-jupyter>=0.24.6",
+    "mkdocs-jupyter>=0.24.6"
+]
+test = [
+    "pytest>=7.4.3",
+    "pytest-django>=4.6.0",
+    "pytest-cov>=4.1.0",
+    "pytest-sugar>=0.9.7",
+    "pytest-xdist>=3.3.1",
+    "nbmake>=1.4.6",
+    "coverage>=7.3.2",
+]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = 'ov_wag.settings.test'
+python_files = ['tests.py', 'test_*.py', '*_tests.py']
+testpaths =[
+  'authors',
+  'exhibits',
+  'ov_collections',
+  'ov_wag'
 ]

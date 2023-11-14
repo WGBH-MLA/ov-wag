@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  tests:
+    build:
+      context: .
+      target: test
+    image: ov-tests
+    volumes:
+      - ./:/app/
+    environment:
+      - OV_DB_ENGINE=django.db.backends.sqlite3
+      - OV_DB_NAME=testdb

@@ -1,14 +1,17 @@
+from typing import ClassVar, List
+
 from django.db import models
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.images.api.fields import ImageRenditionField
-from wagtail.search import index
-from wagtail.api import APIField
-from pydantic import BaseModel
 from modelcluster.fields import ParentalKey
-from ov_wag.serializers import RichTextSerializer
+from pydantic import BaseModel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.api import APIField
+from wagtail.fields import RichTextField
+from wagtail.images.api.fields import ImageRenditionField
+from wagtail.models import Orderable, Page
+from wagtail.search import index
+
 from authors.serializers import AuthorSerializer
+from ov_wag.serializers import RichTextSerializer
 
 
 class ExhibitsOrderable(Orderable):
@@ -20,7 +23,7 @@ class ExhibitsOrderable(Orderable):
         on_delete=models.CASCADE,
     )
 
-    panels = [FieldPanel('exhibit')]
+    panels: ClassVar[List[FieldPanel]] = [FieldPanel('exhibit')]
 
     @property
     def title(self):
@@ -34,7 +37,7 @@ class ExhibitsOrderable(Orderable):
     def authors(self):
         return self.exhibit.authors
 
-    api_fields = [
+    api_fields: ClassVar[List[APIField]] = [
         APIField('exhibit_id'),
         APIField('title'),
         APIField(
@@ -80,25 +83,22 @@ class ExhibitPage(Page):
         related_name='+',
     )
 
-    search_fields = Page.search_fields + [
+    search_fields: ClassVar[List[index.SearchField]] = [
+        *Page.search_fields,
         index.SearchField('body'),
     ]
 
-    content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel('cover_image'),
-            FieldPanel('hero_image'),
-        ], heading='Images'),
+    content_panels: ClassVar[List[FieldPanel]] = [
+        *Page.content_panels,
+        MultiFieldPanel(
+            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
+        ),
         FieldPanel('body', classname='collapsed'),
         InlinePanel('authors', heading='Author(s)'),
-        InlinePanel(
-                    'other_exhibits',
-                    heading='Other Exhibits',
-                    max_num=3,
-                )
+        InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
     ]
 
-    api_fields = [
+    api_fields: ClassVar[List[APIField]] = [
         APIField('title'),
         APIField('body', serializer=RichTextSerializer()),
         APIField(

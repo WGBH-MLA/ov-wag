@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from dotenv import load_dotenv
+
+# take environment variables from .env.
+load_dotenv()
+
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
@@ -30,7 +35,6 @@ INSTALLED_APPS = [
     'ov_collections',
     'authors',
     'wagtail.contrib.forms',
-    'wagtail.contrib.modeladmin',
     'wagtail.contrib.redirects',
     'wagtail.contrib.styleguide',
     'wagtail.embeds',
@@ -41,7 +45,7 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
-    'wagtail.core',
+    'wagtail',
     'wagtail.api.v2',
     'rest_framework',
     'modelcluster',
@@ -93,7 +97,7 @@ WSGI_APPLICATION = 'ov_wag.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('OV_DB_ENGINE'),
+        'ENGINE': os.environ.get('OV_DB_ENGINE', 'django.db.backends.postgresql'),
         'HOST': os.environ.get('OV_DB_HOST'),
         'PORT': os.environ.get('OV_DB_PORT'),
         'NAME': os.environ.get('OV_DB_NAME'),
@@ -108,7 +112,7 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',  # noqa: E501
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',

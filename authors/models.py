@@ -1,11 +1,15 @@
+from typing import ClassVar, List
+
 from django.db import models
-from wagtail.api import APIField
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable
-from wagtail.images.api.fields import ImageRenditionField
-from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.ui.tables import UpdatedAtColumn
+from wagtail.api import APIField
+from wagtail.fields import RichTextField
+from wagtail.images.api.fields import ImageRenditionField
+from wagtail.models import Orderable
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 
 
 class AuthorsOrderable(Orderable):
@@ -17,7 +21,7 @@ class AuthorsOrderable(Orderable):
         on_delete=models.CASCADE,
     )
 
-    panels = [FieldPanel('author')]
+    panels: ClassVar[List[FieldPanel]] = [FieldPanel('author')]
 
     @property
     def name(self):
@@ -27,7 +31,7 @@ class AuthorsOrderable(Orderable):
     def image(self):
         return self.author.image
 
-    api_fields = [
+    api_fields: ClassVar[List[APIField]] = [
         APIField('author_id'),
         APIField('name'),
         APIField('image', serializer=ImageRenditionField('fill-100x100')),
@@ -49,11 +53,11 @@ class Author(models.Model):
 
     bio = RichTextField(blank=True, help_text='Brief author bio')
 
-    panels = [
+    panels: ClassVar[List[FieldPanel]] = [
         MultiFieldPanel([FieldPanel('name'), FieldPanel('image'), FieldPanel('bio')])
     ]
 
-    api_fields = [
+    api_fields: ClassVar[List[APIField]] = [
         APIField('id'),
         APIField('name'),
         APIField('image'),
@@ -65,4 +69,17 @@ class Author(models.Model):
         return self.name
 
 
-register_snippet(Author)
+class AuthorAdmin(SnippetViewSet):
+    """Author admin page"""
+
+    model = Author
+    menu_label = 'Authors'
+    icon = 'group'
+    list_display = ('name', 'image', 'bio', UpdatedAtColumn())
+    add_to_settings_menu = False
+    exclude_from_explorer = False
+    search_fields = ('name', 'bio')
+    add_to_admin_menu = True
+
+
+register_snippet(Author, viewset=AuthorAdmin)
