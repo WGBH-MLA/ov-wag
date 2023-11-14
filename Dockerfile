@@ -42,9 +42,9 @@ RUN mkdir -p /logs
 # 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
 #    command.
 ENV PYTHONUNBUFFERED=1 \
-    PORT=80
+    PORT=8000
 
-EXPOSE 80
+EXPOSE 8000
 
 # Install the application server.
 RUN pip install .[production]

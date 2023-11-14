@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# Build static files for the admin site
-python3 manage.py collectstatic --noinput
-
 # Run the production server
 gunicorn ov_wag.wsgi:application \
-  --reload \
-  --access-logfile /logs/access.log \
-  --error-logfile /logs/error.log
+  --bind 0.0.0.0:8000 \
+  --access-logfile - \
+  # --access-logfile /logs/access.log \
+  --error-logfile -
+  # --error-logfile /logs/error.log
