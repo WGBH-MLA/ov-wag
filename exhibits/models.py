@@ -15,6 +15,8 @@ from ov_wag.serializers import RichTextSerializer
 
 
 class ExhibitsOrderable(Orderable):
+    """Other Exhibits List"""
+
     page = ParentalKey('exhibits.ExhibitPage', related_name='other_exhibits', null=True)
     exhibit = models.ForeignKey(
         'exhibits.ExhibitPage',

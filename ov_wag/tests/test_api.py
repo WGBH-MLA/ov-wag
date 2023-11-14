@@ -37,7 +37,7 @@ class ApiTests(APITestCase):
 
     def test_exhibit_api_schema_single(self):
         """
-        GET /api/v2/exhibit/{id} for Exhibit pages
+        GET /api/v2/exhibits/{id}/ for Exhibit pages
 
         Compare response against ExhibitSchema
         """
@@ -50,7 +50,7 @@ class ApiTests(APITestCase):
 
     def test_exhibit_api_schema_multiple(self):
         """
-        GET /api/v2/exhibit for Exhibit pages
+        GET /api/v2/exhibits/ for Exhibit pages
 
         Compare response against ExhibitSchema
         """
