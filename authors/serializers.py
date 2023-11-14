@@ -1,4 +1,4 @@
-from typing import ClassVar, List
+from typing import ClassVar
 
 from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
 from wagtail.images.api.fields import ImageRenditionField
@@ -12,7 +12,7 @@ class AuthorSerializer(ModelSerializer):
 
     class Meta:
         model = Author
-        fields: ClassVar[List[str]] = [
+        fields: ClassVar[list[str]] = [
             'author_id',
             'name',
             'image',
