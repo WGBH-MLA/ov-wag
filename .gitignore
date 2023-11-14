@@ -27,3 +27,6 @@ __pycache__
 .vscode/
 !.vscode/settings.json
 !.vscode/launch.json
+
+# Docs
+site/
