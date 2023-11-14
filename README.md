@@ -1,10 +1,12 @@
-# ov-wag
-
 ![CI](https://github.com/WGBH-MLA/ov-wag/actions/workflows/CI.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/WGBH-MLA/ov-wag/badge.svg)](https://coveralls.io/github/WGBH-MLA/ov-wag)
 
 # Open Vault: Wagtail
 #### From GBH
 Wagtail CMS for [Open Vault](https://openvault.wgbh.org/)
+
+## Documentation
+
+### [User Documentation](https://wgbh-mla.github.io/ov-wag/)
 
 ## Usage
 ### Install

@@ -1,0 +1,15 @@
+name: 📖 Docs
+
+on:
+  push:
+    branches:
+      - main
+      - docs
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 📓 Build and deploy docs
+    uses: WGBH-MLA/.github/.github/workflows/docs.yml@main
+    with:
+      pdm_args: -G docs --no-default -L pdm-locks/pdm.doc.lock
