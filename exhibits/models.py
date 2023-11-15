@@ -9,6 +9,7 @@ from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
+from wagtail_headless_preview.models import HeadlessMixin
 
 from authors.serializers import AuthorSerializer
 from ov_wag.serializers import RichTextSerializer
@@ -65,7 +66,7 @@ class ExhibitPageApiSchema(BaseModel):
     hero_thumb: ImageApiSchema
 
 
-class ExhibitPage(Page):
+class ExhibitPage(HeadlessMixin, Page):
     body = RichTextField(blank=True)
 
     cover_image = models.ForeignKey(

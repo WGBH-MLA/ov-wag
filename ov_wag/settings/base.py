@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'wagtail.admin',
     'wagtail',
     'wagtail.api.v2',
+    'corsheaders',
     'rest_framework',
     'modelcluster',
     'taggit',
@@ -56,9 +57,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'wagtail_headless_preview',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -125,6 +128,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# CORS to allow cross-origin requests from the client
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_URLS_REGEX = r'^/api/v2/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -166,7 +172,7 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "ov-wag"
+WAGTAIL_SITE_NAME = 'ov-wag'
 
 # Search
 # https://docs.wagtail.io/en/stable/topics/search/backends.html
@@ -182,3 +188,8 @@ WAGTAILAPI_BASE_URL = os.environ.get('OV_API_URL')
 
 WAGTAIL_BASE_URL = os.environ.get('OV_BASE_URL')
 WAGTAILADMIN_BASE_URL = os.environ.get('OV_ADMIN_BASE_URL', '')
+
+WAGTAIL_HEADLESS_PREVIEW = {
+    'CLIENT_URLS': {'default': os.environ.get('OV_PREVIEW_URL')},
+    'SERVE_BASE_URL': os.environ.get('OV_BASE_URL') + '/preview',
+}
