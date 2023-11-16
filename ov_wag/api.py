@@ -1,5 +1,4 @@
 from django.contrib.contenttypes.models import ContentType
-from django.http import Http404
 from rest_framework.response import Response
 from wagtail.api.v2.router import WagtailAPIRouter
 from wagtail.api.v2.views import PagesAPIViewSet
