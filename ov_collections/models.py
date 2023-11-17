@@ -1,7 +1,7 @@
 from typing import ClassVar
 
 from django.db import models
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.api import APIField
 from wagtail.blocks import CharBlock, ListBlock, RichTextBlock, TextBlock
 from wagtail.fields import RichTextField, StreamField
@@ -71,6 +71,14 @@ class Collection(Page):
         related_name='+',
     )
 
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     search_fields: ClassVar[list[index.SearchField]] = [
         *Page.search_fields,
         index.SearchField('introduction'),
@@ -79,7 +87,9 @@ class Collection(Page):
     content_panels: ClassVar[list[FieldPanel]] = [
         *Page.content_panels,
         FieldPanel('introduction'),
-        FieldPanel('cover_image'),
+        MultiFieldPanel(
+            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
+        ),
         FieldPanel('content'),
     ]
 
@@ -89,6 +99,14 @@ class Collection(Page):
         APIField(
             'cover_image',
             serializer=ImageRenditionField('fill-1600x500'),
+        ),
+        APIField(
+            'hero_image',
+            serializer=ImageRenditionField('fill-1920x1080'),
+        ),
+        APIField(
+            'hero_thumb',
+            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
         APIField('content'),
     ]

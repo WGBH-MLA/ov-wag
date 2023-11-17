@@ -28,5 +28,16 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
 
+  front:
+    image: ov-front
+    build:
+      context: ../ov-frontend
+      target: dev
+    environment:
+      - OV_API_URL=http://wagtail:8000
+    volumes:
+      - ../ov-frontend:/app
+    ports:
+      - 3000:3000
 volumes:
   db:

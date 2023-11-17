@@ -28,12 +28,13 @@ ov = 'cli:app'
 
 [project.optional-dependencies]
 cli = [
-    "typer~=0.9",
-    "loguru~=0.7",
-    "trogon~=0.5",
+    'typer~=0.9',
+    'loguru~=0.7',
+    'trogon~=0.5',
 ]
 production = [
-    "gunicorn[standard]~=21.2",
+    'gunicorn[standard]~=21.2',
+    'django-storages[s3]~=1.14'
 ]
 
 [build-system]
