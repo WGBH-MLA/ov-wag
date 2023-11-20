@@ -191,5 +191,4 @@ WAGTAILADMIN_BASE_URL = os.environ.get('OV_ADMIN_BASE_URL', '')
 
 WAGTAIL_HEADLESS_PREVIEW = {
     'CLIENT_URLS': {'default': os.environ.get('OV_PREVIEW_URL')},
-    'SERVE_BASE_URL': os.environ.get('OV_BASE_URL', '') + '/preview',
 }
