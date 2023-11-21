@@ -437,6 +437,20 @@ files = [
 ]
 
 [[package]]
+name = "django-cors-headers"
+version = "4.3.1"
+requires_python = ">=3.8"
+summary = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
+dependencies = [
+    "Django>=3.2",
+    "asgiref>=3.6",
+]
+files = [
+    {file = "django-cors-headers-4.3.1.tar.gz", hash = "sha256:0bf65ef45e606aff1994d35503e6b677c0b26cafff6506f8fd7187f3be840207"},
+    {file = "django_cors_headers-4.3.1-py3-none-any.whl", hash = "sha256:0b1fd19297e37417fc9f835d39e45c8c642938ddba1acce0c1753d3edef04f36"},
+]
+
+[[package]]
 name = "django-filter"
 version = "23.3"
 requires_python = ">=3.7"
@@ -2021,6 +2035,19 @@ dependencies = [
 files = [
     {file = "wagtail_factories-4.1.0-py2.py3-none-any.whl", hash = "sha256:6abd435518fdf0cdd3d9920acb2abbd9005936d6fecfdf6fdde3e404834d4b0c"},
     {file = "wagtail_factories-4.1.0.tar.gz", hash = "sha256:067e3e1a30721a90eaa1514c8214aae7a171490bbedf026eeaa904a2ed9abcd0"},
+]
+
+[[package]]
+name = "wagtail-headless-preview"
+version = "0.7.0"
+requires_python = ">=3.8"
+summary = "Enhance Wagtail previews in headless setups."
+dependencies = [
+    "Wagtail>=4.1",
+]
+files = [
+    {file = "wagtail_headless_preview-0.7.0-py3-none-any.whl", hash = "sha256:105a62e130b7cfe3f39b1ff2cf8aef5080f578e98553af02fb4099cdacf5dfa9"},
+    {file = "wagtail_headless_preview-0.7.0.tar.gz", hash = "sha256:730e86ea2de91602b64cc2412b5ff3e0b3f3679e3767eb417c109c9110209c07"},
 ]
 
 [[package]]
