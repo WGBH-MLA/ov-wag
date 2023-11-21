@@ -1,0 +1,5 @@
+{% extends "wagtailadmin/login.html" %}
+{% load socialaccount %}
+{% block above_login %} If you are not Frank you should not be here!
+<a href="{% provider_login_url "auth0" next="http://localhost:8000/accounts/auth0/login/callback/" process="login" %}">Google</a>
+{% endblock %}
