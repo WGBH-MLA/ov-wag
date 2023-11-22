@@ -30,10 +30,11 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
     'home',
-    'search',
+    'authors',
     'exhibits',
     'ov_collections',
-    'authors',
+    'ov_wag',
+    'search',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.styleguide',
@@ -59,6 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'wagtail_headless_preview',
     'wagtail.contrib.search_promotions',
+    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -202,7 +204,7 @@ WAGTAIL_HEADLESS_PREVIEW = {
 }
 
 # OIDC Provider settings
-
+SITE_ID = 1
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -219,3 +221,6 @@ SOCIALACCOUNT_PROVIDERS = {
         },
     }
 }
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+LOGIN_CALLBACK_URL = WAGTAILADMIN_BASE_URL + '/auth0/login/callback/'
+LOGIN_REDIRECT_URL = WAGTAILADMIN_BASE_URL + '/admin/'
