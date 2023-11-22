@@ -215,7 +215,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'OAUTH_PKCE_ENABLED': True,
         'APP': {
             'client_id': os.environ.get('AUTH0_CLIENT_ID'),
-            'secret': os.environ.get('AUTH0_SECRET'),
+            'secret': os.environ.get('AUTH0_CLIENT_SECRET'),
         },
     }
 }
