@@ -1,4 +1,4 @@
-from wagtail.blocks import CharBlock, StructBlock, URLBlock
+from wagtail.blocks import RichTextBlock, StructBlock, URLBlock
 from wagtail.images.blocks import ImageChooserBlock
 
 
@@ -10,8 +10,11 @@ class ContentBlock(StructBlock):
     All fields are required
     """
 
-    title = CharBlock(
-        required=True, max_length=1024, help_text='The title of this content'
+    title = RichTextBlock(
+        required=True,
+        max_length=1024,
+        help_text='The title of this content',
+        features=['italic'],
     )
     link = URLBlock(required=True)
 
