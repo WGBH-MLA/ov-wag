@@ -188,7 +188,13 @@ WAGTAIL_SITE_NAME = 'ov-wag'
 # https://docs.wagtail.io/en/stable/topics/search/backends.html
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.database',
+        # 'BACKEND': 'wagtail.search.backends.database',
+        'BACKEND': 'wagtail.search.backends.elasticsearch8',
+        'URLS': ['https://localhost:9200'],
+        'INDEX': 'wagtail',
+        'TIMEOUT': 5,
+        'OPTIONS': {},
+        'INDEX_SETTINGS': {},
     }
 }
 
