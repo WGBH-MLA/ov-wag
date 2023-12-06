@@ -30,10 +30,11 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
     'home',
-    'search',
+    'authors',
     'exhibits',
     'ov_collections',
-    'authors',
+    'ov_wag',
+    'search',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.styleguide',
@@ -58,18 +59,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'wagtail_headless_preview',
+    'wagtail.contrib.search_promotions',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.auth0',
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'ov_wag.urls'
@@ -87,6 +96,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -192,3 +202,25 @@ WAGTAILADMIN_BASE_URL = os.environ.get('OV_ADMIN_BASE_URL', '')
 WAGTAIL_HEADLESS_PREVIEW = {
     'CLIENT_URLS': {'default': os.environ.get('OV_PREVIEW_URL')},
 }
+
+# OIDC Provider settings
+SITE_ID = 1
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+SOCIALACCOUNT_PROVIDERS = {
+    'auth0': {
+        'AUTH0_URL': os.environ.get('AUTH0_URL'),
+        'OAUTH_PKCE_ENABLED': True,
+        'APP': {
+            'client_id': os.environ.get('AUTH0_CLIENT_ID'),
+            'secret': os.environ.get('AUTH0_CLIENT_SECRET'),
+        },
+    }
+}
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+LOGIN_CALLBACK_URL = WAGTAILADMIN_BASE_URL + '/auth0/login/callback/'
+LOGIN_REDIRECT_URL = WAGTAILADMIN_BASE_URL + '/admin/'

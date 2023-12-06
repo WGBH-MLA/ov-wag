@@ -1,0 +1,37 @@
+
+{% extends "wagtailadmin/login.html" %}
+{% load custom_tags %}
+
+{% block css %}
+{{ block.super }}
+<meta name="google-signin-client_id" content="{% get_setting 'GOOGLE_CLIENT_ID' %}">
+{% endblock %}
+
+{% load socialaccount %}
+
+{% block above_login %}
+<a href="{% provider_login_url 'auth0' next=callback_url process='login' %}">Sign in with Google</a>
+
+<div id="my-signin2"></div>
+<script>
+  function onSuccess(googleUser) {
+    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+  }
+  function onFailure(error) {
+    console.log(error);
+  }
+  function renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': onSuccess,
+      'onfailure': onFailure
+    });
+  }
+</script>
+
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+{% endblock %}
