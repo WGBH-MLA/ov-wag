@@ -14,8 +14,9 @@ dependencies = [
     "psycopg2~=2.9",
     "python-dotenv~=1.0",
     "gunicorn~=21.2",
-    "wagtail-headless-preview>=0.7.0",
-    "django-cors-headers>=4.3.1",
+    "wagtail-headless-preview~=0.7",
+    "django-cors-headers~=4.3",
+    "django-allauth~=0.59",
 ]
 requires-python = '>=3.9,<4.0'
 
@@ -78,7 +79,7 @@ select = [
 [tool.pdm.dev-dependencies]
 dev = [
     "ruff~=0.1",
-    "pre-commit~=3.5",
+    "pre-commit~=3.6",
 ]
 docs = [
     "mkdocs~=1.5",
@@ -93,7 +94,7 @@ test = [
     "pytest-django~=4.7",
     "pytest-cov~=4.1",
     "pytest-sugar~=0.9",
-    "pytest-xdist~=3.4",
+    "pytest-xdist~=3.5",
     "nbmake~=1.4",
     "coverage~=7.3",
 ]
