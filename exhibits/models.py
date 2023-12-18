@@ -88,7 +88,8 @@ class ExhibitPage(HeadlessMixin, Page):
 
     search_fields: ClassVar[list[index.SearchField]] = [
         *Page.search_fields,
-        index.SearchField('body'),
+        index.AutocompleteField('body'),
+        index.FilterField('featured'),
     ]
 
     content_panels: ClassVar[list[FieldPanel]] = [
@@ -105,7 +106,7 @@ class ExhibitPage(HeadlessMixin, Page):
         FieldPanel(
             'featured',
             heading='Featured Exhibit',
-            help_text='Featured exhibits will be displayed on the home page, and as "other exhibits" on other exhibit pages.',
+            help_text='Featured exhibits will be displayed on the home page, and as "other exhibits" on other exhibit pages.',  # noqa: E501
         ),
         *Page.promote_panels,
     ]
