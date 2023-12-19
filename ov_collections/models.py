@@ -4,8 +4,6 @@ from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.api import APIField
 from wagtail.blocks import (
-    CharBlock,
-    ListBlock,
     RawHTMLBlock,
     RichTextBlock,
     TextBlock,
@@ -17,7 +15,7 @@ from wagtail.models import Page
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessMixin
 
-from .blocks import AAPBRecordBlock, AAPBRecordsBlock, ContentBlock, ContentImageBlock
+from .blocks import AAPBRecordsBlock
 
 
 class Collection(HeadlessMixin, Page):
