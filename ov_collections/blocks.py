@@ -43,23 +43,15 @@ class ContentImageBlock(ContentBlock):
         return results
 
 
-class AAPBRecordsBlock(StructBlock):
-    """AAPB Records block
+class AAPBOptionsBlock(StructBlock):
+    """AAPB GUID block options
 
-    A list of AAPB records to be displayed as a group. The records can be displayed in
-    different ways, depending on the options selected.
+    This block controlls common options for AAPB record display.
 
     Attributes:
-        ids: required. List of GUIDs, separated by whitespace
         show_title: optional
         show_thumbnail: optional
-        show_description: optional
     """
-
-    ids = TextBlock(
-        required=True,
-        help_text='AAPB record IDs, separated by whitespace',
-    )
 
     show_title = BooleanBlock(required=False, help_text='Show title', default=True)
 
@@ -67,6 +59,39 @@ class AAPBRecordsBlock(StructBlock):
         required=False, help_text='Show thumbnail', default=True
     )
 
-    show_description = BooleanBlock(
-        required=False, help_text='Show description', default=False
+
+class AAPBRecordBlock(AAPBOptionsBlock):
+    """AAPB Records block
+
+    A list of AAPB records to be displayed as a group. See AAPBOptionsBlock for details
+    about display options.
+
+    Attributes:
+        guid: required. GUID of the record to display
+    """
+
+    guid = TextBlock(required=True, help_text='AAPB record ID')
+
+
+class AAPBRecordsBlock(AAPBOptionsBlock):
+    """AAPB Records block
+
+    A list of AAPB records to be displayed as a group. See AAPBOptionsBlock for details
+    about display options.
+
+    Attributes:
+        guids: required. List of GUIDs, separated by whitespace
+        title: optional. Title of the group
+    """
+
+    guids = TextBlock(
+        required=True,
+        help_text='AAPB record IDs, separated by whitespace',
+    )
+
+    title = RichTextBlock(
+        required=False,
+        max_length=1024,
+        help_text='The title of this group',
+        features=['italic'],
     )

@@ -6,9 +6,9 @@ from wagtail.api import APIField
 from wagtail.blocks import (
     CharBlock,
     ListBlock,
+    RawHTMLBlock,
     RichTextBlock,
     TextBlock,
-    RawHTMLBlock,
 )
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.api.fields import ImageRenditionField
@@ -17,7 +17,7 @@ from wagtail.models import Page
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessMixin
 
-from .blocks import ContentBlock, ContentImageBlock, AAPBRecordsBlock
+from .blocks import AAPBRecordBlock, AAPBRecordsBlock, ContentBlock, ContentImageBlock
 
 
 class Collection(HeadlessMixin, Page):
@@ -25,45 +25,20 @@ class Collection(HeadlessMixin, Page):
 
     content = StreamField(
         [
-            (
-                'interviews',
-                ListBlock(
-                    ContentImageBlock(label='Interview', icon='openquote'),
-                    icon='openquote',
-                ),
-            ),
-            (
-                'archival_footage',
-                ListBlock(ContentImageBlock(label='Footage', icon='form'), icon='form'),
-            ),
-            (
-                'photographs',
-                ListBlock(
-                    ContentImageBlock(label='Photograph', icon='image'), icon='image'
-                ),
-            ),
+            ('interviews', AAPBRecordsBlock(label='Interview', icon='openquote')),
+            ('archival_footage', AAPBRecordsBlock(label='Footage', icon='form')),
+            ('photographs', AAPBRecordsBlock(label='Photograph', icon='image')),
             (
                 'original_footage',
-                ListBlock(
-                    ContentImageBlock(label='Footage', icon='doc-full-inverse'),
-                    icon='doc-full-inverse',
-                ),
+                AAPBRecordsBlock(label='Footage', icon='doc-full-inverse'),
             ),
-            (
-                'programs',
-                ListBlock(
-                    ContentBlock(label='Program', icon='clipboard-list'),
-                    icon='clipboard-list',
-                ),
-            ),
+            ('programs', AAPBRecordsBlock(label='Program', icon='clipboard-list')),
             (
                 'related_content',
-                ListBlock(
-                    ContentBlock(label='Content', icon='list-ul'), icon='list-ul'
-                ),
+                AAPBRecordsBlock(label='Content', icon='list-ul'),
             ),
             ('credits', RichTextBlock()),
-            ('heading', CharBlock(form_classname='title')),
+            ('heading', RichTextBlock(form_classname='title', features=['italic'])),
             ('text', TextBlock()),
             ('image', ImageChooserBlock()),
             ('html', RawHTMLBlock()),
@@ -87,14 +62,6 @@ class Collection(HeadlessMixin, Page):
         related_name='+',
     )
 
-    aapb_records = StreamField(
-        [
-            ('aapb_record_group', AAPBRecordsBlock()),
-        ],
-        default='',
-        use_json_field=True,
-    )
-
     search_fields: ClassVar[list[index.SearchField]] = [
         *Page.search_fields,
         index.SearchField('introduction'),
@@ -107,7 +74,6 @@ class Collection(HeadlessMixin, Page):
             [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
         ),
         FieldPanel('content'),
-        FieldPanel('aapb_records'),
     ]
 
     api_fields: ClassVar[list[APIField]] = [
@@ -126,5 +92,4 @@ class Collection(HeadlessMixin, Page):
             serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
         APIField('content'),
-        APIField('aapb_records'),
     ]
