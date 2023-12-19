@@ -43,37 +43,7 @@ class ContentImageBlock(ContentBlock):
         return results
 
 
-class AAPBOptionsBlock(StructBlock):
-    """AAPB GUID block options
-
-    This block controlls common options for AAPB record display.
-
-    Attributes:
-        show_title: optional
-        show_thumbnail: optional
-    """
-
-    show_title = BooleanBlock(required=False, help_text='Show title', default=True)
-
-    show_thumbnail = BooleanBlock(
-        required=False, help_text='Show thumbnail', default=True
-    )
-
-
-class AAPBRecordBlock(AAPBOptionsBlock):
-    """AAPB Records block
-
-    A list of AAPB records to be displayed as a group. See AAPBOptionsBlock for details
-    about display options.
-
-    Attributes:
-        guid: required. GUID of the record to display
-    """
-
-    guid = TextBlock(required=True, help_text='AAPB record ID')
-
-
-class AAPBRecordsBlock(AAPBOptionsBlock):
+class AAPBRecordsBlock(StructBlock):
     """AAPB Records block
 
     A list of AAPB records to be displayed as a group. See AAPBOptionsBlock for details
@@ -81,12 +51,20 @@ class AAPBRecordsBlock(AAPBOptionsBlock):
 
     Attributes:
         guids: required. List of GUIDs, separated by whitespace
+        show_title: optional. Show the title of records on the page
+        show_thumbnail: optional. Show the thumbnail of records on the page
         title: optional. Title of the group
     """
 
     guids = TextBlock(
         required=True,
         help_text='AAPB record IDs, separated by whitespace',
+    )
+
+    show_title = BooleanBlock(required=False, help_text='Show title', default=True)
+
+    show_thumbnail = BooleanBlock(
+        required=False, help_text='Show thumbnail', default=True
     )
 
     title = RichTextBlock(
