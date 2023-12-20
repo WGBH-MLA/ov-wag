@@ -23,23 +23,31 @@ class Collection(HeadlessMixin, Page):
 
     content = StreamField(
         [
-            ('interviews', AAPBRecordsBlock(label='Interview', icon='openquote')),
-            ('archival_footage', AAPBRecordsBlock(label='Footage', icon='form')),
-            ('photographs', AAPBRecordsBlock(label='Photograph', icon='image')),
+            ('interviews', AAPBRecordsBlock(label='Interviews', icon='openquote')),
+            (
+                'archival_footage',
+                AAPBRecordsBlock(label='Archival Footage', icon='clipboard-list'),
+            ),
+            ('photographs', AAPBRecordsBlock(label='Photographs', icon='copy')),
             (
                 'original_footage',
-                AAPBRecordsBlock(label='Footage', icon='doc-full-inverse'),
+                AAPBRecordsBlock(label='Original Footage', icon='doc-full-inverse'),
             ),
-            ('programs', AAPBRecordsBlock(label='Program', icon='clipboard-list')),
+            ('programs', AAPBRecordsBlock(label='Programs', icon='desktop')),
             (
                 'related_content',
-                AAPBRecordsBlock(label='Content', icon='list-ul'),
+                AAPBRecordsBlock(label='Related Content', icon='table'),
             ),
-            ('credits', RichTextBlock()),
-            ('heading', RichTextBlock(form_classname='title', features=['italic'])),
+            ('credits', RichTextBlock(icon='form')),
+            (
+                'heading',
+                RichTextBlock(
+                    form_classname='title', features=['italic'], icon='title'
+                ),
+            ),
             ('text', TextBlock()),
             ('image', ImageChooserBlock()),
-            ('html', RawHTMLBlock()),
+            ('html', RawHTMLBlock(label='HTML')),
         ],
         use_json_field=True,
     )
