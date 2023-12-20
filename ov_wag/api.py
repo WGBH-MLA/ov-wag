@@ -7,6 +7,7 @@ from wagtail.images.api.v2.views import ImagesAPIViewSet
 from wagtail_headless_preview.models import PagePreview
 
 from authors.views import AuthorsAPIViewSet
+from exhibits.api import FeaturedExhibitsAPIViewSet
 from exhibits.views import ExhibitsAPIViewSet
 from ov_collections.views import CollectionAPIViewSet
 
@@ -56,3 +57,4 @@ api_router.register_endpoint('documents', DocumentsAPIViewSet)
 api_router.register_endpoint('authors', AuthorsAPIViewSet)
 api_router.register_endpoint('exhibits', ExhibitsAPIViewSet)
 api_router.register_endpoint('collections', CollectionAPIViewSet)
+api_router.register_endpoint('featured', FeaturedExhibitsAPIViewSet)
