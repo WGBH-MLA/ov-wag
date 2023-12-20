@@ -3,6 +3,7 @@ from typing import ClassVar
 from django.db import models
 from modelcluster.fields import ParentalKey
 from pydantic import BaseModel
+from rest_framework import serializers
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
 from wagtail.fields import RichTextField
@@ -16,6 +17,8 @@ from ov_wag.serializers import RichTextSerializer
 
 
 class ExhibitsOrderable(Orderable):
+    """Ordered list of other exhibits related to this exhibit"""
+
     page = ParentalKey('exhibits.ExhibitPage', related_name='other_exhibits', null=True)
     exhibit = models.ForeignKey(
         'exhibits.ExhibitPage',
@@ -47,6 +50,27 @@ class ExhibitsOrderable(Orderable):
         ),
         APIField('authors', serializer=AuthorSerializer(many=True)),
     ]
+
+
+class OtherExhibitsField(APIField):
+    """API field for other_exhibits"""
+
+    class Meta:
+        model = ExhibitsOrderable
+
+
+class OtherExhibitsSerializer(serializers.ModelSerializer):
+    """Serializer for other_exhibits field"""
+
+    cover_image = ImageRenditionField('fill-320x100')
+
+    class Meta:
+        model = ExhibitsOrderable
+        fields: ClassVar[list[str]] = [
+            'exhibit_id',
+            'title',
+            'cover_image',
+        ]
 
 
 class ImageApiSchema(BaseModel):
@@ -131,5 +155,7 @@ class ExhibitPage(HeadlessMixin, Page):
             serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
         APIField('authors'),
-        APIField('other_exhibits'),
+        OtherExhibitsField(
+            'other_exhibits', serializer=OtherExhibitsSerializer(many=True)
+        ),
     ]
