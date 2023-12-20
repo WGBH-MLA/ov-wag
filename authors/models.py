@@ -25,11 +25,11 @@ class AuthorsOrderable(Orderable):
 
     @property
     def name(self):
-        return self.author.name
+        return self.author.name if self.author else None
 
     @property
     def image(self):
-        return self.author.image
+        return self.author.image if self.author else None
 
     api_fields: ClassVar[list[APIField]] = [
         APIField('author_id'),
