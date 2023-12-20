@@ -9,9 +9,9 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 class ContentBlock(StructBlock):
-    """Generic content block
+    """Generic External link block
 
-    This is the base block for all content blocks. All fields are required
+    This is the base block for a generic external link. All fields are required
 
     Attributes:
         title: RichTextBlock with italics only
@@ -29,7 +29,7 @@ class ContentBlock(StructBlock):
 
 
 class ContentImageBlock(ContentBlock):
-    """Generic content block with image
+    """Generic external link block with image
 
     Attributes:
         image: ImageChooserBlock. Required.
@@ -46,14 +46,13 @@ class ContentImageBlock(ContentBlock):
 class AAPBRecordsBlock(StructBlock):
     """AAPB Records block
 
-    A list of AAPB records to be displayed as a group. See AAPBOptionsBlock for details
-    about display options.
+    A list of 1 or more AAPB records to be displayed as a group.
 
     Attributes:
         guids: required. List of GUIDs, separated by whitespace
-        show_title: optional. Show the title of records on the page
-        show_thumbnail: optional. Show the thumbnail of records on the page
-        title: optional. Title of the group
+        show_title: Show the title of records on the page
+        show_thumbnail: Show the thumbnail of records on the page
+        title: Optional title of the group
     """
 
     guids = TextBlock(
@@ -61,10 +60,12 @@ class AAPBRecordsBlock(StructBlock):
         help_text='AAPB record IDs, separated by whitespace',
     )
 
-    show_title = BooleanBlock(required=False, help_text='Show title', default=True)
+    show_title = BooleanBlock(
+        required=False, help_text='Show asset title(s)', default=True
+    )
 
     show_thumbnail = BooleanBlock(
-        required=False, help_text='Show thumbnail', default=True
+        required=False, help_text='Show asset thumbnail(s)', default=True
     )
 
     title = RichTextBlock(
