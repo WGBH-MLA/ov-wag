@@ -70,7 +70,7 @@ class Collection(HeadlessMixin, Page):
 
     search_fields: ClassVar[list[index.SearchField]] = [
         *Page.search_fields,
-        index.SearchField('introduction'),
+        index.AutocompleteField('introduction'),
     ]
 
     content_panels: ClassVar[list[FieldPanel]] = [
