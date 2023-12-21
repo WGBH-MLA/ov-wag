@@ -5,7 +5,7 @@
 groups = ["default", "cli", "dev", "test"]
 strategy = ["cross_platform"]
 lock_version = "4.4.1"
-content_hash = "sha256:50895ad77b45f5d830cc4beefb5ac577bfb24bf1d5b0b965f8ddc65fe8b7d039"
+content_hash = "sha256:62047242d0348c87821878c16646586d604aa7a28c1eb4988e7bf19adb807263"
 
 [[package]]
 name = "annotated-types"
@@ -1493,17 +1493,6 @@ dependencies = [
 files = [
     {file = "PyJWT-2.8.0-py3-none-any.whl", hash = "sha256:59127c392cc44c2da5bb3192169a91f429924e17aff6534d70fdc02ab3e04320"},
     {file = "PyJWT-2.8.0.tar.gz", hash = "sha256:57e28d156e3d5c10088e0c68abb90bfac3df82b40a71bd0daa20c65ccd5c23de"},
-]
-
-[[package]]
-name = "pysolr"
-version = "3.9.0"
-summary = "Lightweight Python client for Apache Solr"
-dependencies = [
-    "requests>=2.9.1",
-]
-files = [
-    {file = "pysolr-3.9.0.tar.gz", hash = "sha256:6ef05feb87c614894243eddc62e9b0a6134a889c159ae868655cf6cd749545e6"},
 ]
 
 [[package]]

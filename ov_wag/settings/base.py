@@ -188,12 +188,17 @@ WAGTAIL_SITE_NAME = 'ov-wag'
 # https://docs.wagtail.io/en/stable/topics/search/backends.html
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        # 'BACKEND': 'wagtail.search.backends.database',
         'BACKEND': 'wagtail.search.backends.elasticsearch8',
-        'URLS': ['https://localhost:9200'],
+        'URLS': [os.environ.get('ES_URL', 'https://localhost:9200')],
         'INDEX': 'wagtail',
         'TIMEOUT': 5,
-        'OPTIONS': {},
+        'OPTIONS': {
+            'verify_certs': os.environ.get('ES_VERIFY_CERTS', 'true') == 'true',
+            'basic_auth': [
+                os.environ.get('ES_USER', 'elastic'),
+                os.environ.get('ES_PASSWORD'),
+            ],
+        },
         'INDEX_SETTINGS': {},
     }
 }
