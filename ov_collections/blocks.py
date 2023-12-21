@@ -9,9 +9,9 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 class ContentBlock(StructBlock):
-    """Generic content block
+    """Generic External link block
 
-    This is the base block for all content blocks. All fields are required
+    This is the base block for a generic external link. All fields are required
 
     Attributes:
         title: RichTextBlock with italics only
@@ -29,7 +29,7 @@ class ContentBlock(StructBlock):
 
 
 class ContentImageBlock(ContentBlock):
-    """Generic content block with image
+    """Generic external link block with image
 
     Attributes:
         image: ImageChooserBlock. Required.
@@ -46,27 +46,31 @@ class ContentImageBlock(ContentBlock):
 class AAPBRecordsBlock(StructBlock):
     """AAPB Records block
 
-    A list of AAPB records to be displayed as a group. The records can be displayed in
-    different ways, depending on the options selected.
+    A list of 1 or more AAPB records to be displayed as a group.
 
     Attributes:
-        ids: required. List of GUIDs, separated by whitespace
-        show_title: optional
-        show_thumbnail: optional
-        show_description: optional
+        guids: required. List of GUIDs, separated by whitespace
+        show_title: Show the title of records on the page
+        show_thumbnail: Show the thumbnail of records on the page
+        title: Optional title of the group
     """
 
-    ids = TextBlock(
+    guids = TextBlock(
         required=True,
         help_text='AAPB record IDs, separated by whitespace',
     )
 
-    show_title = BooleanBlock(required=False, help_text='Show title', default=True)
-
-    show_thumbnail = BooleanBlock(
-        required=False, help_text='Show thumbnail', default=True
+    show_title = BooleanBlock(
+        required=False, help_text='Show asset title(s)', default=True
     )
 
-    show_description = BooleanBlock(
-        required=False, help_text='Show description', default=False
+    show_thumbnail = BooleanBlock(
+        required=False, help_text='Show asset thumbnail(s)', default=True
+    )
+
+    title = RichTextBlock(
+        required=False,
+        max_length=1024,
+        help_text='The title of this group',
+        features=['italic'],
     )
