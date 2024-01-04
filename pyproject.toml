@@ -96,7 +96,7 @@ test = [
     "pytest-sugar~=0.9",
     "pytest-xdist~=3.5",
     "nbmake~=1.4",
-    "coverage~=7.3",
+    "coverage~=7.4",
 ]
 
 [tool.pytest.ini_options]
