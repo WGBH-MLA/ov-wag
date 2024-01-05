@@ -5,7 +5,7 @@
 groups = ["default", "cli", "dev", "test"]
 strategy = ["cross_platform"]
 lock_version = "4.4.1"
-content_hash = "sha256:ab723bad4c0d14b5a98e65f471791c6fb875c33e2ba6a705e752d3cc71798932"
+content_hash = "sha256:6227f84c9051ef330c3b27e5acbc421d3b78addb6a29d3b331eaefdf4d6518c1"
 
 [[package]]
 name = "annotated-types"
@@ -587,6 +587,33 @@ summary = "Library to convert rich text from Draft.js raw ContentState to HTML"
 files = [
     {file = "draftjs_exporter-2.1.7-py3-none-any.whl", hash = "sha256:d415a9964690a2cddb66a31ef32dd46c277e9b80434b94e39e3043188ed83e33"},
     {file = "draftjs_exporter-2.1.7.tar.gz", hash = "sha256:5839cbc29d7bce2fb99837a404ca40c3a07313f2a20e2700de7ad6aa9a9a18fb"},
+]
+
+[[package]]
+name = "elastic-transport"
+version = "8.10.0"
+requires_python = ">=3.6"
+summary = "Transport classes and utilities shared among Python Elastic client libraries"
+dependencies = [
+    "certifi",
+    "urllib3<3,>=1.26.2",
+]
+files = [
+    {file = "elastic-transport-8.10.0.tar.gz", hash = "sha256:ca51d08a4d16611701a57fb70592dbc7cb68c40fef4ac1becfe4aea100fe82ef"},
+    {file = "elastic_transport-8.10.0-py3-none-any.whl", hash = "sha256:e73ac3c7ad4e9209436207143d797d3f6b62a399a34d2729e069e44c9ea2cadc"},
+]
+
+[[package]]
+name = "elasticsearch"
+version = "8.11.0"
+requires_python = ">=3.6"
+summary = "Python client for Elasticsearch"
+dependencies = [
+    "elastic-transport<9,>=8",
+]
+files = [
+    {file = "elasticsearch-8.11.0-py3-none-any.whl", hash = "sha256:26b72957ee617c9f0b23ac872e1c133cf9d7f5d439c615daaa11016265da36ab"},
+    {file = "elasticsearch-8.11.0.tar.gz", hash = "sha256:9e08413beaff3a46bc10c6c57069a84704df6aaa93085c737df07f58a2811b78"},
 ]
 
 [[package]]
