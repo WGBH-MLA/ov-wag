@@ -149,7 +149,7 @@ class ExhibitPage(HeadlessMixin, Page):
 
     api_fields: ClassVar[list[APIField]] = [
         APIField('title'),
-        APIField('body', serializer=RichTextSerializer()),
+        APIField('body'),
         APIField(
             'cover_image',
             serializer=ImageRenditionField('fill-1600x500'),
