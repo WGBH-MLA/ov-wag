@@ -14,7 +14,6 @@ from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessMixin
 
 from authors.serializers import AuthorSerializer
-from ov_wag.serializers import RichTextSerializer
 
 
 class ExhibitsOrderable(Orderable):
