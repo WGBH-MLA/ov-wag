@@ -83,7 +83,7 @@ class ImageApiSchema(BaseModel):
 class ExhibitPageApiSchema(BaseModel):
     id: int
     title: str
-    body: str
+    body: list[str]
     cover_image: ImageApiSchema
     cover_thumb: ImageApiSchema
     hero_image: ImageApiSchema
