@@ -100,6 +100,12 @@ class ExhibitPage(HeadlessMixin, Page):
                     form_classname='title', features=['italic'], icon='title'
                 ),
             ),
+            (
+                'subheading',
+                RichTextBlock(
+                    form_classname='title', features=['italic'], icon='title'
+                ),
+            ),
         ],
         use_json_field=True,
     )
