@@ -6,14 +6,14 @@ from pydantic import BaseModel
 from rest_framework import serializers
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
-from wagtail.fields import RichTextField
+from wagtail.blocks import RichTextBlock
+from wagtail.fields import StreamField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessMixin
 
 from authors.serializers import AuthorSerializer
-from ov_wag.serializers import RichTextSerializer
 
 
 class ExhibitsOrderable(Orderable):
@@ -83,7 +83,7 @@ class ImageApiSchema(BaseModel):
 class ExhibitPageApiSchema(BaseModel):
     id: int
     title: str
-    body: str
+    body: list[str]
     cover_image: ImageApiSchema
     cover_thumb: ImageApiSchema
     hero_image: ImageApiSchema
@@ -91,7 +91,24 @@ class ExhibitPageApiSchema(BaseModel):
 
 
 class ExhibitPage(HeadlessMixin, Page):
-    body = RichTextField(blank=True)
+    body = StreamField(
+        [
+            ('text', RichTextBlock()),
+            (
+                'heading',
+                RichTextBlock(
+                    form_classname='title', features=['italic'], icon='title'
+                ),
+            ),
+            (
+                'subheading',
+                RichTextBlock(
+                    form_classname='title', features=['italic'], icon='title'
+                ),
+            ),
+        ],
+        use_json_field=True,
+    )
 
     cover_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -137,7 +154,7 @@ class ExhibitPage(HeadlessMixin, Page):
 
     api_fields: ClassVar[list[APIField]] = [
         APIField('title'),
-        APIField('body', serializer=RichTextSerializer()),
+        APIField('body'),
         APIField(
             'cover_image',
             serializer=ImageRenditionField('fill-1600x500'),

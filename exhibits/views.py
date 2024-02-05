@@ -11,10 +11,9 @@ class ExhibitsAPIViewSet(BaseAPIViewSet):
     listing_default_fields: ClassVar[list[str]] = [
         *BaseAPIViewSet.listing_default_fields,
         'title',
-        'body',
-        'authors',
         'cover_image',
         'cover_thumb',
         'hero_image',
         'hero_thumb',
+        'authors',
     ]
