@@ -87,11 +87,11 @@ class Collection(HeadlessMixin, Page):
         APIField('introduction'),
         APIField(
             'cover_image',
-            serializer=ImageRenditionField('fill-1600x500'),
+            serializer=ImageRenditionField('fill-1920x1080'),
         ),
         APIField(
             'hero_image',
-            serializer=ImageRenditionField('fill-1920x1080'),
+            serializer=ImageRenditionField('fill-1600x500'),
         ),
         APIField(
             'hero_thumb',
