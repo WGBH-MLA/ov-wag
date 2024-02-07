@@ -41,6 +41,10 @@ production = [
     'django-storages[s3]~=1.14'
 ]
 
+dev = [
+    'black~=24.1',
+]
+
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
