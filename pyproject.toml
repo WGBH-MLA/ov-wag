@@ -10,14 +10,14 @@ dependencies = [
     "Django~=4.2",
     "wagtail~=5.2",
     "wagtail-factories~=4.1",
-    "pydantic~=2.5",
+    "pydantic~=2.6",
     "psycopg2~=2.9",
     "python-dotenv~=1.0",
     "gunicorn~=21.2",
     "wagtail-headless-preview~=0.7",
     "django-cors-headers~=4.3",
-    "django-allauth~=0.59",
-    "elasticsearch~=8.0",
+    "django-allauth~=0.60",
+    "elasticsearch~=8.12",
 ]
 requires-python = '>=3.9,<4.0'
 
@@ -39,6 +39,10 @@ cli = [
 production = [
     'gunicorn[standard]~=21.2',
     'django-storages[s3]~=1.14'
+]
+
+dev = [
+    'black~=24.1',
 ]
 
 [build-system]
@@ -79,7 +83,7 @@ select = [
 
 [tool.pdm.dev-dependencies]
 dev = [
-    "ruff~=0.1",
+    "ruff~=0.2",
     "pre-commit~=3.6",
 ]
 docs = [
@@ -91,12 +95,12 @@ docs = [
     "mkdocs-jupyter~=0.24"
 ]
 test = [
-    "pytest~=7.4",
-    "pytest-django~=4.7",
+    "pytest~=8.0",
+    "pytest-django~=4.8",
     "pytest-cov~=4.1",
-    "pytest-sugar~=0.9",
+    "pytest-sugar~=1.0",
     "pytest-xdist~=3.5",
-    "nbmake~=1.4",
+    "nbmake~=1.5",
     "coverage~=7.4",
 ]
 

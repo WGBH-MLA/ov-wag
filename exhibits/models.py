@@ -80,14 +80,26 @@ class ImageApiSchema(BaseModel):
     alt: str
 
 
-class ExhibitPageApiSchema(BaseModel):
+class AuthorAPISchema(BaseModel):
+    """API schema for Author"""
+
+    id: int
+    name: str
+    image: ImageApiSchema
+
+
+class ExhibitsApiSchema(BaseModel):
     id: int
     title: str
-    body: list[str]
     cover_image: ImageApiSchema
     cover_thumb: ImageApiSchema
     hero_image: ImageApiSchema
     hero_thumb: ImageApiSchema
+    authors: list[AuthorAPISchema]
+
+
+class ExhibitPageApiSchema(ExhibitsApiSchema):
+    body: list[str]
 
 
 class ExhibitPage(HeadlessMixin, Page):
