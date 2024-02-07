@@ -157,7 +157,7 @@ class ExhibitPage(HeadlessMixin, Page):
         APIField('body'),
         APIField(
             'cover_image',
-            serializer=ImageRenditionField('fill-1600x500'),
+            serializer=ImageRenditionField('fill-1920x1080'),
         ),
         APIField(
             'cover_thumb',
@@ -165,7 +165,7 @@ class ExhibitPage(HeadlessMixin, Page):
         ),
         APIField(
             'hero_image',
-            serializer=ImageRenditionField('fill-1920x1080'),
+            serializer=ImageRenditionField('fill-1600x500'),
         ),
         APIField(
             'hero_thumb',
