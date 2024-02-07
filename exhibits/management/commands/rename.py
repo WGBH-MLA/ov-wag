@@ -1,6 +1,7 @@
 """Rename module
 Shamelessly copied from https://gist.github.com/rafaponieman/201054ddf725cda1e60be3fe845850a5
 """
+
 import argparse
 
 from django.core.management.base import BaseCommand
