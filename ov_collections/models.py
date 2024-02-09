@@ -49,7 +49,6 @@ class Collection(HeadlessMixin, Page):
             ('image', ImageChooserBlock()),
             ('html', RawHTMLBlock(label='HTML')),
         ],
-        use_json_field=True,
     )
 
     cover_image = models.ForeignKey(

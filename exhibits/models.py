@@ -119,7 +119,6 @@ class ExhibitPage(HeadlessMixin, Page):
                 ),
             ),
         ],
-        use_json_field=True,
     )
 
     cover_image = models.ForeignKey(
