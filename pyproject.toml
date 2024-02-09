@@ -7,7 +7,7 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    'Django~=4.2',
+    'Django~=5.0',
     'wagtail~=6.0',
     'wagtail-factories~=4.1',
     'pydantic~=2.6',
@@ -19,7 +19,7 @@ dependencies = [
     'django-allauth~=0.60',
     'elasticsearch~=8.12',
 ]
-requires-python = '>=3.9,<4.0'
+requires-python = '>=3.10,<4.0'
 
 [project.urls]
 documentation = 'https://wgbh-mla.github.io/ov-wag/'
