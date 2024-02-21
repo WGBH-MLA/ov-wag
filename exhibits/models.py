@@ -11,9 +11,33 @@ from wagtail.fields import StreamField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
+from wagtail_footnotes.blocks import RichTextBlockWithFootnotes
 from wagtail_headless_preview.models import HeadlessMixin
 
 from authors.serializers import AuthorSerializer
+from ov_wag.serializers import FootnotesSerializer
+
+
+class RichTextFootnotesBlock(RichTextBlockWithFootnotes):
+    def __init__(
+        self,
+        features=(
+            'bold',
+            'italic',
+            'h2',
+            'h3',
+            'h4',
+            'ol',
+            'ul',
+            'hr',
+            'link',
+            'image',
+            'blockquote',
+            'footnotes',
+        ),
+        **kwargs,
+    ):
+        super().__init__(features=features, **kwargs)
 
 
 class ExhibitsOrderable(Orderable):
@@ -105,7 +129,7 @@ class ExhibitPageApiSchema(ExhibitsApiSchema):
 class ExhibitPage(HeadlessMixin, Page):
     body = StreamField(
         [
-            ('text', RichTextBlock()),
+            ('text', RichTextFootnotesBlock()),
             (
                 'heading',
                 RichTextBlock(
@@ -119,7 +143,6 @@ class ExhibitPage(HeadlessMixin, Page):
                 ),
             ),
         ],
-        use_json_field=True,
     )
 
     cover_image = models.ForeignKey(
@@ -153,6 +176,7 @@ class ExhibitPage(HeadlessMixin, Page):
         FieldPanel('body', classname='collapsed'),
         InlinePanel('authors', heading='Author(s)'),
         InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
+        InlinePanel('footnotes', label='Footnotes'),
     ]
 
     promote_panels: ClassVar[list[FieldPanel]] = [
@@ -184,6 +208,7 @@ class ExhibitPage(HeadlessMixin, Page):
             serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
         APIField('authors'),
+        APIField('footnotes', serializer=FootnotesSerializer()),
         OtherExhibitsField(
             'other_exhibits', serializer=OtherExhibitsSerializer(many=True)
         ),

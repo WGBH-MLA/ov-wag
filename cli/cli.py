@@ -1,10 +1,9 @@
-from typing import Optional
+from typing import Annotated
 
 from loguru import logger as log
 from trogon import Trogon
 from typer import Argument, Context, Option, Typer
 from typer.main import get_group
-from typing import Annotated
 
 from .utils import AliasGroup, run, version_callback
 
@@ -19,7 +18,7 @@ app = Typer(cls=AliasGroup, context_settings={'help_option_names': ['-h', '--hel
 @app.command('d | dev')
 def dev(
     args: Annotated[
-        Optional[list[str]],
+        list[str] | None,
         Option(help='Additional arguments to pass to the build step'),
     ] = None
 ):
@@ -32,7 +31,7 @@ def dev(
 @app.command('b | build')
 def build(
     args: Annotated[
-        Optional[list[str]],
+        list[str] | None,
         Option(help='Additional arguments to pass to the build step'),
     ] = None,
 ):
