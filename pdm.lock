@@ -5,7 +5,7 @@
 groups = ["default", "cli", "dev", "docs", "production", "test"]
 strategy = ["cross_platform", "inherit_metadata"]
 lock_version = "4.4.1"
-content_hash = "sha256:9ac915cc9f83504ed7cb422b645a05e4a9e0ada832a4feae521c87f9bc699517"
+content_hash = "sha256:3c355165fe7eac62fcdf433eb5246eb8c26599ad76440643def263d0996dcc16"
 
 [[package]]
 name = "annotated-types"
@@ -2968,6 +2968,21 @@ dependencies = [
 files = [
     {file = "wagtail_factories-4.1.0-py2.py3-none-any.whl", hash = "sha256:6abd435518fdf0cdd3d9920acb2abbd9005936d6fecfdf6fdde3e404834d4b0c"},
     {file = "wagtail_factories-4.1.0.tar.gz", hash = "sha256:067e3e1a30721a90eaa1514c8214aae7a171490bbedf026eeaa904a2ed9abcd0"},
+]
+
+[[package]]
+name = "wagtail-footnotes"
+version = "0.10.0"
+requires_python = ">=3.8"
+summary = "Add footnotes to rich text in your Wagtail pages"
+groups = ["default"]
+dependencies = [
+    "Django>=3.2",
+    "Wagtail>=4.1",
+]
+files = [
+    {file = "wagtail_footnotes-0.10.0-py3-none-any.whl", hash = "sha256:fefdf0c5c25e7bea261c2f96c8f0bdc4a9209810b299074e97f4a6a20e452d62"},
+    {file = "wagtail_footnotes-0.10.0.tar.gz", hash = "sha256:c3a05b90e015b5a9e3796a0a35faecc0a43a70de77493ae1ca936c822fbcada5"},
 ]
 
 [[package]]
