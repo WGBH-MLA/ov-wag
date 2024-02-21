@@ -8,7 +8,7 @@ readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
     "Django~=4.2",
-    "wagtail~=5.2",
+    "wagtail~=6.0",
     "wagtail-factories~=4.1",
     "pydantic~=2.6",
     "psycopg2~=2.9",
@@ -16,7 +16,7 @@ dependencies = [
     "gunicorn~=21.2",
     "wagtail-headless-preview~=0.7",
     "django-cors-headers~=4.3",
-    "django-allauth~=0.60",
+    "django-allauth~=0.61",
     "elasticsearch~=8.12",
 ]
 requires-python = '>=3.9,<4.0'
@@ -37,12 +37,12 @@ cli = [
     "trogon~=0.5",
 ]
 production = [
-    'gunicorn[standard]~=21.2',
-    'django-storages[s3]~=1.14'
+    "gunicorn[standard]~=21.2",
+    "django-storages[s3]~=1.14",
 ]
 
 dev = [
-    'black~=24.1',
+    "black~=24.2",
 ]
 
 [build-system]
@@ -88,11 +88,11 @@ dev = [
 ]
 docs = [
     "mkdocs~=1.5",
-    "mkdocs-material~=9.4",
+    "mkdocs-material~=9.5",
     "mike~=2.0",
-    "mkdocstrings[python]~=0.23",
+    "mkdocstrings[python]~=0.24",
     "mkdocs-git-revision-date-localized-plugin~=1.2",
-    "mkdocs-jupyter~=0.24"
+    "mkdocs-jupyter~=0.24",
 ]
 test = [
     "pytest~=8.0",
