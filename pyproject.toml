@@ -38,8 +38,8 @@ cli = [
     'trogon~=0.5',
 ]
 production = [
-    "gunicorn[standard]~=21.2",
-    "django-storages[s3]~=1.14",
+    'gunicorn[standard]~=21.2',
+    'django-storages[s3]~=1.14',
 ]
 
 [build-system]
