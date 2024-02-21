@@ -16,7 +16,7 @@ dependencies = [
     'gunicorn~=21.2',
     'wagtail-headless-preview~=0.7',
     'django-cors-headers~=4.3',
-    'django-allauth~=0.60',
+    'django-allauth~=0.61',
     'elasticsearch~=8.12',
     'wagtail-footnotes>=0.10.0',
 ]
@@ -39,7 +39,7 @@ cli = [
 ]
 production = [
     'gunicorn[standard]~=21.2',
-    'django-storages[s3]~=1.14'
+    'django-storages[s3]~=1.14',
 ]
 
 [build-system]
@@ -87,11 +87,11 @@ dev = [
 ]
 docs = [
     'mkdocs~=1.5',
-    'mkdocs-material~=9.4',
+    'mkdocs-material~=9.5',
     'mike~=2.0',
-    'mkdocstrings[python]~=0.23',
+    'mkdocstrings[python]~=0.24',
     'mkdocs-git-revision-date-localized-plugin~=1.2',
-    'mkdocs-jupyter~=0.24'
+    'mkdocs-jupyter~=0.24',
 ]
 test = [
     'pytest~=8.0',
