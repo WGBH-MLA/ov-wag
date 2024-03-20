@@ -10,3 +10,5 @@ jobs:
   update:
     name: 🦿 Update dependencies
     uses: WGBH-MLA/.github/.github/workflows/update.yml@main
+    with:
+      pdm_args: -G dev,test,cli -u --save-compatible --no-sync --no-self && pdm update --no-default -G docs -L pdm-locks/pdm.doc.lock --unconstrained --save-compatible --no-sync --no-self
