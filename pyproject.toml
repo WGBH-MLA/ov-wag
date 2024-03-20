@@ -7,18 +7,18 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    'Django~=5.0',
-    'wagtail~=6.0',
-    'wagtail-factories~=4.1',
-    'pydantic~=2.6',
-    'psycopg2~=2.9',
-    'python-dotenv~=1.0',
-    'gunicorn~=21.2',
-    'wagtail-headless-preview~=0.7',
-    'django-cors-headers~=4.3',
-    'django-allauth~=0.61',
-    'elasticsearch~=8.12',
-    'wagtail-footnotes>=0.10.0',
+    "Django~=5.0",
+    "wagtail~=6.0",
+    "wagtail-factories~=4.1",
+    "pydantic~=2.6",
+    "psycopg2~=2.9",
+    "python-dotenv~=1.0",
+    "gunicorn~=21.2",
+    "wagtail-headless-preview~=0.8",
+    "django-cors-headers~=4.3",
+    "django-allauth~=0.61",
+    "elasticsearch~=8.12",
+    "wagtail-footnotes~=0.10",
 ]
 requires-python = '>=3.10,<4.0'
 
@@ -33,27 +33,52 @@ ov = 'cli:app'
 
 [project.optional-dependencies]
 cli = [
-    'typer~=0.9',
-    'loguru~=0.7',
-    'trogon~=0.5',
+    "typer~=0.9",
+    "loguru~=0.7",
+    "trogon~=0.5",
 ]
 production = [
-    'gunicorn[standard]~=21.2',
-    'django-storages[s3]~=1.14',
+    "gunicorn[standard]~=21.2",
+    "django-storages[s3]~=1.14",
 ]
 
 [build-system]
 requires = ['pdm-backend']
 build-backend = 'pdm.backend'
 
-[tool.pdm]
-version = { source = 'file', path = 'ov_wag/_version.py' }
-
 [tool.black]
 extend-exclude = 'migrations'
 
 [tool.ruff]
 extend-exclude = ['migrations']
+
+[tool.pdm]
+version = { source = 'file', path = 'ov_wag/_version.py' }
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "black~=24.3",
+    "ruff~=0.3",
+    "pre-commit~=3.6",
+]
+docs = [
+    "mkdocs~=1.5",
+    "mkdocs-material~=9.5",
+    "mike~=2.0",
+    "mkdocstrings[python]~=0.24",
+    "mkdocs-git-revision-date-localized-plugin~=1.2",
+    "mkdocs-jupyter~=0.24",
+]
+test = [
+    "pytest~=8.1",
+    "pytest-django~=4.8",
+    "pytest-cov~=4.1",
+    "pytest-sugar~=1.0",
+    "pytest-xdist~=3.5",
+    "nbmake~=1.5",
+    "coverage~=7.4",
+]
+
 
 [lint]
 select = [
@@ -77,30 +102,6 @@ select = [
     'UP', # pyupgrade
     'W', # pycodestyle warnings
 
-]
-
-[tool.pdm.dev-dependencies]
-dev = [
-    'black~=24.1',
-    'ruff~=0.2',
-    'pre-commit~=3.6',
-]
-docs = [
-    'mkdocs~=1.5',
-    'mkdocs-material~=9.5',
-    'mike~=2.0',
-    'mkdocstrings[python]~=0.24',
-    'mkdocs-git-revision-date-localized-plugin~=1.2',
-    'mkdocs-jupyter~=0.24',
-]
-test = [
-    'pytest~=8.0',
-    'pytest-django~=4.8',
-    'pytest-cov~=4.1',
-    'pytest-sugar~=1.0',
-    'pytest-xdist~=3.5',
-    'nbmake~=1.5',
-    'coverage~=7.4',
 ]
 
 [tool.pytest.ini_options]
