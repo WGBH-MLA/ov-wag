@@ -8,16 +8,16 @@ readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
     "Django~=5.0",
-    "wagtail~=6.0",
+    "wagtail~=6.1",
     "wagtail-factories~=4.1",
-    "pydantic~=2.6",
+    "pydantic~=2.7",
     "psycopg2~=2.9",
     "python-dotenv~=1.0",
-    "gunicorn~=21.2",
+    "gunicorn~=22.0",
     "wagtail-headless-preview~=0.8",
     "django-cors-headers~=4.3",
-    "django-allauth~=0.61",
-    "elasticsearch~=8.12",
+    "django-allauth~=0.63",
+    "elasticsearch~=8.13",
     "wagtail-footnotes~=0.10",
 ]
 requires-python = '>=3.10,<4.0'
@@ -33,12 +33,12 @@ ov = 'cli:app'
 
 [project.optional-dependencies]
 cli = [
-    "typer~=0.9",
+    "typer~=0.12",
     "loguru~=0.7",
     "trogon~=0.5",
 ]
 production = [
-    "gunicorn[standard]~=21.2",
+    "gunicorn[standard]~=22.0",
     "django-storages[s3]~=1.14",
 ]
 
@@ -57,26 +57,26 @@ version = { source = 'file', path = 'ov_wag/_version.py' }
 
 [tool.pdm.dev-dependencies]
 dev = [
-    "black~=24.3",
-    "ruff~=0.3",
-    "pre-commit~=3.6",
+    "black~=24.4",
+    "ruff~=0.4",
+    "pre-commit~=3.7",
 ]
 docs = [
-    "mkdocs~=1.5",
+    "mkdocs~=1.6",
     "mkdocs-material~=9.5",
-    "mike~=2.0",
-    "mkdocstrings[python]~=0.24",
+    "mike~=2.1",
+    "mkdocstrings[python]~=0.25",
     "mkdocs-git-revision-date-localized-plugin~=1.2",
     "mkdocs-jupyter~=0.24",
 ]
 test = [
-    "pytest~=8.1",
+    "pytest~=8.2",
     "pytest-django~=4.8",
-    "pytest-cov~=4.1",
+    "pytest-cov~=5.0",
     "pytest-sugar~=1.0",
-    "pytest-xdist~=3.5",
+    "pytest-xdist~=3.6",
     "nbmake~=1.5",
-    "coverage~=7.4",
+    "coverage~=7.5",
 ]
 
 
