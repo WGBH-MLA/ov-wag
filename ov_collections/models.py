@@ -3,11 +3,7 @@ from typing import ClassVar
 from django.db import models
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.api import APIField
-from wagtail.blocks import (
-    RawHTMLBlock,
-    RichTextBlock,
-    TextBlock,
-)
+from wagtail.blocks import RawHTMLBlock, RichTextBlock
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.blocks import ImageChooserBlock
@@ -45,7 +41,7 @@ class Collection(HeadlessMixin, Page):
                     form_classname='title', features=['italic'], icon='title'
                 ),
             ),
-            ('text', TextBlock()),
+            ('text', RichTextBlock()),
             ('image', ImageChooserBlock()),
             ('html', RawHTMLBlock(label='HTML')),
         ],
