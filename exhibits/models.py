@@ -6,15 +6,17 @@ from pydantic import BaseModel
 from rest_framework import serializers
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
-from wagtail.blocks import RichTextBlock
+from wagtail.blocks import RawHTMLBlock, RichTextBlock
 from wagtail.fields import StreamField
 from wagtail.images.api.fields import ImageRenditionField
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail_footnotes.blocks import RichTextBlockWithFootnotes
 from wagtail_headless_preview.models import HeadlessMixin
 
 from authors.serializers import AuthorSerializer
+from ov_collections.blocks import AAPBRecordsBlock
 from ov_wag.serializers import FootnotesSerializer
 
 
@@ -129,7 +131,30 @@ class ExhibitPageApiSchema(ExhibitsApiSchema):
 class ExhibitPage(HeadlessMixin, Page):
     body = StreamField(
         [
+            ('interviews', AAPBRecordsBlock(label='Interviews', icon='openquote')),
+            (
+                'archival_footage',
+                AAPBRecordsBlock(label='Archival Footage', icon='clipboard-list'),
+            ),
+            ('photographs', AAPBRecordsBlock(label='Photographs', icon='copy')),
+            (
+                'original_footage',
+                AAPBRecordsBlock(label='Original Footage', icon='doc-full-inverse'),
+            ),
+            ('programs', AAPBRecordsBlock(label='Programs', icon='desktop')),
+            (
+                'related_content',
+                AAPBRecordsBlock(label='Related Content', icon='table'),
+            ),
+            ('credits', RichTextBlock(icon='form')),
+            (
+                'heading',
+                RichTextBlock(
+                    form_classname='title', features=['italic'], icon='title'
+                ),
+            ),
             ('text', RichTextFootnotesBlock()),
+            ('image', ImageChooserBlock()),
             (
                 'heading',
                 RichTextBlock(
@@ -142,6 +167,7 @@ class ExhibitPage(HeadlessMixin, Page):
                     form_classname='title', features=['italic'], icon='title'
                 ),
             ),
+            ('html', RawHTMLBlock(label='HTML')),
         ],
     )
 
