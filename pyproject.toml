@@ -17,7 +17,7 @@ dependencies = [
     "wagtail-headless-preview~=0.8",
     "django-cors-headers~=4.3",
     "django-allauth~=0.63",
-    "elasticsearch~=8.13",
+    "elasticsearch~=8.14",
     "wagtail-footnotes~=0.11",
 ]
 requires-python = '>=3.10,<4.0'
