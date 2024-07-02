@@ -96,6 +96,8 @@ class AAPBRecordsBlock(StructBlock):
         help_text='AAPB record IDs, separated by whitespace',
     )
 
+    special_collections = TextBlock(required=False, help_text='Special collections IDs')
+
     show_title = BooleanBlock(
         required=False, help_text='Show asset title(s)', default=True
     )
