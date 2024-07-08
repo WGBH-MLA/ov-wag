@@ -17,3 +17,6 @@ class ExhibitsAPIViewSet(PagesAPIViewSet):
         'hero_thumb',
         'authors',
     ]
+
+    def get_queryset(self):
+        return self.model.objects.live().order_by("-last_published_at")
