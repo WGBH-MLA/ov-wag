@@ -14,3 +14,6 @@ class CollectionAPIViewSet(PagesAPIViewSet):
         'introduction',
         'cover_image',
     ]
+
+    def get_queryset(self):
+        return self.model.objects.live().order_by("-last_published_at")
