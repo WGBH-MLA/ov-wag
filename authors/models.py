@@ -31,10 +31,15 @@ class AuthorsOrderable(Orderable):
     def image(self):
         return self.author.image if self.author else None
 
+    @property
+    def bio(self):
+        return self.author.bio if self.author else None
+
     api_fields: ClassVar[list[APIField]] = [
         APIField('author_id'),
         APIField('name'),
         APIField('image', serializer=ImageRenditionField('fill-100x100')),
+        APIField('bio'),
     ]
 
 
