@@ -76,7 +76,7 @@ test = [
     "pytest-sugar~=1.0",
     "pytest-xdist~=3.6",
     "nbmake~=1.5",
-    "coverage~=7.5",
+    "coverage~=7.6",
 ]
 
 
