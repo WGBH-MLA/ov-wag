@@ -5,7 +5,7 @@
 groups = ["default", "cli", "dev", "test"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:7e4de5aa8a6db0cb5ff1954f36fcfb52d836293fd62b8bd2c55a82c16deb268a"
+content_hash = "sha256:bf14a48cd81b47a63fc472a1ab9c59b0ed93dff9172a3f417c5bd81b9c9e94b7"
 
 [[metadata.targets]]
 requires_python = "~=3.10"
@@ -674,7 +674,7 @@ files = [
 
 [[package]]
 name = "faker"
-version = "26.0.0"
+version = "26.1.0"
 requires_python = ">=3.8"
 summary = "Faker is a Python package that generates fake data for you."
 groups = ["default"]
@@ -682,8 +682,8 @@ dependencies = [
     "python-dateutil>=2.4",
 ]
 files = [
-    {file = "Faker-26.0.0-py3-none-any.whl", hash = "sha256:886ee28219be96949cd21ecc96c4c742ee1680e77f687b095202c8def1a08f06"},
-    {file = "Faker-26.0.0.tar.gz", hash = "sha256:0f60978314973de02c00474c2ae899785a42b2cf4f41b7987e93c132a2b8a4a9"},
+    {file = "Faker-26.1.0-py3-none-any.whl", hash = "sha256:e8c5ef795223e945d9166aea3c0ecaf85ac54b4ade2af068d8e3c6524c2c0aa7"},
+    {file = "Faker-26.1.0.tar.gz", hash = "sha256:33921b6fc3b83dd75fd42ec7f47ec87b50c00d3c5380fa7d8a507dab848b8229"},
 ]
 
 [[package]]
@@ -1947,7 +1947,7 @@ files = [
 
 [[package]]
 name = "textual"
-version = "0.74.0"
+version = "0.75.0"
 requires_python = "<4.0.0,>=3.8.1"
 summary = "Modern Text User Interface framework"
 groups = ["cli"]
@@ -1957,8 +1957,8 @@ dependencies = [
     "typing-extensions<5.0.0,>=4.4.0",
 ]
 files = [
-    {file = "textual-0.74.0-py3-none-any.whl", hash = "sha256:69b18904d11400e586274deb1270f5db7b4254a2ac00fe805f23b16c324345e4"},
-    {file = "textual-0.74.0.tar.gz", hash = "sha256:808c4e8727283ef84a123620449b217b6033ffde49f3ed195b3d0f98bb042969"},
+    {file = "textual-0.75.0-py3-none-any.whl", hash = "sha256:46902a900ada635b315db8ded35776d413e3297c611196832fe77d82bef9830c"},
+    {file = "textual-0.75.0.tar.gz", hash = "sha256:1bcff456bdc00c45ae0c0c61571f113b569f67e9b68b5ece5144e4089fd780a5"},
 ]
 
 [[package]]
@@ -2100,7 +2100,7 @@ files = [
 
 [[package]]
 name = "wagtail"
-version = "6.1.3"
+version = "6.2"
 requires_python = ">=3.8"
 summary = "A Django content management system."
 groups = ["default"]
@@ -2113,7 +2113,7 @@ dependencies = [
     "django-filter<25,>=23.3",
     "django-modelcluster<7.0,>=6.2.1",
     "django-permissionedforms<1.0,>=0.1",
-    "django-taggit<5.1,>=4.0",
+    "django-taggit<5.1,>=5.0",
     "django-treebeard<5.0,>=4.5.1",
     "djangorestframework<4.0,>=3.15.1",
     "draftjs-exporter<6.0,>=2.1.5",
@@ -2124,8 +2124,8 @@ dependencies = [
     "telepath<1,>=0.3.1",
 ]
 files = [
-    {file = "wagtail-6.1.3-py3-none-any.whl", hash = "sha256:b6c4d5705adf51a5e49ea416032dd0a6534588fc31c5c9a95f698e6ddec0a203"},
-    {file = "wagtail-6.1.3.tar.gz", hash = "sha256:8f4908ab1b6b963a8aa7adf8f0ec738cd1dc79b9816c6d5f59018f600a404378"},
+    {file = "wagtail-6.2-py3-none-any.whl", hash = "sha256:9898b3f3a25fbf4cbcea34a8884b4aed7bc957b3877a3e1bd994e072452f5fae"},
+    {file = "wagtail-6.2.tar.gz", hash = "sha256:59086e8ca181b10f274b113924500504ded6fc16824c1976f37c3cbddd100d24"},
 ]
 
 [[package]]

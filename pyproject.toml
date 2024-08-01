@@ -8,7 +8,7 @@ readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
     "Django~=5.0",
-    "wagtail~=6.1",
+    "wagtail~=6.2",
     "wagtail-factories~=4.2",
     "pydantic~=2.8",
     "psycopg2~=2.9",
