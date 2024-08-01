@@ -8,7 +8,7 @@ readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
     "Django~=5.0",
-    "wagtail~=6.1",
+    "wagtail~=6.2",
     "wagtail-factories~=4.2",
     "pydantic~=2.8",
     "psycopg2~=2.9",
@@ -16,7 +16,7 @@ dependencies = [
     "gunicorn~=22.0",
     "wagtail-headless-preview~=0.8",
     "django-cors-headers~=4.4",
-    "django-allauth~=0.63",
+    "django-allauth~=64.0",
     "elasticsearch~=8.14",
     "wagtail-footnotes~=0.11",
 ]
@@ -59,7 +59,7 @@ version = { source = 'file', path = 'ov_wag/_version.py' }
 dev = [
     "black~=24.4",
     "ruff~=0.5",
-    "pre-commit~=3.7",
+    "pre-commit~=3.8",
 ]
 docs = [
     "mkdocs~=1.6",
@@ -70,7 +70,7 @@ docs = [
     "mkdocs-jupyter~=0.24",
 ]
 test = [
-    "pytest~=8.2",
+    "pytest~=8.3",
     "pytest-django~=4.8",
     "pytest-cov~=5.0",
     "pytest-sugar~=1.0",
