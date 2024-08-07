@@ -57,7 +57,7 @@ version = { source = 'file', path = 'ov_wag/_version.py' }
 
 [tool.pdm.dev-dependencies]
 dev = [
-    "black~=24.4",
+    "black~=24.8",
     "ruff~=0.5",
     "pre-commit~=3.8",
 ]
