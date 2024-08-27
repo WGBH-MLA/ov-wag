@@ -35,6 +35,7 @@ production = [
     "gunicorn[standard]~=23.0",
     "django-storages[s3]~=1.14",
     "boto3==1.34.152",
+    "botocore==1.34.152",
 ]
 
 [build-system]
