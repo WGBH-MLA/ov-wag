@@ -35,6 +35,10 @@ ENTRYPOINT /docker_entrypoints/test.sh
 # Build the production image, with the application server
 FROM base as production
 
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
 # Create directory for logs
 RUN mkdir -p /logs
 
