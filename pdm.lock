@@ -5,7 +5,7 @@
 groups = ["default", "cli", "dev", "test"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:c129c8039d4c615e71c251109d13b069697de6d5413984b6823d004dec005473"
+content_hash = "sha256:771e06b655519ce2ef5de2fdbbe0794e084513532692e8e81c3a78c161cd7fc8"
 
 [[metadata.targets]]
 requires_python = "~=3.10"
@@ -2294,9 +2294,9 @@ requires_python = ">=3.8"
 summary = "A Python image library that sits on top of Pillow, Wand and OpenCV"
 groups = ["default"]
 dependencies = [
-    "Willow==1.8.0",
     "pillow-heif<1.0.0,>=0.10.0; python_version < \"3.12\"",
     "pillow-heif<1.0.0,>=0.13.0; python_version >= \"3.12\"",
+    "willow==1.8.0",
 ]
 files = [
     {file = "willow-1.8.0-py3-none-any.whl", hash = "sha256:48ccf5ce48ccd29c37a32497cd7af50983f8570543c4de2988b15d583efc66be"},
