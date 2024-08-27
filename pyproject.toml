@@ -6,7 +6,7 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    "Django~=5.1",
+    "Django~=5.0",
     "wagtail~=6.2",
     "wagtail-factories~=4.2",
     "pydantic~=2.8",
