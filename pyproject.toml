@@ -7,18 +7,18 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    "Django~=5.0",
+    "Django~=5.1",
     "wagtail~=6.2",
     "wagtail-factories~=4.2",
     "pydantic~=2.8",
     "psycopg2~=2.9",
     "python-dotenv~=1.0",
-    "gunicorn~=22.0",
+    "gunicorn~=23.0",
     "wagtail-headless-preview~=0.8",
     "django-cors-headers~=4.4",
-    "django-allauth~=64.0",
-    "elasticsearch~=8.14",
-    "wagtail-footnotes~=0.11",
+    "django-allauth~=64.1",
+    "elasticsearch~=8.15",
+    "wagtail-footnotes~=0.12",
 ]
 requires-python = '>=3.10,<4.0'
 
@@ -57,8 +57,8 @@ version = { source = 'file', path = 'ov_wag/_version.py' }
 
 [tool.pdm.dev-dependencies]
 dev = [
-    "black~=24.4",
-    "ruff~=0.5",
+    "black~=24.8",
+    "ruff~=0.6",
     "pre-commit~=3.8",
 ]
 docs = [
