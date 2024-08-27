@@ -6,7 +6,7 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    "Django~=5.1",
+    "Django~=5.0",
     "wagtail~=6.2",
     "wagtail-factories~=4.2",
     "pydantic~=2.8",
@@ -31,10 +31,7 @@ ov = 'cli:app'
 
 [project.optional-dependencies]
 cli = ["typer~=0.12", "loguru~=0.7", "trogon~=0.5"]
-production = [
-    "gunicorn[standard]~=23.0",
-    "django-storages[s3] @ git+https://github.com/jschneier/django-storages.git@master"
-]
+production = ["gunicorn[standard]~=23.0", "django-storages[s3]==1.14.3"]
 
 [build-system]
 requires = ['pdm-backend']
