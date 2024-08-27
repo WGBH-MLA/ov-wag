@@ -31,7 +31,10 @@ ov = 'cli:app'
 
 [project.optional-dependencies]
 cli = ["typer~=0.12", "loguru~=0.7", "trogon~=0.5"]
-production = ["gunicorn[standard]~=23.0", "django-storages[s3]==1.14.3"]
+production = [
+    "gunicorn[standard]~=23.0",
+    "django-storages[s3] @ git+https://github.com/jschneier/django-storages.git@master"
+]
 
 [build-system]
 requires = ['pdm-backend']
