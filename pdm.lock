@@ -5,7 +5,7 @@
 groups = ["default", "cli", "dev", "test"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:0f1c45d15cb16a82fc50f81283dbbc4bcb31de5b1596f0a0978a0aaa000a3569"
+content_hash = "sha256:771e06b655519ce2ef5de2fdbbe0794e084513532692e8e81c3a78c161cd7fc8"
 
 [[metadata.targets]]
 requires_python = "~=3.10"
@@ -498,18 +498,18 @@ files = [
 
 [[package]]
 name = "django"
-version = "5.0.8"
+version = "5.1"
 requires_python = ">=3.10"
 summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 groups = ["default"]
 dependencies = [
-    "asgiref<4,>=3.7.0",
+    "asgiref<4,>=3.8.1",
     "sqlparse>=0.3.1",
     "tzdata; sys_platform == \"win32\"",
 ]
 files = [
-    {file = "Django-5.0.8-py3-none-any.whl", hash = "sha256:333a7988f7ca4bc14d360d3d8f6b793704517761ae3813b95432043daec22a45"},
-    {file = "Django-5.0.8.tar.gz", hash = "sha256:ebe859c9da6fead9c9ee6dbfa4943b04f41342f4cea2c4d8c978ef0d10694f2b"},
+    {file = "Django-5.1-py3-none-any.whl", hash = "sha256:d3b811bf5371a26def053d7ee42a9df1267ef7622323fe70a601936725aa4557"},
+    {file = "Django-5.1.tar.gz", hash = "sha256:848a5980e8efb76eea70872fb0e4bc5e371619c70fffbe48e3e1b50b2c09455d"},
 ]
 
 [[package]]
