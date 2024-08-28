@@ -1,5 +1,6 @@
 from typing import ClassVar
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -13,6 +14,10 @@ from wagtail.snippets.views.snippets import SnippetViewSet
 
 
 class AuthorsOrderable(Orderable):
+
+    class Meta:
+        unique_together = ('page', 'author')
+
     page = ParentalKey('exhibits.ExhibitPage', related_name='authors', null=True)
     author = models.ForeignKey(
         'authors.Author',
@@ -41,6 +46,11 @@ class AuthorsOrderable(Orderable):
         APIField('image', serializer=ImageRenditionField('fill-100x100')),
         APIField('bio'),
     ]
+
+    def clean(self):
+        super().clean()
+        if not self.author:
+            raise ValidationError('Author must be set')
 
 
 class Author(models.Model):
