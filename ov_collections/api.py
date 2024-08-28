@@ -2,20 +2,22 @@ from typing import ClassVar
 
 from wagtail.api.v2.views import PagesAPIViewSet
 
-from .models import ExhibitPage
+from .models import Collection
 
 
-class ExhibitsAPIViewSet(PagesAPIViewSet):
-    model = ExhibitPage
+class CollectionAPIViewSet(PagesAPIViewSet):
+    model = Collection
+
+    meta_fields: ClassVar[list[str]] = PagesAPIViewSet.meta_fields + [
+        'last_published_at',
+    ]
 
     listing_default_fields: ClassVar[list[str]] = [
         *PagesAPIViewSet.listing_default_fields,
         'title',
+        'introduction',
         'cover_image',
-        'cover_thumb',
-        'hero_image',
-        'hero_thumb',
-        'authors',
+        'last_published_at',
     ]
 
     def get_queryset(self):
