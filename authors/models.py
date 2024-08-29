@@ -13,11 +13,13 @@ from wagtail.snippets.views.snippets import SnippetViewSet
 
 
 class AuthorsOrderable(Orderable):
-    page = ParentalKey('exhibits.ExhibitPage', related_name='authors', null=True)
+
+    class Meta:
+        unique_together = ('page', 'author')
+
+    page = ParentalKey('exhibits.ExhibitPage', related_name='authors')
     author = models.ForeignKey(
         'authors.Author',
-        blank=True,
-        null=True,
         on_delete=models.CASCADE,
     )
 
