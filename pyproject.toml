@@ -15,7 +15,7 @@ dependencies = [
     "gunicorn~=23.0",
     "wagtail-headless-preview~=0.8",
     "django-cors-headers~=4.4",
-    "django-allauth~=64.1",
+    "django-allauth~=64.2",
     "elasticsearch~=8.15",
     "wagtail-footnotes~=0.12",
 ]
@@ -60,13 +60,13 @@ docs = [
     "mkdocs~=1.6",
     "mkdocs-material~=9.5",
     "mike~=2.1",
-    "mkdocstrings[python]~=0.25",
+    "mkdocstrings[python]~=0.26",
     "mkdocs-git-revision-date-localized-plugin~=1.2",
     "mkdocs-jupyter~=0.24",
 ]
 test = [
     "pytest~=8.3",
-    "pytest-django~=4.8",
+    "pytest-django~=4.9",
     "pytest-cov~=5.0",
     "pytest-sugar~=1.0",
     "pytest-xdist~=3.6",
