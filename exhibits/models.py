@@ -192,6 +192,7 @@ class ExhibitPage(HeadlessMixin, Page):
         *Page.search_fields,
         index.AutocompleteField('body'),
         index.FilterField('featured'),
+        index.SearchField('slug'),
     ]
 
     content_panels: ClassVar[list[FieldPanel]] = [
