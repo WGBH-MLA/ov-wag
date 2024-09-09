@@ -31,9 +31,9 @@ pdm lock --no-default -G docs -L pdm-locks/pdm.doc.lock
 
 ```bash
 # dev
-pdm update -G dev,test,cli --unconstrained --save-compatible
+pdm update -G dev,test,cli --unconstrained --save-compatible --no-self
 # prod
-pdm update --prod -G production -L pdm-locks/pdm.prod.lock --unconstrained --save-compatible
+pdm update --prod -G production -L pdm-locks/pdm.prod.lock --unconstrained --save-compatible --no-self
 # docs
-pdm update --no-default -G docs -L pdm-locks/pdm.doc.lock --unconstrained --save-compatible
+pdm update --no-default -G docs -L pdm-locks/pdm.doc.lock --unconstrained --save-compatible --no-self
 ```
