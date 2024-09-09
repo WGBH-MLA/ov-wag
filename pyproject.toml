@@ -28,6 +28,7 @@ repository = 'https://github.com/WGBH-MLA/ov-wag'
 
 [project.scripts]
 ov = 'cli:app'
+ov-docs = 'mkdocs.commands:serve.serve'
 
 [project.optional-dependencies]
 cli = [

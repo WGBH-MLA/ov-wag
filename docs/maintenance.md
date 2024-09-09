@@ -1,6 +1,6 @@
-# PDM
+# Maintenance
 
-Package management scripts for ov-wag
+This page describes how to maintain the project. This includes [running scripts](#run-scripts), [creating lockfiles](#create-lockfiles), and [updating dependencies](#update-lockfiles).
 
 ## Install project
 
@@ -36,4 +36,24 @@ pdm update -G dev,test,cli --unconstrained --save-compatible --no-self
 pdm update --prod -G production -L pdm-locks/pdm.prod.lock --unconstrained --save-compatible --no-self
 # docs
 pdm update --no-default -G docs -L pdm-locks/pdm.doc.lock --unconstrained --save-compatible --no-self
+```
+
+## Run tests
+
+```bash
+pytest
+```
+
+## Serve docs
+
+Use the project script shortcut:
+
+```bash
+ov-docs
+```
+
+Or pass custom arguments to the underlying command:
+
+```bash
+mkdocs serve [args]
 ```
