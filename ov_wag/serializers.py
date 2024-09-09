@@ -3,6 +3,7 @@ from rest_framework.fields import Field
 from wagtail.templatetags import wagtailcore_tags
 from uuid import UUID
 
+
 class FootnoteAPIModel(BaseModel):
     id: int
     uuid: UUID
