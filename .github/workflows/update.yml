@@ -3,7 +3,7 @@ name: 🛍 Update dependencies
 
 on:
   schedule:
-    - cron: 0 12 * * 3
+    - cron: 0 10 * * 3
   workflow_dispatch:
 
 jobs:
@@ -11,4 +11,7 @@ jobs:
     name: 🦿 Update dependencies
     uses: WGBH-MLA/.github/.github/workflows/update.yml@main
     with:
-      pdm_args: -G dev,test,cli -u --save-compatible --no-sync --no-self && pdm update --no-default -G docs -L pdm-locks/pdm.doc.lock --unconstrained --save-compatible --no-sync --no-self
+      pdm_args: |
+        -G dev,test,cli -u --save-compatible --no-sync --no-self && \
+        pdm update --no-default -G production -L pdm-locks/pdm.prod.lock --unconstrained --save-compatible --no-sync --no-self && \
+        pdm update --no-default -G docs -L pdm-locks/pdm.doc.lock --unconstrained --save-compatible --no-sync --no-self

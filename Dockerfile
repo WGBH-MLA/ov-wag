@@ -25,7 +25,7 @@ COPY search search
 ### Test ###
 # Build the test image, which includes the test applications
 FROM base as test
-# Install the test requirements.
+# Install the test requirements
 RUN pip install pdm
 RUN pdm install -dG test
 
@@ -38,16 +38,16 @@ FROM base as production
 # Create directory for logs
 RUN mkdir -p /logs
 
-# Set environment variables.
-# 1. Force Python stdout and stderr streams to be unbuffered.
+# Set environment variables
+# 1. Force Python stdout and stderr streams to be unbuffered
 # 2. Set PORT variable that is used by Gunicorn. This should match "EXPOSE"
-#    command.
+#    command
 ENV PYTHONUNBUFFERED=1 \
     PORT=80
 
 EXPOSE 80
 
-# Install the application server.
+# Install the application server
 RUN pip install .[production]
 
 ENTRYPOINT /docker_entrypoints/deploy.sh
