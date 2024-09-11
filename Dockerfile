@@ -47,9 +47,6 @@ ENV PYTHONUNBUFFERED=1 \
 
 EXPOSE 80
 
-# Install git to use an unreleased dependency
-RUN apt update && apt install -y git
-
 # Install the application server
 RUN pip install .[production]
 
