@@ -36,6 +36,8 @@ lock-dev = { shell = 'pdm lock -G dev,test,cli' }
 lock-prod = { shell = 'pdm lock -G production -L pdm-locks/pdm.prod.lock' }
 lock-docs = { shell = 'pdm lock -G docs -L pdm-locks/pdm.doc.lock' }
 locks = { composite = ['lock-dev', 'lock-prod', 'lock-docs'] }
+makemigrations = { shell = 'python manage.py makemigrations' }
+migrate = { shell = 'python manage.py migrate' }
 
 [project.optional-dependencies]
 cli = [
