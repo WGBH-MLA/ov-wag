@@ -6,7 +6,7 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    "Django~=5.1",
+    "Django<5.1",
     "wagtail~=6.2",
     "wagtail-factories~=4.2",
     "pydantic~=2.9",
@@ -32,6 +32,10 @@ ov-docs = 'mkdocs.commands:serve.serve'
 
 [tool.pdm.scripts]
 dev = { shell = 'python manage.py runserver' }
+lock-dev = { shell = 'pdm lock -G dev,test,cli' }
+lock-prod = { shell = 'pdm lock -G production -L pdm-locks/pdm.prod.lock' }
+lock-docs = { shell = 'pdm lock -G docs -L pdm-locks/pdm.doc.lock' }
+locks = { composite = ['lock-dev', 'lock-prod', 'lock-docs'] }
 
 [project.optional-dependencies]
 cli = [
