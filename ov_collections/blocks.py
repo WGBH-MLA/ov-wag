@@ -99,11 +99,15 @@ class AAPBRecordsBlock(StructBlock):
     special_collections = TextBlock(required=False, help_text='Special collections IDs')
 
     show_title = BooleanBlock(
-        required=False, help_text='Show asset title(s)', default=True
+        required=False, help_text='Show asset title(s) for this block', default=True
     )
 
     show_thumbnail = BooleanBlock(
-        required=False, help_text='Show asset thumbnail(s)', default=True
+        required=False, help_text='Show asset thumbnail(s) for this block', default=True
+    )
+
+    show_sidebar = BooleanBlock(
+        required=False, help_text='Include title in sidebar', default=True
     )
 
     title = RichTextBlock(
