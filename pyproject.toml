@@ -30,6 +30,9 @@ repository = 'https://github.com/WGBH-MLA/ov-wag'
 ov = 'cli:app'
 ov-docs = 'mkdocs.commands:serve.serve'
 
+[tool.pdm.scripts]
+dev = { shell = 'python manage.py runserver' }
+
 [project.optional-dependencies]
 cli = [
     "typer~=0.12",
