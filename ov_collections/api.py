@@ -17,6 +17,7 @@ class CollectionAPIViewSet(PagesAPIViewSet):
         'title',
         'introduction',
         'cover_image',
+        'hero_image',
         'last_published_at',
     ]
 
