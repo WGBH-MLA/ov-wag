@@ -183,7 +183,7 @@ MEDIA_URL = '/media/'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = 'ov-wag'
+WAGTAIL_SITE_NAME = 'Open Vault'
 
 # Search
 # https://docs.wagtail.io/en/stable/topics/search/backends.html
@@ -204,9 +204,13 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
+# API settings
+
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILAPI_BASE_URL = os.environ.get('OV_API_URL')
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 4096
 
 WAGTAIL_BASE_URL = os.environ.get('OV_BASE_URL')
 WAGTAILADMIN_BASE_URL = os.environ.get('OV_ADMIN_BASE_URL', '')
