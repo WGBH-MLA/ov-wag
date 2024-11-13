@@ -6,16 +6,16 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    "Django<5.1",
-    "wagtail~=6.2",
+    "Django~=5.1",
+    "wagtail~=6.3",
     "wagtail-factories~=4.2",
     "pydantic~=2.9",
     "psycopg2~=2.9",
     "python-dotenv~=1.0",
     "gunicorn~=23.0",
     "wagtail-headless-preview~=0.8",
-    "django-cors-headers~=4.5",
-    "django-allauth~=65.0",
+    "django-cors-headers~=4.6",
+    "django-allauth~=65.2",
     "elasticsearch~=8.15",
     "wagtail-footnotes~=0.13",
 ]
@@ -32,7 +32,7 @@ ov-docs = 'mkdocs.commands:serve.serve'
 
 [project.optional-dependencies]
 cli = [
-    "typer~=0.12",
+    "typer~=0.13",
     "loguru~=0.7",
     "trogon~=0.6",
 ]
@@ -62,30 +62,6 @@ locks = { composite = ['lock-dev', 'lock-prod', 'lock-docs'] }
 makemigrations = { shell = 'python manage.py makemigrations' }
 migrate = { shell = 'python manage.py migrate' }
 
-[tool.pdm.dev-dependencies]
-dev = [
-    "black~=24.10",
-    "ruff~=0.7",
-    "pre-commit~=4.0",
-]
-docs = [
-    "mkdocs~=1.6",
-    "mkdocs-material~=9.5",
-    "mike~=2.1",
-    "mkdocstrings[python]~=0.26",
-    "mkdocs-git-revision-date-localized-plugin~=1.3",
-    "mkdocs-jupyter~=0.25",
-]
-test = [
-    "pytest~=8.3",
-    "pytest-django~=4.9",
-    "pytest-cov~=5.0",
-    "pytest-sugar~=1.0",
-    "pytest-xdist~=3.6",
-    "nbmake~=1.5",
-    "coverage~=7.6",
-]
-
 [lint]
 select = [
     'B', # flake8-bugbear
@@ -114,3 +90,33 @@ select = [
 DJANGO_SETTINGS_MODULE = 'ov_wag.settings.test'
 python_files = ['tests.py', 'test_*.py', '*_tests.py']
 testpaths = ['authors', 'exhibits', 'ov_collections', 'ov_wag']
+
+[dependency-groups]
+dev = [
+    "black~=24.10",
+    "ruff~=0.7",
+    "pre-commit~=4.0",
+]
+docs = [
+    "mkdocs~=1.6",
+    "mkdocs-material~=9.5",
+    "mike~=2.1",
+    "mkdocstrings[python]~=0.27",
+    "mkdocs-git-revision-date-localized-plugin~=1.3",
+    "mkdocs-jupyter~=0.25",
+    "mkdocs~=1.6",
+    "mkdocs-material~=9.5",
+    "mike~=2.1",
+    "mkdocstrings[python]~=0.27",
+    "mkdocs-git-revision-date-localized-plugin~=1.3",
+    "mkdocs-jupyter~=0.25",
+]
+test = [
+    "pytest~=8.3",
+    "pytest-django~=4.9",
+    "pytest-cov~=6.0",
+    "pytest-sugar~=1.0",
+    "pytest-xdist~=3.6",
+    "nbmake~=1.5",
+    "coverage~=7.6",
+]
