@@ -17,15 +17,27 @@ SECURE_SSL_REDIRECT = False
 INSTALLED_APPS += [  # noqa: F405
     'storages',
 ]
+
 # S3 Storage
 AWS_STORAGE_BUCKET_NAME = env.get('AWS_STORAGE_BUCKET_NAME')
 AWS_ACCESS_KEY_ID = env.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env.get('AWS_SECRET_ACCESS_KEY')
-MEDIA_URL = f'https://s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_S3_FILE_OVERWRITE = False
-AWS_S3_SIGNATURE_VERSION = 's3v4'
-AWS_QUERYSTRING_AUTH = True
+AWS_S3_REGION_NAME = env.get('AWS_S3_REGION_NAME', 'us-east-1')
+STATICFILES_STORAGE = 'storages.backends.s3.S3Storage'
+
+STORAGES = {
+    'default': {
+        'BACKEND': 'storages.backends.s3.S3Storage',
+        'OPTIONS': {},
+    },
+    'staticfiles': {
+        'BACKEND': 'storages.backends.s3.S3Storage',
+        'OPTIONS': {
+            'location': 'static',
+        },
+    },
+}
 
 with suppress(ImportError):
     from .local import *  # noqa F403
