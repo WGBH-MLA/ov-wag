@@ -6,7 +6,7 @@ from wagtail.api import APIField
 from wagtail.blocks import RawHTMLBlock, RichTextBlock
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images.api.fields import ImageRenditionField
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.blocks import ImageBlock
 from wagtail.models import Page
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessMixin
@@ -42,7 +42,7 @@ class Collection(HeadlessMixin, Page):
                 ),
             ),
             ('text', RichTextBlock()),
-            ('image', ImageChooserBlock()),
+            ('image', ImageBlock()),
             ('html', RawHTMLBlock(label='HTML')),
         ],
     )

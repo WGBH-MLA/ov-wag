@@ -8,7 +8,7 @@ from wagtail.blocks import (
     TextBlock,
     URLBlock,
 )
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.images.blocks import ImageBlock
 
 
 class DurationBlock(FieldBlock):
@@ -47,7 +47,7 @@ class DurationBlock(FieldBlock):
 class ContentBlock(StructBlock):
     """Generic External link block
     )
-    from wagtail.images.blocks import ImageChooserBlock
+    from wagtail.images.blocks import ImageBlock
             title: RichTextBlock with italics only
             link: URLBlock
 
@@ -66,10 +66,10 @@ class ContentImageBlock(ContentBlock):
     """Generic external link block with image
 
     Attributes:
-        image: ImageChooserBlock. Required.
+        image: ImageBlock. Required.
     """
 
-    image = ImageChooserBlock(required=True)
+    image = ImageBlock(required=True)
 
     def get_api_representation(self, value, context=None):
         results = super().get_api_representation(value, context)
