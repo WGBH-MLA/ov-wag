@@ -219,6 +219,9 @@ WAGTAIL_HEADLESS_PREVIEW = {
     'CLIENT_URLS': {'default': os.environ.get('OV_PREVIEW_URL')},
 }
 
+# TODO: Set this to a real limit once we create pagination for the frontend endpoints
+WAGTAILAPI_LIMIT_MAX = None
+
 # OIDC Provider settings
 SITE_ID = 1
 AUTHENTICATION_BACKENDS = [
