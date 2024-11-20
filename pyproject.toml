@@ -6,18 +6,18 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    "Django~=5.1.3",
-    "wagtail~=6.3.0",
-    "wagtail-factories~=4.2.1",
-    "pydantic~=2.9.2",
-    "psycopg2~=2.9.10",
-    "python-dotenv~=1.0.1",
-    "gunicorn~=23.0.0",
-    "wagtail-headless-preview~=0.8.0",
-    "django-cors-headers~=4.6.0",
-    "django-allauth~=65.2.0",
-    "elasticsearch~=8.15.1",
-    "wagtail-footnotes~=0.13.0",
+    "Django~=5.1",
+    "wagtail~=6.3",
+    "wagtail-factories~=4.2",
+    "pydantic~=2.9",
+    "psycopg2~=2.9",
+    "python-dotenv~=1.0",
+    "gunicorn~=23.0",
+    "wagtail-headless-preview~=0.8",
+    "django-cors-headers~=4.6",
+    "django-allauth~=65.2",
+    "elasticsearch~=8.16",
+    "wagtail-footnotes~=0.13",
 ]
 requires-python = '~=3.10'
 
@@ -31,8 +31,15 @@ ov = 'cli:app'
 ov-docs = 'mkdocs.commands:serve.serve'
 
 [project.optional-dependencies]
-cli = ["typer~=0.13.0", "loguru~=0.7.2", "trogon~=0.6.0"]
-production = ["gunicorn[standard]~=23.0.0", "django-storages[s3]~=1.14.4"]
+cli = [
+    "typer~=0.13",
+    "loguru~=0.7",
+    "trogon~=0.6",
+]
+production = [
+    "gunicorn[standard]~=23.0",
+    "django-storages[s3]~=1.14",
+]
 
 [build-system]
 requires = ['pdm-backend']
@@ -85,7 +92,11 @@ python_files = ['tests.py', 'test_*.py', '*_tests.py']
 testpaths = ['authors', 'exhibits', 'ov_collections', 'ov_wag']
 
 [dependency-groups]
-dev = ["black~=24.10.0", "ruff~=0.7.3", "pre-commit~=4.0.1"]
+dev = [
+    "black~=24.10",
+    "ruff~=0.7",
+    "pre-commit~=4.0",
+]
 docs = [
     "mkdocs~=1.6",
     "mkdocs-material~=9.5",
