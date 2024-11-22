@@ -16,10 +16,40 @@ dependencies = [
     "wagtail-headless-preview~=0.8.0",
     "django-cors-headers~=4.6.0",
     "django-allauth~=65.2.0",
-    "elasticsearch~=8.15.1",
+    "elasticsearch~=8.16.0",
     "wagtail-footnotes~=0.13.0",
 ]
 requires-python = '~=3.10'
+
+[dependency-groups]
+dev = ["black~=24.10", "ruff~=0.8", "pre-commit~=4.0"]
+docs = [
+    "mkdocs~=1.6",
+    "mkdocs-material~=9.5",
+    "mike~=2.1",
+    "mkdocstrings[python]~=0.27",
+    "mkdocs-git-revision-date-localized-plugin~=1.3",
+    "mkdocs-jupyter~=0.25",
+    "mkdocs~=1.6",
+    "mkdocs-material~=9.5",
+    "mike~=2.1",
+    "mkdocstrings[python]~=0.27",
+    "mkdocs-git-revision-date-localized-plugin~=1.3",
+    "mkdocs-jupyter~=0.25",
+]
+test = [
+    "pytest~=8.3",
+    "pytest-django~=4.9",
+    "pytest-cov~=6.0",
+    "pytest-sugar~=1.0",
+    "pytest-xdist~=3.6",
+    "nbmake~=1.5",
+    "coverage~=7.6",
+]
+
+[project.optional-dependencies]
+cli = ["typer~=0.13", "loguru~=0.7", "trogon~=0.6"]
+production = ["gunicorn[standard]~=23.0", "django-storages[s3]~=1.14"]
 
 [project.urls]
 documentation = 'https://wgbh-mla.github.io/ov-wag/'
@@ -29,10 +59,6 @@ repository = 'https://github.com/WGBH-MLA/ov-wag'
 [project.scripts]
 ov = 'cli:app'
 ov-docs = 'mkdocs.commands:serve.serve'
-
-[project.optional-dependencies]
-cli = ["typer~=0.13.0", "loguru~=0.7.2", "trogon~=0.6.0"]
-production = ["gunicorn[standard]~=23.0.0", "django-storages[s3]~=1.14.4"]
 
 [build-system]
 requires = ['pdm-backend']
@@ -46,14 +72,24 @@ extend-exclude = ['migrations']
 
 [tool.pdm]
 version = { source = 'file', path = 'ov_wag/_version.py' }
+
 [tool.pdm.scripts]
+# Development
 dev = { shell = 'python manage.py runserver' }
+# Migrations
+makemigrations = { shell = 'python manage.py makemigrations' }
+migrate = { shell = 'python manage.py migrate' }
+# Dependency management
+## Lockfiles
 lock-dev = { shell = 'pdm lock -G dev,test,cli' }
 lock-prod = { shell = 'pdm lock -G production -L pdm-locks/pdm.prod.lock' }
 lock-docs = { shell = 'pdm lock -G docs -L pdm-locks/pdm.doc.lock' }
 locks = { composite = ['lock-dev', 'lock-prod', 'lock-docs'] }
-makemigrations = { shell = 'python manage.py makemigrations' }
-migrate = { shell = 'python manage.py migrate' }
+## Upgrades
+upgrade = { shell = 'pdm update  -G dev,test,cli -u --save-compatible --no-sync --no-self' }
+upgrade-prod = { shell = 'pdm update --no-default -G production -L pdm-locks/pdm.prod.lock --unconstrained --save-compatible --no-sync --no-self' }
+upgrade-docs = { shell = 'pdm update --no-default -G docs -L pdm-locks/pdm.doc.lock --unconstrained --save-compatible --no-sync --no-self' }
+upgrade-all = { composite = ['upgrade', 'upgrade-prod', 'upgrade-docs'] }
 
 [lint]
 select = [
@@ -83,29 +119,3 @@ select = [
 DJANGO_SETTINGS_MODULE = 'ov_wag.settings.test'
 python_files = ['tests.py', 'test_*.py', '*_tests.py']
 testpaths = ['authors', 'exhibits', 'ov_collections', 'ov_wag']
-
-[dependency-groups]
-dev = ["black~=24.10.0", "ruff~=0.7.3", "pre-commit~=4.0.1"]
-docs = [
-    "mkdocs~=1.6",
-    "mkdocs-material~=9.5",
-    "mike~=2.1",
-    "mkdocstrings[python]~=0.27",
-    "mkdocs-git-revision-date-localized-plugin~=1.3",
-    "mkdocs-jupyter~=0.25",
-    "mkdocs~=1.6",
-    "mkdocs-material~=9.5",
-    "mike~=2.1",
-    "mkdocstrings[python]~=0.27",
-    "mkdocs-git-revision-date-localized-plugin~=1.3",
-    "mkdocs-jupyter~=0.25",
-]
-test = [
-    "pytest~=8.3",
-    "pytest-django~=4.9",
-    "pytest-cov~=6.0",
-    "pytest-sugar~=1.0",
-    "pytest-xdist~=3.6",
-    "nbmake~=1.5",
-    "coverage~=7.6",
-]
