@@ -1,5 +1,4 @@
-# Use an official Python runtime based on Debian 10 "buster" as a parent image.
-FROM python:3.11-slim as base
+FROM python:3.13-slim as base
 
 WORKDIR /app
 COPY docker_entrypoints /docker_entrypoints
