@@ -193,6 +193,10 @@ class ExhibitPage(HeadlessMixin, Page):
         index.AutocompleteField('body'),
         index.FilterField('featured'),
         index.SearchField('slug'),
+        index.SearchField(
+            'hero_image',
+            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
+        ),
     ]
 
     content_panels: ClassVar[list[FieldPanel]] = [
