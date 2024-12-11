@@ -188,15 +188,17 @@ class ExhibitPage(HeadlessMixin, Page):
 
     featured = models.BooleanField(default=False)
 
+    def get_hero_thumb_url(self):
+        if self.hero_image:
+            return self.hero_image.rendition('fill-480x270').url
+        return ''
+
     search_fields: ClassVar[list[index.SearchField]] = [
         *Page.search_fields,
         index.AutocompleteField('body'),
         index.FilterField('featured'),
         index.SearchField('slug'),
-        index.SearchField(
-            'hero_image',
-            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
-        ),
+        index.SearchField('get_hero_thumb_url'),
     ]
 
     content_panels: ClassVar[list[FieldPanel]] = [
