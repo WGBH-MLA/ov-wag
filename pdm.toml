@@ -3,3 +3,4 @@ with_pip = true
 
 [strategy]
 update = 'eager'
+save = 'safe_compatible'
