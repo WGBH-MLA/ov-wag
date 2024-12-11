@@ -190,7 +190,7 @@ class ExhibitPage(HeadlessMixin, Page):
 
     def get_hero_thumb_url(self):
         if self.hero_image:
-            return self.hero_image.rendition('fill-480x270').url
+            return self.hero_image.get_rendition('fill-480x270').url
         return ''
 
     search_fields: ClassVar[list[index.SearchField]] = [
