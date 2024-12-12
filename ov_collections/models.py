@@ -68,7 +68,7 @@ class Collection(HeadlessMixin, Page):
             from django.core.files.storage import default_storage
 
             default_storage.querystring_expire = 604800
-            url = self.hero_image.get_rendition('fill-480x270').url(expire=604800)
+            url = self.hero_image.get_rendition('fill-480x270').url
             default_storage.querystring_expire = 3600
             return url
         return ''
