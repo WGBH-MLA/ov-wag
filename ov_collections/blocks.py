@@ -7,6 +7,7 @@ from wagtail.blocks import (
     StructBlock,
     TextBlock,
     URLBlock,
+    ChoiceBlock,
 )
 from wagtail.images.blocks import ImageBlock
 
@@ -89,6 +90,7 @@ class AAPBRecordsBlock(StructBlock):
         title: Optional title of the group
         start_time: Optional start time for the group
         end_time: Optional end time for the group
+        access_level: Optional access level for the group
     """
 
     guids = TextBlock(
@@ -125,6 +127,17 @@ class AAPBRecordsBlock(StructBlock):
     end_time = DurationBlock(
         required=False,
         help_text='End time for the group',
+    )
+
+    access_level = ChoiceBlock(
+        required=True,
+        help_text='Access level for AAPB search links in this block',
+        choices=[
+            ('all', 'All'),
+            ('digitized', 'Digitized'),
+            ('online', 'Online'),
+        ],
+        default=('online', 'Online'),
     )
 
     def clean(self, value):
