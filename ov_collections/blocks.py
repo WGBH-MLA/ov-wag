@@ -137,7 +137,7 @@ class AAPBRecordsBlock(StructBlock):
             ('digitized', 'Digitized'),
             ('online', 'Online'),
         ],
-        default=('online', 'Online'),
+        default='online',
     )
 
     def clean(self, value):
@@ -158,3 +158,13 @@ class AAPBRecordsBlock(StructBlock):
         results = super().get_api_representation(value, context)
         results['guids'] = value.get('guids').split()
         return results
+
+
+AAPB_BLOCK_TYPES = [
+    'interviews',
+    'archival_footage',
+    'photographs',
+    'original_footage',
+    'programs',
+    'related_content',
+]
