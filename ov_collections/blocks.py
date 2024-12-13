@@ -90,7 +90,7 @@ class AAPBRecordsBlock(StructBlock):
         title: Optional title of the group
         start_time: Optional start time for the group
         end_time: Optional end time for the group
-        access_level: Optional access level for the group
+        access_level: Required: access level for the group. Default: online
     """
 
     guids = TextBlock(
@@ -153,3 +153,8 @@ class AAPBRecordsBlock(StructBlock):
 
             raise ValidationError('Start time must be before end time')
         return data
+
+    def get_api_representation(self, value, context=None):
+        results = super().get_api_representation(value, context)
+        results['guids'] = value.get('guids').split()
+        return results
