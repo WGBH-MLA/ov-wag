@@ -10,24 +10,28 @@
       
       
       
-        <link rel="canonical" href="https://wgbh-mla.github.io/ov-wag/0.4/reference/">
+        <link rel="canonical" href="https://wgbh-mla.github.io/ov-wag/0.4/dev/migrate/">
       
       
+        <link rel="prev" href="../">
       
       
-      <link rel="icon" href="../assets/ov-favicon.png">
+        <link rel="next" href="../fix_AAPBRecords/">
+      
+      
+      <link rel="icon" href="../../assets/ov-favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.48">
     
     
       
-        <title>Reference - Open Vault: Wagtail</title>
+        <title>Migrate database - Open Vault: Wagtail</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6f8fc17f.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,19 +50,19 @@
       
     
     
-      <link rel="stylesheet" href="../css/timeago.css">
+      <link rel="stylesheet" href="../../css/timeago.css">
     
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../style/gbh.css">
+      <link rel="stylesheet" href="../../style/gbh.css">
     
-      <link rel="stylesheet" href="../style/auth.css">
+      <link rel="stylesheet" href="../../style/auth.css">
     
-      <link rel="stylesheet" href="../style/todo.css">
+      <link rel="stylesheet" href="../../style/todo.css">
     
-      <link rel="stylesheet" href="../style/cmd.css">
+      <link rel="stylesheet" href="../../style/cmd.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -84,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#reference" class="md-skip">
+        <a href="#migrate-database" class="md-skip">
           Skip to content
         </a>
       
@@ -99,7 +103,7 @@
             <div class="md-banner__inner md-grid md-typeset">
               
   You're not viewing the latest version.
-  <a href="../..">
+  <a href="../../..">
     <strong>Click here to go to latest.</strong>
   </a>
 
@@ -116,9 +120,9 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Open Vault: Wagtail" class="md-header__button md-logo" aria-label="Open Vault: Wagtail" data-md-component="logo">
+    <a href="../.." title="Open Vault: Wagtail" class="md-header__button md-logo" aria-label="Open Vault: Wagtail" data-md-component="logo">
       
-  <img src="../assets/ov-logo.png" alt="logo">
+  <img src="../../assets/ov-logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -135,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Reference
+              Migrate database
             
           </span>
         </div>
@@ -238,7 +242,7 @@
   
   
     <li class="md-tabs__item">
-      <a href=".." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         
   
     
@@ -255,7 +259,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../setup/" class="md-tabs__link">
+      <a href="../../setup/" class="md-tabs__link">
         
   
     
@@ -270,11 +274,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../dev/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   Develop
@@ -290,7 +296,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../maintenance/" class="md-tabs__link">
+      <a href="../../maintenance/" class="md-tabs__link">
         
   
     
@@ -307,7 +313,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="." class="md-tabs__link">
+      <a href="../../reference" class="md-tabs__link">
         
   
     
@@ -349,9 +355,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Open Vault: Wagtail" class="md-nav__button md-logo" aria-label="Open Vault: Wagtail" data-md-component="logo">
+    <a href="../.." title="Open Vault: Wagtail" class="md-nav__button md-logo" aria-label="Open Vault: Wagtail" data-md-component="logo">
       
-  <img src="../assets/ov-logo.png" alt="logo">
+  <img src="../../assets/ov-logo.png" alt="logo">
 
     </a>
     Open Vault: Wagtail
@@ -378,7 +384,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -398,7 +404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup/" class="md-nav__link">
+      <a href="../../setup/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -415,27 +421,30 @@
       
   
   
+    
   
   
+  
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
-        
-          
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -446,7 +455,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Develop
@@ -460,7 +469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -478,10 +487,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../dev/migrate/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Migrate database
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -490,6 +519,53 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#show-all-database-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Show all database migrations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generate-the-migration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate the migration files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#run-the-database-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Run the database migrations
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -502,7 +578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dev/fix_AAPBRecords/" class="md-nav__link">
+      <a href="../fix_AAPBRecords/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -530,7 +606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/" class="md-nav__link">
+      <a href="../../maintenance/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -550,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="." class="md-nav__link">
+      <a href="../../reference" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -578,9 +654,16 @@
                   
 
 
-<h1 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h1>
-<h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
-<p>TODO: Add API docs</p>
+<h1 id="migrate-database">Migrate database<a class="headerlink" href="#migrate-database" title="Permanent link">&para;</a></h1>
+<h2 id="show-all-database-migrations">Show all database migrations<a class="headerlink" href="#show-all-database-migrations" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>showmigrations
+</code></pre></div>
+<h2 id="generate-the-migration-files">Generate the migration files<a class="headerlink" href="#generate-the-migration-files" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>makemigrations
+</code></pre></div>
+<h2 id="run-the-database-migrations">Run the database migrations<a class="headerlink" href="#run-the-database-migrations" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>migrate
+</code></pre></div>
 
 
 
@@ -603,7 +686,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-12-20T18:07:19+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-12-20</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-12-16T22:52:27+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-12-16</span>
   </span>
 
     
@@ -613,7 +696,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2023-11-14T20:13:00+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2023-11-14</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-12-16T22:52:27+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-12-16</span>
   </span>
 
     
@@ -685,14 +768,14 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "header.autohide", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.expand", "toc.integrate", "search.highlight", "search.suggest"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "header.autohide", "navigation.instant", "navigation.sections", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "navigation.expand", "toc.integrate", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../../assets/javascripts/bundle.83f73b43.min.js"></script>
       
-        <script src="../js/timeago.min.js"></script>
+        <script src="../../js/timeago.min.js"></script>
       
-        <script src="../js/timeago_mkdocs_material.js"></script>
+        <script src="../../js/timeago_mkdocs_material.js"></script>
       
     
   </body>

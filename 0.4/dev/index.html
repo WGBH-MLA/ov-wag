@@ -16,7 +16,7 @@
         <link rel="prev" href="../setup/">
       
       
-        <link rel="next" href="../maintenance/">
+        <link rel="next" href="migrate/">
       
       
       <link rel="icon" href="../assets/ov-favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Develop - Open Vault: Wagtail</title>
+        <title>Development - Open Vault: Wagtail</title>
       
     
     
@@ -139,7 +139,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Develop
+              Development
             
           </span>
         </div>
@@ -277,16 +277,17 @@
     
   
   
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
-        
-  
     
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
   
   Develop
 
-      </a>
-    </li>
+        </a>
+      </li>
+    
   
 
       
@@ -424,6 +425,51 @@
   
   
   
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Develop
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Develop
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
     <li class="md-nav__item md-nav__item--active">
       
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
@@ -436,7 +482,7 @@
           
   
   <span class="md-ellipsis">
-    Develop
+    Development
   </span>
   
 
@@ -447,7 +493,7 @@
         
   
   <span class="md-ellipsis">
-    Develop
+    Development
   </span>
   
 
@@ -547,30 +593,6 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Examples
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#migrate-database" class="md-nav__link">
-    <span class="md-ellipsis">
-      Migrate database
-    </span>
-  </a>
-  
-</li>
-        
           <li class="md-nav__item">
   <a href="#show-the-logs" class="md-nav__link">
     <span class="md-ellipsis">
@@ -585,9 +607,68 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="migrate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrate database
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="fix_AAPBRecords/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fix AAPBRecords
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
       
     </li>
   
@@ -699,15 +780,6 @@
 <dl>
 <dd>Enter into a python django shell interpreter, with the application context loaded.</dd>
 </dl>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<p>The following are some useful examples of development commands that might be run:</p>
-<h3 id="migrate-database">Migrate database<a class="headerlink" href="#migrate-database" title="Permanent link">&para;</a></h3>
-<p>Generating the migration files can be accomplished with:</p>
-<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>makemigrations
-</code></pre></div>
-<p>To Run the database migrations:</p>
-<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>migrate
-</code></pre></div>
 <h3 id="show-the-logs">Show the logs<a class="headerlink" href="#show-the-logs" title="Permanent link">&para;</a></h3>
 <p>Show the docker compose logs
 <div class="highlight"><pre><span></span><code>ov<span class="w"> </span>c<span class="w"> </span>logs
@@ -715,6 +787,12 @@
 <p>Show logs for just the frontend
 <div class="highlight"><pre><span></span><code>ov<span class="w"> </span>c<span class="w"> </span>logs<span class="w"> </span>ov-frontend
 </code></pre></div></p>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>The following are some useful examples of development commands that might be run:</p>
+<ul>
+<li><a href="./migrate">Database migrations</a></li>
+<li><a href="./fix_AAPBRecords">Fix database records</a></li>
+</ul>
 
 
 
