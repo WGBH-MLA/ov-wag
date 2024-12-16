@@ -7,6 +7,7 @@ from wagtail.blocks import (
     StructBlock,
     TextBlock,
     URLBlock,
+    ChoiceBlock,
 )
 from wagtail.images.blocks import ImageBlock
 
@@ -89,6 +90,7 @@ class AAPBRecordsBlock(StructBlock):
         title: Optional title of the group
         start_time: Optional start time for the group
         end_time: Optional end time for the group
+        access_level: Required: access level for the group. Default: online
     """
 
     guids = TextBlock(
@@ -127,6 +129,17 @@ class AAPBRecordsBlock(StructBlock):
         help_text='End time for the group',
     )
 
+    access_level = ChoiceBlock(
+        required=True,
+        help_text='Access level for AAPB search links in this block',
+        choices=[
+            ('all', 'All'),
+            ('digitized', 'Digitized'),
+            ('online', 'Online'),
+        ],
+        default='online',
+    )
+
     def clean(self, value):
         data = super(AAPBRecordsBlock, self).clean(value)
 
@@ -140,3 +153,18 @@ class AAPBRecordsBlock(StructBlock):
 
             raise ValidationError('Start time must be before end time')
         return data
+
+    def get_api_representation(self, value, context=None):
+        results = super().get_api_representation(value, context)
+        results['guids'] = value.get('guids').split()
+        return results
+
+
+AAPB_BLOCK_TYPES = [
+    'interviews',
+    'archival_footage',
+    'photographs',
+    'original_footage',
+    'programs',
+    'related_content',
+]

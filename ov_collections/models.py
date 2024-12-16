@@ -63,10 +63,21 @@ class Collection(HeadlessMixin, Page):
         related_name='+',
     )
 
+    def get_hero_thumb_url(self):
+        if self.hero_image:
+            from django.core.files.storage import default_storage
+
+            default_storage.querystring_expire = 604800
+            url = self.hero_image.get_rendition('fill-480x270').url
+            default_storage.querystring_expire = 3600
+            return url
+        return ''
+
     search_fields: ClassVar[list[index.SearchField]] = [
         *Page.search_fields,
         index.AutocompleteField('introduction'),
         index.SearchField('slug'),
+        index.SearchField('get_hero_thumb_url'),
     ]
 
     content_panels: ClassVar[list[FieldPanel]] = [

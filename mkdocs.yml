@@ -7,7 +7,10 @@ edit_uri: ''
 nav:
   - Home: index.md
   - Setup: setup.md
-  - Develop: dev.md
+  - Develop: 
+    - dev/index.md
+    - dev/migrate.md
+    - dev/fix_AAPBRecords.ipynb
   - Maintenance: maintenance.md
   - Reference: reference
 markdown_extensions:
