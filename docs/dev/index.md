@@ -63,24 +63,6 @@ COMMANDS:
 
 : Enter into a python django shell interpreter, with the application context loaded.
 
-## Examples
-
-The following are some useful examples of development commands that might be run:
-
-### Migrate database
-
-Generating the migration files can be accomplished with:
-
-```bash
-ov m makemigrations
-```
-
-To Run the database migrations:
-
-```bash
-ov m migrate
-```
-
 ### Show the logs
 
 Show the docker compose logs
@@ -92,3 +74,10 @@ Show logs for just the frontend
 ```bash
 ov c logs ov-frontend
 ```
+
+## Examples
+
+The following are some useful examples of development commands that might be run:
+
+- [Database migrations](./migrate)
+- [Fix database records](./fix_AAPBRecords)
