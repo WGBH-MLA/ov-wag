@@ -48,8 +48,8 @@ class ExhibitsOrderable(Orderable):
     page = ParentalKey('exhibits.ExhibitPage', related_name='other_exhibits', null=True)
     exhibit = models.ForeignKey(
         'exhibits.ExhibitPage',
-        blank=True,
-        null=True,
+        blank=False,
+        null=False,
         on_delete=models.CASCADE,
     )
 
