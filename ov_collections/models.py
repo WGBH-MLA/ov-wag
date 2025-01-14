@@ -42,7 +42,6 @@ class Collection(HeadlessMixin, Page):
                 ),
             ),
             ('text', RichTextBlock()),
-            ('image', ImageBlock()),
             ('html', RawHTMLBlock(label='HTML')),
         ],
     )

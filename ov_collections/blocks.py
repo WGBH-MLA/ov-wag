@@ -47,11 +47,10 @@ class DurationBlock(FieldBlock):
 
 class ContentBlock(StructBlock):
     """Generic External link block
-    )
-    from wagtail.images.blocks import ImageBlock
-            title: RichTextBlock with italics only
-            link: URLBlock
 
+    Attributes:
+        title: RichTextBlock with italics only
+        link: URLBlock
     """
 
     title = RichTextBlock(
