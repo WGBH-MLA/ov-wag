@@ -9,7 +9,6 @@ from wagtail.api import APIField
 from wagtail.blocks import RawHTMLBlock, RichTextBlock
 from wagtail.fields import StreamField
 from wagtail.images.api.fields import ImageRenditionField
-from wagtail.images.blocks import ImageBlock
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail_footnotes.blocks import RichTextBlockWithFootnotes
@@ -154,7 +153,6 @@ class ExhibitPage(HeadlessMixin, Page):
                 ),
             ),
             ('text', RichTextFootnotesBlock()),
-            ('image', ImageBlock()),
             (
                 'heading',
                 RichTextBlock(
