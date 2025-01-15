@@ -5,7 +5,7 @@
 groups = ["default", "cli", "dev", "test"]
 strategy = []
 lock_version = "4.5.0"
-content_hash = "sha256:86a8074107efaf1c5727ed0e6697434c7cc70cac83aafc4b134608e4807851f8"
+content_hash = "sha256:438ce055126f6d8a0b2b99c2e39d7bff02f2bb22c29e6c92a7854907dff006ce"
 
 [[metadata.targets]]
 requires_python = "~=3.10"
@@ -483,7 +483,7 @@ files = [
 
 [[package]]
 name = "django"
-version = "5.1.4"
+version = "5.1.5"
 requires_python = ">=3.10"
 summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 dependencies = [
@@ -492,8 +492,8 @@ dependencies = [
     "tzdata; sys_platform == \"win32\"",
 ]
 files = [
-    {file = "Django-5.1.4-py3-none-any.whl", hash = "sha256:236e023f021f5ce7dee5779de7b286565fdea5f4ab86bae5338e3f7b69896cf0"},
-    {file = "Django-5.1.4.tar.gz", hash = "sha256:de450c09e91879fa5a307f696e57c851955c910a438a35e6b4c895e86bedc82a"},
+    {file = "Django-5.1.5-py3-none-any.whl", hash = "sha256:c46eb936111fffe6ec4bc9930035524a8be98ec2f74d8a0ff351226a3e52f459"},
+    {file = "Django-5.1.5.tar.gz", hash = "sha256:19bbca786df50b9eca23cee79d495facf55c8f5c54c529d9bf1fe7b5ea086af3"},
 ]
 
 [[package]]
@@ -917,15 +917,15 @@ files = [
 
 [[package]]
 name = "laces"
-version = "0.1.1"
+version = "0.1.2"
 requires_python = ">=3.8"
 summary = "Django components that know how to render themselves."
 dependencies = [
     "Django>=3.2",
 ]
 files = [
-    {file = "laces-0.1.1-py3-none-any.whl", hash = "sha256:ae2c575b9aaa46154e5518c61c9f86f5a9478f753a51e9c5547c7d275d361242"},
-    {file = "laces-0.1.1.tar.gz", hash = "sha256:e45159c46f6adca33010d34e9af869e57201b70675c6dc088e919b16c89456a4"},
+    {file = "laces-0.1.2-py3-none-any.whl", hash = "sha256:980cdaf9a31e883a2b8198132e2388931a4eb8814f5bfa5d8bba13ff9f657b7c"},
+    {file = "laces-0.1.2.tar.gz", hash = "sha256:3218e09c1889ae5cf3fc7a82f5bb63ec0c7879889b6a9760bfc42323c694b84d"},
 ]
 
 [[package]]
