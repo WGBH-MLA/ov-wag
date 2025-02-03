@@ -9,22 +9,22 @@ dependencies = [
     "Django~=5.1.5",
     "wagtail~=6.3.2",
     "wagtail-factories~=4.2.1",
-    "pydantic~=2.10.5",
+    "pydantic~=2.10.6",
     "psycopg2~=2.9.10",
     "python-dotenv~=1.0.1",
     "gunicorn~=23.0.0",
     "wagtail-headless-preview~=0.8.0",
     "django-cors-headers~=4.6.0",
     "django-allauth~=65.3.1",
-    "elasticsearch~=8.17.0",
+    "elasticsearch~=8.17.1",
     "wagtail-footnotes~=0.13.0",
 ]
 requires-python = '~=3.10'
 
 [dependency-groups]
 dev = [
-    "black~=24.10.0",
-    "ruff~=0.9.2",
+    "black~=25.1.0",
+    "ruff~=0.9.3",
     "pre-commit~=4.1.0",
 ]
 docs = [

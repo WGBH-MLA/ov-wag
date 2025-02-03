@@ -1,7 +1,9 @@
 ![CI](https://github.com/WGBH-MLA/ov-wag/actions/workflows/CI.yml/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/WGBH-MLA/ov-wag/badge.svg)](https://coveralls.io/github/WGBH-MLA/ov-wag)
 
 # Open Vault: Wagtail
+
 #### From GBH
+
 Wagtail CMS for [Open Vault](https://openvault.wgbh.org/)
 
 ## Documentation
@@ -9,21 +11,26 @@ Wagtail CMS for [Open Vault](https://openvault.wgbh.org/)
 ### [User Documentation](https://wgbh-mla.github.io/ov-wag/)
 
 ## Usage
+
 ### Install
+
 The published version can be installed using pip:
 
 `pip install ov-wag`
 
 #### Local installation
+
 For local devopment, install [PDM](https://pdm.fming.dev/) for dependency management.
 
 `pip install pdm`
 
 ##### Clone the repo:
+
 `git clone https://github.com/WGBH-MLA/ov-wag.git`
 
 ##### Install the package:
-`pdm install` 
+
+`pdm install`
 
 ### Init script
 
@@ -51,7 +58,6 @@ _Note_ For most commands, additional args will be passed on to the parent comman
     - `ov c bash`
     - `ov c python3 -c "print('OpenVault!')"`
 
-
 ## develop
 
 ### pre-commit secret scanning
@@ -75,3 +81,7 @@ ggshield auth login
 ```shell
 pre-commit install
 ```
+
+## Credits
+
+Created by [WGBH Media Library and Archives](https://www.wgbh.org/foundation/archives)
