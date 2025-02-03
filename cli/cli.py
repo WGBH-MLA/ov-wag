@@ -20,7 +20,7 @@ def dev(
     args: Annotated[
         list[str] | None,
         Option(help='Additional arguments to pass to the build step'),
-    ] = None
+    ] = None,
 ):
     """Run the dev environment"""
     if args is None:
