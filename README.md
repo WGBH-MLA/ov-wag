@@ -84,4 +84,4 @@ pre-commit install
 
 ## Credits
 
-Created by [WGBH Media Library and Archives](https://www.wgbh.org/foundation/archives)
+Created by the [Media Library and Archives](https://www.wgbh.org/foundation/archives) at [GBH](https://wgbh.org)
