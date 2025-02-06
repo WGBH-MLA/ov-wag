@@ -210,7 +210,7 @@ WAGTAILSEARCH_BACKENDS = {
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILAPI_BASE_URL = os.environ.get('OV_API_URL')
 
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 4096
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10**5
 
 WAGTAIL_BASE_URL = os.environ.get('OV_BASE_URL')
 WAGTAILADMIN_BASE_URL = os.environ.get('OV_ADMIN_BASE_URL', '')
