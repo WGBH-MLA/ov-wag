@@ -17,6 +17,7 @@ class ExhibitsAPIViewSet(PagesAPIViewSet):
 
     meta_fields: ClassVar[list[str]] = PagesAPIViewSet.meta_fields + [
         'last_published_at',
+        'featured',
     ]
 
     listing_default_fields: ClassVar[list[str]] = [
@@ -28,7 +29,9 @@ class ExhibitsAPIViewSet(PagesAPIViewSet):
         'hero_image',
         'hero_thumb',
         'authors',
+        'featured',
     ]
 
     def get_queryset(self):
-        return self.model.objects.live().order_by("-last_published_at")
+        """Sort by featured, then most recent last_published_at"""
+        return self.model.objects.live().order_by('-featured', '-last_published_at')
