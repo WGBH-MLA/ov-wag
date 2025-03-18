@@ -6,7 +6,7 @@ python3 manage.py collectstatic --noinput
 # Run the production server
 gunicorn ov_wag.wsgi:application \
   -b 0.0.0.0:8000 \
-  --workers 2 \
+  --workers 4 \
   --forwarded-allow-ips '*' \
   --access-logfile - \
   --error-logfile -
