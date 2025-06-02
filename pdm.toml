@@ -1,5 +1,3 @@
-use_uv = true
-
 [venv]
 with_pip = true
 
