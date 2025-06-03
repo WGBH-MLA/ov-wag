@@ -61,6 +61,8 @@ class Collection(HeadlessMixin, Page):
         related_name='+',
     )
 
+    featured = models.BooleanField(default=False)
+
     def get_hero_thumb_url(self):
         if self.hero_image:
             from django.core.files.storage import default_storage
@@ -74,6 +76,7 @@ class Collection(HeadlessMixin, Page):
     search_fields: ClassVar[list[index.SearchField]] = [
         *Page.search_fields,
         index.AutocompleteField('introduction'),
+        index.FilterField('featured'),
         index.SearchField('slug'),
         index.SearchField('get_hero_thumb_url'),
     ]
@@ -85,6 +88,15 @@ class Collection(HeadlessMixin, Page):
             [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
         ),
         FieldPanel('content'),
+    ]
+
+    promote_panels: ClassVar[list[FieldPanel]] = [
+        FieldPanel(
+            'featured',
+            heading='Featured Collection',
+            help_text='Featured collections will be displayed on the home page, and listed first on the collections page.',  # noqa: E501
+        ),
+        *Page.promote_panels,
     ]
 
     api_fields: ClassVar[list[APIField]] = [
