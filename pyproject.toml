@@ -6,7 +6,7 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    "Django~=5.2.1",
+    "Django~=5.2.3",
     "wagtail~=7.0",
     "wagtail-factories~=4.2.1",
     "pydantic~=2.11.5",
@@ -16,7 +16,7 @@ dependencies = [
     "wagtail-headless-preview~=0.8.0",
     "django-cors-headers~=4.7.0",
     "django-allauth~=65.9.0",
-    "elasticsearch~=8.18.1",
+    "elasticsearch~=9.0.2",
     "wagtail-footnotes~=0.13.0",
 ]
 requires-python = '~=3.10'
@@ -24,7 +24,7 @@ requires-python = '~=3.10'
 [dependency-groups]
 dev = [
     "black~=25.1.0",
-    "ruff~=0.11.12",
+    "ruff~=0.11.13",
     "pre-commit~=4.2.0",
 ]
 docs = [
