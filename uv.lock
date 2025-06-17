@@ -1541,17 +1541,6 @@ cli = [
     { name = "trogon" },
     { name = "typer" },
 ]
-production = [
-    { name = "django-storages", extra = ["s3"] },
-    { name = "gunicorn" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "black" },
-    { name = "pre-commit" },
-    { name = "ruff" },
-]
 docs = [
     { name = "mike" },
     { name = "mkdocs" },
@@ -1559,6 +1548,10 @@ docs = [
     { name = "mkdocs-jupyter" },
     { name = "mkdocs-material" },
     { name = "mkdocstrings", extra = ["python"] },
+]
+production = [
+    { name = "django-storages", extra = ["s3"] },
+    { name = "gunicorn" },
 ]
 test = [
     { name = "coverage" },
@@ -1570,8 +1563,16 @@ test = [
     { name = "pytest-xdist" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "black" },
+    { name = "pre-commit" },
+    { name = "ruff" },
+]
+
 [package.metadata]
 requires-dist = [
+    { name = "coverage", marker = "extra == 'test'", specifier = "~=7.8.2" },
     { name = "django", specifier = "~=5.2.1" },
     { name = "django-allauth", specifier = "~=65.9.0" },
     { name = "django-cors-headers", specifier = "~=4.7.0" },
@@ -1579,8 +1580,20 @@ requires-dist = [
     { name = "elasticsearch", specifier = "~=8.18.1" },
     { name = "gunicorn", marker = "extra == 'production'", specifier = "~=23.0.0" },
     { name = "loguru", marker = "extra == 'cli'", specifier = "~=0.7.3" },
+    { name = "mike", marker = "extra == 'docs'", specifier = "~=2.1.3" },
+    { name = "mkdocs", marker = "extra == 'docs'", specifier = "~=1.6.1" },
+    { name = "mkdocs-git-revision-date-localized-plugin", marker = "extra == 'docs'", specifier = "~=1.4.7" },
+    { name = "mkdocs-jupyter", marker = "extra == 'docs'", specifier = "~=0.25.1" },
+    { name = "mkdocs-material", marker = "extra == 'docs'", specifier = "~=9.6.14" },
+    { name = "mkdocstrings", extras = ["python"], marker = "extra == 'docs'", specifier = "~=0.29.1" },
+    { name = "nbmake", marker = "extra == 'test'", specifier = "~=1.5.5" },
     { name = "psycopg2-binary", specifier = ">=2.9.10" },
     { name = "pydantic", specifier = "~=2.11.5" },
+    { name = "pytest", marker = "extra == 'test'", specifier = "~=8.4.0" },
+    { name = "pytest-cov", marker = "extra == 'test'", specifier = "~=6.1.1" },
+    { name = "pytest-django", marker = "extra == 'test'", specifier = "~=4.11.1" },
+    { name = "pytest-sugar", marker = "extra == 'test'", specifier = "~=1.0.0" },
+    { name = "pytest-xdist", marker = "extra == 'test'", specifier = "~=3.7.0" },
     { name = "python-dotenv", specifier = "~=1.1.0" },
     { name = "trogon", marker = "extra == 'cli'", specifier = "~=0.6.0" },
     { name = "typer", marker = "extra == 'cli'", specifier = "~=0.16.0" },
@@ -1589,30 +1602,13 @@ requires-dist = [
     { name = "wagtail-footnotes", specifier = "~=0.13.0" },
     { name = "wagtail-headless-preview", specifier = "~=0.8.0" },
 ]
-provides-extras = ["cli", "production"]
+provides-extras = ["cli", "docs", "production", "test"]
 
 [package.metadata.requires-dev]
 dev = [
     { name = "black", specifier = "~=25.1.0" },
     { name = "pre-commit", specifier = "~=4.2.0" },
     { name = "ruff", specifier = "~=0.11.12" },
-]
-docs = [
-    { name = "mike", specifier = "~=2.1.3" },
-    { name = "mkdocs", specifier = "~=1.6.1" },
-    { name = "mkdocs-git-revision-date-localized-plugin", specifier = "~=1.4.7" },
-    { name = "mkdocs-jupyter", specifier = "~=0.25.1" },
-    { name = "mkdocs-material", specifier = "~=9.6.14" },
-    { name = "mkdocstrings", extras = ["python"], specifier = "~=0.29.1" },
-]
-test = [
-    { name = "coverage", specifier = "~=7.8.2" },
-    { name = "nbmake", specifier = "~=1.5.5" },
-    { name = "pytest", specifier = "~=8.4.0" },
-    { name = "pytest-cov", specifier = "~=6.1.1" },
-    { name = "pytest-django", specifier = "~=4.11.1" },
-    { name = "pytest-sugar", specifier = "~=1.0.0" },
-    { name = "pytest-xdist", specifier = "~=3.7.0" },
 ]
 
 [[package]]
