@@ -62,7 +62,7 @@ build-backend = 'pdm.backend'
 extend-exclude = 'migrations'
 
 [tool.ruff]
-extend-exclude = ['migrations']
+extend-exclude = ['migrations', 'docs/**/*.ipynb']
 
 [tool.pdm]
 version = { source = 'file', path = 'ov_wag/_version.py' }
@@ -114,6 +114,9 @@ select = [
     'W',   # pycodestyle warnings
 
 ]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = 'ov_wag.settings.test'

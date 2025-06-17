@@ -17,9 +17,9 @@ class DurationBlock(FieldBlock):
         self, required=True, help_text=None, format=None, validators=(), **kwargs
     ):
         self.field_options = {
-            "required": required,
-            "help_text": help_text,
-            "validators": validators,
+            'required': required,
+            'help_text': help_text,
+            'validators': validators,
         }
         self.format = format
         super().__init__(**kwargs)
@@ -38,11 +38,10 @@ class DurationBlock(FieldBlock):
 
         if value is None or isinstance(value, timedelta):
             return value
-        else:
-            return parse_duration(value)
+        return parse_duration(value)
 
     class Meta:
-        icon = "time"
+        icon = 'time'
 
 
 class ContentBlock(StructBlock):
@@ -140,7 +139,7 @@ class AAPBRecordsBlock(StructBlock):
     )
 
     def clean(self, value):
-        data = super(AAPBRecordsBlock, self).clean(value)
+        data = super().clean(value)
 
         # Ensure that start_time is before end_time
         if (

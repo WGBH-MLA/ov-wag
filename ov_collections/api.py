@@ -8,7 +8,8 @@ from .models import Collection
 class CollectionAPIViewSet(PagesAPIViewSet):
     model = Collection
 
-    meta_fields: ClassVar[list[str]] = PagesAPIViewSet.meta_fields + [
+    meta_fields: ClassVar[list[str]] = [
+        *PagesAPIViewSet.meta_fields,
         'last_published_at',
         'featured',
     ]

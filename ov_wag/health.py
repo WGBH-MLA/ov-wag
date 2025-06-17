@@ -4,4 +4,4 @@ from rest_framework.response import Response
 
 class HealthAPIViewSet(PagesAPIViewSet):
     def listing_view(self, request):
-        return Response({"status": "ok"})
+        return Response({'status': 'ok'})
