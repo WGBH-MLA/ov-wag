@@ -12,7 +12,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libwebp-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml pdm.lock README.md manage.py ./
+COPY pyproject.toml README.md manage.py ./
 COPY authors authors
 COPY cli cli
 COPY exhibits exhibits
@@ -25,8 +25,7 @@ COPY search search
 # Build the test image, which includes the test applications
 FROM base as test
 # Install the test requirements
-RUN pip install pdm
-RUN pdm install -dG test
+RUN pip install .[test]
 
 ENTRYPOINT /docker_entrypoints/test.sh
 
