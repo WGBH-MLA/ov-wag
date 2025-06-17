@@ -1,4 +1,4 @@
-name: 📖 Docs
+name: 📚 Docs
 
 on:
   push:
@@ -8,8 +8,25 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: 📓 Build and deploy docs
-    uses: WGBH-MLA/.github/.github/workflows/docs.yml@main
-    with:
-      pdm_args: -G docs --no-default -L pdm-locks/pdm.doc.lock
+  deploy:
+    name: 📑 Build and deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📰 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🚧 Install dependencies
+        run: pip install ${{ inputs.pip_args }}
+
+      - name: 🧵 Set version string
+        run: echo VERSION_TITLE=$(mike list | grep latest) >> $GITHUB_ENV
+
+      - name: 🖋️ Configure git user
+        run: |
+          git config user.name mla-bot
+          git config user.email mla-bot@wgbh.org
+
+      - name: 🏗️ Deploy docs
+        run: mike deploy --push --update-aliases ${VERSION_TITLE%\[latest\]} latest

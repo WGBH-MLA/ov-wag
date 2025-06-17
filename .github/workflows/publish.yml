@@ -13,17 +13,11 @@ jobs:
       - name: 📰 Checkout
         uses: actions/checkout@v4
 
-      - name: 📲 Setup PDM
-        uses: pdm-project/setup-pdm@v4
-        id: setup-python
-        with:
-          python-version: 3.x
-
       - name: 🚚 Install dependencies
-        run: pdm install --prod
+        run: pip install uv
 
       - name: 🏗️ Build package
-        run: pdm build
+        run: uv build
 
       - name: 🛫 Export build files
         uses: actions/upload-artifact@v4
