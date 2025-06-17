@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# This script runs the Django development server.
+
+python manage.py runserver

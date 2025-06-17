@@ -67,30 +67,6 @@ extend-exclude = ['migrations', 'docs/**/*.ipynb']
 [tool.pdm]
 version = { source = 'file', path = 'ov_wag/_version.py' }
 
-[tool.pdm.scripts]
-# Development
-dev = { shell = 'python manage.py runserver' }
-
-# Migrations
-makemigrations = { shell = 'python manage.py makemigrations' }
-migrate = { shell = 'python manage.py migrate' }
-
-# Dependency management
-## Lockfiles
-lock-dev = { shell = 'pdm lock -G dev,test,cli' }
-lock-prod = { shell = 'pdm lock -G production -L pdm-locks/pdm.prod.lock' }
-lock-docs = { shell = 'pdm lock -G docs -L pdm-locks/pdm.doc.lock' }
-locks = { composite = ['lock-dev', 'lock-prod', 'lock-docs'] }
-
-## Upgrades
-upgrade = { shell = 'pdm update  -G dev,test,cli -u --no-sync --no-self' }
-upgrade-prod = { shell = 'pdm update --no-default -G production -L pdm-locks/pdm.prod.lock -u --no-sync --no-self' }
-upgrade-docs = { shell = 'pdm update --no-default -G docs -L pdm-locks/pdm.doc.lock -u --no-sync --no-self' }
-upgrade-all = { composite = ['upgrade', 'upgrade-prod', 'upgrade-docs'] }
-
-# Docs
-docs = { shell = 'mkdocs serve' }
-
 [tool.ruff.lint]
 select = [
     'B',   # flake8-bugbear

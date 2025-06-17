@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# This script applies all Django migrations for the project.
+
+python manage.py migrate
