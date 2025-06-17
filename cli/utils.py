@@ -1,6 +1,7 @@
 from re import split
 from subprocess import run as sub_run
 
+from ov_wag._version import __version__
 from typer import Exit
 from typer.core import TyperGroup
 
@@ -12,7 +13,6 @@ def run(cmd: str):
 def version_callback(value: bool):
     """Print the version of the program and exit"""
     if value:
-        from ov_wag._version import __version__
 
         print(f'v{__version__}')
 
