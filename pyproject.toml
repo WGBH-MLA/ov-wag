@@ -6,17 +6,17 @@ authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
-    "Django~=5.2.1",
-    "wagtail~=7.0",
+    "Django~=5.2.3",
+    "wagtail~=7.0.1",
     "wagtail-factories~=4.2.1",
-    "pydantic~=2.11.5",
+    "pydantic~=2.11.7",
     "psycopg2~=2.9.10",
     "python-dotenv~=1.1.0",
     "gunicorn~=23.0.0",
     "wagtail-headless-preview~=0.8.0",
     "django-cors-headers~=4.7.0",
     "django-allauth~=65.9.0",
-    "elasticsearch~=8.18.1",
+    "elasticsearch~=9.0.2",
     "wagtail-footnotes~=0.13.0",
 ]
 requires-python = '~=3.10'
@@ -24,7 +24,7 @@ requires-python = '~=3.10'
 [dependency-groups]
 dev = [
     "black~=25.1.0",
-    "ruff~=0.11.12",
+    "ruff~=0.12.0",
     "pre-commit~=4.2.0",
 ]
 docs = [
@@ -36,13 +36,13 @@ docs = [
     "mkdocs-jupyter~=0.25.1",
 ]
 test = [
-    "pytest~=8.4.0",
+    "pytest~=8.4.1",
     "pytest-django~=4.11.1",
-    "pytest-cov~=6.1.1",
+    "pytest-cov~=6.2.1",
     "pytest-sugar~=1.0.0",
     "pytest-xdist~=3.7.0",
     "nbmake~=1.5.5",
-    "coverage~=7.8.2",
+    "coverage~=7.9.1",
 ]
 
 [project.optional-dependencies]
