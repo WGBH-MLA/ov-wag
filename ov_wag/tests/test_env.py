@@ -1,5 +1,7 @@
+from os import environ as env
 from os import path
 from unittest import TestCase
+from ov_wag.settings.base import MEDIA_ROOT
 
 
 class EnvTests(TestCase):
@@ -9,7 +11,6 @@ class EnvTests(TestCase):
 
         debug: ls -la MEDIA_ROOT
         """
-        from ov_wag.settings.base import MEDIA_ROOT
 
         self.assertTrue(path.isdir(MEDIA_ROOT))
 
@@ -17,6 +18,5 @@ class EnvTests(TestCase):
 
     def test_env(self):
         """Test if the environment variables are set"""
-        from os import environ as env
 
         self.assertTrue(env.get('DJANGO_SETTINGS_MODULE') == 'ov_wag.settings.test')

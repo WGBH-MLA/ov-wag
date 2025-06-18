@@ -1,0 +1,66 @@
+name: 🐍 Pytest
+
+on:
+  workflow_call:
+    inputs:
+      python_version:
+        description: The version of python to setup
+        type: string
+        default: 3.x
+
+      environment:
+        description: The name of the environment to deploy
+        type: string
+        default: Codecov
+
+      pip_args:
+        description: Install args for pip
+        type: string
+        default: .[test]
+
+      pytest_args:
+        description: Additional args to pass to pytest
+        type: string
+
+      pg_db:
+        description: Name of postgres database to use
+        type: string
+        default: postgres
+
+jobs:
+  run_pytest:
+    name: 🐍 Run pytest and upload coverage report
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: ${{ inputs.pg_db }}
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
+    steps:
+      - name: 📰 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🚧 Install dependencies
+        run: pip install ${{ inputs.pip_args }}
+
+      - name: 🧪 Run pytest suite
+        run: pytest -v --cov --cov-report lcov ${{ inputs.pytest_args }}
+
+      - name: 📈 Uploade coverage report
+        # run this step, even if the tests fail
+        if: success() || failure()
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

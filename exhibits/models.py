@@ -1,5 +1,6 @@
 from typing import ClassVar
 
+from django.core.files.storage import default_storage
 from django.db import models
 from modelcluster.fields import ParentalKey
 from pydantic import BaseModel
@@ -188,7 +189,6 @@ class ExhibitPage(HeadlessMixin, Page):
 
     def get_hero_thumb_url(self):
         if self.hero_image:
-            from django.core.files.storage import default_storage
 
             default_storage.querystring_expire = 604800
             url = self.hero_image.get_rendition('fill-480x270').url

@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'wagtail_headless_preview',
     'wagtail.contrib.search_promotions',
-    "wagtail_footnotes",
+    'wagtail_footnotes',
     'django.contrib.sites',
     'allauth',
     'allauth.account',

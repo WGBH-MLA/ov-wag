@@ -1,3 +1,6 @@
+from datetime import timedelta
+from django.core.exceptions import ValidationError
+from django.forms import DurationField
 from django.utils.dateparse import parse_duration
 from django.utils.functional import cached_property
 from wagtail.blocks import (
@@ -17,16 +20,15 @@ class DurationBlock(FieldBlock):
         self, required=True, help_text=None, format=None, validators=(), **kwargs
     ):
         self.field_options = {
-            "required": required,
-            "help_text": help_text,
-            "validators": validators,
+            'required': required,
+            'help_text': help_text,
+            'validators': validators,
         }
         self.format = format
         super().__init__(**kwargs)
 
     @cached_property
     def field(self):
-        from django.forms import DurationField
 
         field_kwargs = {}
         # TODO: Add an AdminDurationInput widget
@@ -34,15 +36,13 @@ class DurationBlock(FieldBlock):
         return DurationField(**field_kwargs)
 
     def to_python(self, value):
-        from datetime import timedelta
 
         if value is None or isinstance(value, timedelta):
             return value
-        else:
-            return parse_duration(value)
+        return parse_duration(value)
 
     class Meta:
-        icon = "time"
+        icon = 'time'
 
 
 class ContentBlock(StructBlock):
@@ -140,7 +140,7 @@ class AAPBRecordsBlock(StructBlock):
     )
 
     def clean(self, value):
-        data = super(AAPBRecordsBlock, self).clean(value)
+        data = super().clean(value)
 
         # Ensure that start_time is before end_time
         if (
@@ -148,7 +148,6 @@ class AAPBRecordsBlock(StructBlock):
             and data.get('end_time')
             and data['start_time'] > data['end_time']
         ):
-            from django.core.exceptions import ValidationError
 
             raise ValidationError('Start time must be before end time')
         return data

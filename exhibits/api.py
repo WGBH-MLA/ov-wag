@@ -8,7 +8,8 @@ from .models import ExhibitPage
 class ExhibitsAPIViewSet(PagesAPIViewSet):
     model = ExhibitPage
 
-    meta_fields: ClassVar[list[str]] = PagesAPIViewSet.meta_fields + [
+    meta_fields: ClassVar[list[str]] = [
+        *PagesAPIViewSet.meta_fields,
         'last_published_at',
         'featured',
     ]

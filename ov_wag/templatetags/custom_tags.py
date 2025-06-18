@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.simple_tag
 def get_setting(name):
-    return getattr(settings, name, "")
+    return getattr(settings, name, '')
 
 
 @register.simple_tag

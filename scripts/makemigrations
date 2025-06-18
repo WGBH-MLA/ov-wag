@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# This script creates Django migrations for the project if there are any changes in the models.
+
+python manage.py makemigrations

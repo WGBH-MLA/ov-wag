@@ -17,7 +17,7 @@ urlpatterns = [
     path('search/', search_views.search, name='search'),
     path('api/v2/', api_router.urls),
     path('accounts/', include('allauth.urls')),
-    path("footnotes/", include(footnotes_urls)),
+    path('footnotes/', include(footnotes_urls)),
 ]
 
 

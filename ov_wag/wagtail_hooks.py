@@ -20,3 +20,4 @@ def before_publish_page(request, page):
         if error:
             messages.error(request, 'Error publishing page')
             return redirect('wagtailadmin_pages:edit', page.id)
+    return None

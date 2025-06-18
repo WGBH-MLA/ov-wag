@@ -5,10 +5,9 @@ on: [push, pull_request, merge_group, workflow_dispatch]
 jobs:
   tests:
     name: ⚗️ App Tests
-    uses: WGBH-MLA/.github/.github/workflows/pytest-with-postgres.yml@main
+    uses: WGBH-MLA/ov-wag/.github/workflows/pytest-with-postgres.yml@uv
     secrets: inherit
     with:
-      pdm_args: -G test
       pytest_args: -n auto --nbmake -ra -s
       pg_db: ov
   lint:
