@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://wgbh-mla.github.io/ov-wag/0.4/dev/migrate/">
       
       
-        <link rel="prev" href="../">
+        <link rel="prev" href="../maintenance/">
       
       
         <link rel="next" href="../fix_AAPBRecords/">
@@ -306,25 +306,6 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../maintenance/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Maintenance
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
       <a href="../../reference" class="md-tabs__link">
         
   
@@ -509,6 +490,29 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -634,28 +638,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenance/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Maintenance
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../reference" class="md-nav__link">
         
   
@@ -688,14 +670,19 @@
 
 
 <h1 id="migrate-database">Migrate database<a class="headerlink" href="#migrate-database" title="Permanent link">&para;</a></h1>
+<p>The following commands are used to manage database migrations in the OpenVault project. They can be run from the command line using <code>manage.py</code>.</p>
+<details class="abstract" open="open">
+<summary>Database migrations</summary>
+<p>Make sure you have the correct environment set up and the database is running before executing these commands.</p>
+</details>
 <h2 id="show-all-database-migrations">Show all database migrations<a class="headerlink" href="#show-all-database-migrations" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>showmigrations
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>manage.py<span class="w"> </span>showmigrations
 </code></pre></div>
 <h2 id="generate-the-migration-files">Generate the migration files<a class="headerlink" href="#generate-the-migration-files" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>makemigrations
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>manage.py<span class="w"> </span>makemigrations
 </code></pre></div>
 <h2 id="run-the-database-migrations">Run the database migrations<a class="headerlink" href="#run-the-database-migrations" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>migrate
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>manage.py<span class="w"> </span>migrate
 </code></pre></div>
 
 
@@ -719,7 +706,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 16, 2024 23:48:53 UTC"><span class="timeago" datetime="2024-12-16T23:48:53+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 16, 2024 23:48:53 UTC">2024-12-16</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 23, 2025 21:27:25 UTC"><span class="timeago" datetime="2025-06-23T21:27:25+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 23, 2025 21:27:25 UTC">2025-06-23</span>
   </span>
 
     

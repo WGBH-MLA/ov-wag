@@ -306,25 +306,6 @@
   
   
     <li class="md-tabs__item">
-      <a href="../maintenance/" class="md-tabs__link">
-        
-  
-  
-    
-  
-  Maintenance
-
-      </a>
-    </li>
-  
-
-      
-        
-  
-  
-  
-  
-    <li class="md-tabs__item">
       <a href="../reference" class="md-tabs__link">
         
   
@@ -469,37 +450,47 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#clone-repository" class="md-nav__link">
     <span class="md-ellipsis">
-      Prerequisites
+      Clone repository
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Prerequisites">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#local" class="md-nav__link">
     <span class="md-ellipsis">
       Local
     </span>
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Local">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#database" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Database
+      Prerequisites
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#docker" class="md-nav__link">
+  <a href="#install" class="md-nav__link">
     <span class="md-ellipsis">
-      Docker
+      Install
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install dependencies
     </span>
   </a>
   
@@ -509,21 +500,35 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#setup_1" class="md-nav__link">
+  <a href="#database" class="md-nav__link">
     <span class="md-ellipsis">
-      Setup
+      Database
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Setup">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Docker">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#0-clone-repository" class="md-nav__link">
+  <a href="#ov-cli" class="md-nav__link">
     <span class="md-ellipsis">
-      0. Clone repository
+      ov CLI
     </span>
   </a>
   
@@ -566,9 +571,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#5-start-the-frontend" class="md-nav__link">
+  <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Start the frontend
+      Next steps
     </span>
   </a>
   
@@ -662,6 +667,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../dev/maintenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../dev/migrate/" class="md-nav__link">
         
   
@@ -715,28 +743,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../maintenance/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Maintenance
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../reference" class="md-nav__link">
         
   
@@ -769,54 +775,51 @@
 
 
 <h1 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h1>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>This page describes how to run the development environment. You can run the development environment locally, or in a docker container.</p>
-<h3 id="local">Local<a class="headerlink" href="#local" title="Permanent link">&para;</a></h3>
-<p>This is the recommended way to run the development environment, for ease of use and speed.
-- <code>python</code>
-- <code>pip</code>
-- Running Postgres image</p>
-<p>Use pip to install <a href="https://pdm.fming.dev/">PDM</a>, the package manager used for this project.</p>
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pdm
+<h2 id="clone-repository">Clone repository<a class="headerlink" href="#clone-repository" title="Permanent link">&para;</a></h2>
+<div class="highlight"><span class="filename">Clone repository</span><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/WGBH-MLA/ov-wag.git
 </code></pre></div>
-<p>Install the dependencies with PDM</p>
-<div class="highlight"><pre><span></span><code>pdm<span class="w"> </span>install
+<div class="highlight"><span class="filename">Change directory</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>ov-wag
 </code></pre></div>
-<p>You can now run the <code>ov</code> command to interact with the development environment.</p>
-<details class="question" open="open">
-<summary>Help! How do I ... ?</summary>
-<p>For a full list of available commands, run 
-<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>-h
+<h2 id="local">Local<a class="headerlink" href="#local" title="Permanent link">&para;</a></h2>
+<p>This is the recommended way to run the development environment, for ease of use and speed.</p>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<p>Use pip to install <a href="https://docs.astral.sh/uv/">uv</a>, the package manager used for this project.</p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>uv
+</code></pre></div>
+<h3 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h3>
+<p>Create a new virtual environment:
+<div class="highlight"><span class="filename">Create virtual environment</span><pre><span></span><code><span class="c1"># Create a new virtual environment</span>
+uv<span class="w"> </span>venv
+<span class="c1"># Activate the virtual environment</span>
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
 </code></pre></div></p>
-<p>For additional information, see the <a href="dev.md#ov">dev#ov</a> section of the development documentation.</p>
-</details>
-<details class="cmd" open="open">
-<summary>Activate virtual environment</summary>
-<p>If you are not already in a virtual environment, activate the one created by PDM.</p>
-<div class="highlight"><pre><span></span><code><span class="k">$(</span>pdm<span class="w"> </span>venv<span class="w"> </span>activate<span class="k">)</span>
+<h4 id="install-dependencies">Install dependencies<a class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h4>
+<p>Install the dependencies:</p>
+<div class="highlight"><pre><span></span><code>uv<span class="w"> </span>sync
 </code></pre></div>
-</details>
-<h3 id="database">Database<a class="headerlink" href="#database" title="Permanent link">&para;</a></h3>
+<p>You can now run project commands like <code>python manage.py &lt;command&gt;</code> or the shortcuts in the <code>./scripts/</code> directory.</p>
+<p>See the <a href="maintenance.md">maintenance section</a> for examples of running tests, building documentation, and more.</p>
+<h2 id="database">Database<a class="headerlink" href="#database" title="Permanent link">&para;</a></h2>
 <p>The development environment requires a running Postgres database. The easiest way to run this is with a docker container.</p>
 <div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--name<span class="w"> </span>ov-db<span class="w"> </span>-e<span class="w"> </span><span class="nv">POSTGRES_PASSWORD</span><span class="o">=</span><span class="s2">&quot;YOUR POSTGRES PASSWORD HERE&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span>:5432<span class="w"> </span>-d<span class="w"> </span>postgres:alpine
 </code></pre></div>
-<h3 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
-<p>The development environment can also be run in docker containers, which includes a database configuration.
-- <code>docker compose</code> installed</p>
+<h2 id="docker">Docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h2>
+<p>If local installation is not an option, a docker compose environment is provided, but we recommend using the <a href="#local">local installation</a> for development if possible.</p>
+<h3 id="ov-cli"><code>ov</code> CLI<a class="headerlink" href="#ov-cli" title="Permanent link">&para;</a></h3>
+<p>A helper CLI is provided to make it easier to run the development environment. It is called <code>ov</code>, and can be used to run commands in the docker container.</p>
+<div class="highlight"><pre><span></span><code>ov<span class="w"> </span>&lt;command&gt;
+</code></pre></div>
+<p>Use <code>ov -h</code> to see the available commands and usage.</p>
 <details class="abstract" open="open">
 <summary>Requirements</summary>
 <ul>
 <li><a href="https://docs.docker.com/get-docker/">docker</a></li>
 <li><a href="https://docs.docker.com/compose/install/">docker compose</a></li>
 </ul>
-<p>Running the services outside of docker is possible, but not supported in this context.</p>
 </details>
-<h2 id="setup_1">Setup<a class="headerlink" href="#setup_1" title="Permanent link">&para;</a></h2>
-<h3 id="0-clone-repository">0. Clone repository<a class="headerlink" href="#0-clone-repository" title="Permanent link">&para;</a></h3>
-<div class="highlight"><span class="filename">Clone repository</span><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/WGBH-MLA/ov-wag.git
-</code></pre></div>
 <h3 id="1-create-the-backend-secrets-file">1. Create the backend secrets file<a class="headerlink" href="#1-create-the-backend-secrets-file" title="Permanent link">&para;</a></h3>
-<p>In <code>ov-wag</code>, create a file called <code>.env</code> with the following contents:</p>
+<p>In the root directory, create a file called <code>.env</code> with the following contents:</p>
 <div class="highlight"><span class="filename">ov-wag/.env</span><pre><span></span><code><span class="nv">OV_DB_ENGINE</span><span class="o">=</span>django.db.backends.postgresql
 <span class="nv">OV_DB_PORT</span><span class="o">=</span><span class="m">5432</span>
 <span class="nv">OV_DB_NAME</span><span class="o">=</span>ov
@@ -838,11 +841,8 @@ You can now visit the admin interface at <a href="http://localhost:8000/admin">h
 <div class="highlight"><span class="filename">Create a superuser</span><pre><span></span><code>ov<span class="w"> </span>m<span class="w"> </span>createsuperuser
 </code></pre></div>
 <p>Follow the prompts to create an admin user.</p>
-<h3 id="5-start-the-frontend">5. Start the frontend<a class="headerlink" href="#5-start-the-frontend" title="Permanent link">&para;</a></h3>
-<div class="admonition todo">
-<p class="admonition-title">Add frontend setup instructions</p>
-<p>Make this link work! <a href="https://wgbh-mla.github.io/ov-frontend/dev/">ov-frontend setup</a></p>
-</div>
+<h3 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h3>
+<p>See the <a href="maintenance.md">maintenance documentation</a> for more information on how to run the project, including running tests, building documentation, and more.</p>
 
 
 
@@ -865,7 +865,7 @@ You can now visit the admin interface at <a href="http://localhost:8000/admin">h
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="December 20, 2023 18:07:19 UTC"><span class="timeago" datetime="2023-12-20T18:07:19+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="December 20, 2023 18:07:19 UTC">2023-12-20</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="June 23, 2025 21:27:25 UTC"><span class="timeago" datetime="2025-06-23T21:27:25+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="June 23, 2025 21:27:25 UTC">2025-06-23</span>
   </span>
 
     
