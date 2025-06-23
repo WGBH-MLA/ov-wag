@@ -10,9 +10,9 @@ Further details can be found in the [reference section](reference/index.md)
 
 This is one componenet of the Open Vault redesign. Others are:
 
-- [ov-frontend](https://github.com/WGBH-MLA/ov-frontend) Frontend
-- [ov-deploy](https://github.com/WGBH-MLA/ov-deploy) Deployment resources
-    - [Documentation](https://wgbh-mla.github.io/ov-deploy/)
+- Frontend code: [github.com/WGBH-MLA/ov-frontend](https://github.com/WGBH-MLA/ov-frontend) 
+- Deployment resources: [github.com/WGBH-MLA/ov-deploy](https://github.com/WGBH-MLA/ov-deploy) 
+- Deployment documentation: [wgbh-mla.github.io/ov-deploy/](https://wgbh-mla.github.io/ov-deploy/)
 
 ## Credits
 

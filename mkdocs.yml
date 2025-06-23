@@ -9,9 +9,9 @@ nav:
   - Setup: setup.md
   - Develop: 
     - dev/index.md
+    - dev/maintenance.md
     - dev/migrate.md
     - dev/fix_AAPBRecords.ipynb
-  - Maintenance: maintenance.md
   - Reference: reference
 markdown_extensions:
   - admonition

@@ -1,53 +1,66 @@
 # Setup
 
-## Prerequisites
 This page describes how to run the development environment. You can run the development environment locally, or in a docker container.
 
-### Local
+## Clone repository
+    
+```bash title="Clone repository"
+git clone https://github.com/WGBH-MLA/ov-wag.git
+```
+
+```bash title="Change directory"
+cd ov-wag
+```
+
+## Local
 This is the recommended way to run the development environment, for ease of use and speed.
-- `python`
-- `pip`
-- Running Postgres image
 
-Use pip to install [PDM](https://pdm.fming.dev/), the package manager used for this project.
+### Prerequisites
+Use pip to install [uv](https://docs.astral.sh/uv/), the package manager used for this project.
 
 ```bash
-pip install pdm
+pip install uv
 ```
 
-Install the dependencies with PDM
+### Install
+Create a new virtual environment:
+```bash title="Create virtual environment"
+# Create a new virtual environment
+uv venv
+# Activate the virtual environment
+source .venv/bin/activate
+```
+
+#### Install dependencies
+Install the dependencies:
 
 ```bash
-pdm install
+uv sync
 ```
 
-You can now run the `ov` command to interact with the development environment.
+You can now run project commands like `python manage.py <command>` or the shortcuts in the `./scripts/` directory.
 
-???+ question "Help! How do I ... ?"
-    For a full list of available commands, run 
-    ```bash
-    ov -h
-    ```
+See the [maintenance section](maintenance.md) for examples of running tests, building documentation, and more.
 
-    For additional information, see the [dev#ov](dev.md#ov) section of the development documentation.
-
-
-???+ cmd "Activate virtual environment"
-    If you are not already in a virtual environment, activate the one created by PDM.
-
-    ```bash
-    $(pdm venv activate)
-    ```
-### Database
+## Database
 The development environment requires a running Postgres database. The easiest way to run this is with a docker container.
 
 ```bash
 docker run --name ov-db -e POSTGRES_PASSWORD="YOUR POSTGRES PASSWORD HERE" -p 5432:5432 -d postgres:alpine
 ```
 
-### Docker
-The development environment can also be run in docker containers, which includes a database configuration.
-- `docker compose` installed
+## Docker
+If local installation is not an option, a docker compose environment is provided, but we recommend using the [local installation](#local) for development if possible.
+
+
+### `ov` CLI
+A helper CLI is provided to make it easier to run the development environment. It is called `ov`, and can be used to run commands in the docker container.
+
+```bash
+ov <command>
+```
+
+Use `ov -h` to see the available commands and usage.
 
 
 ???+ abstract "Requirements"
@@ -55,18 +68,10 @@ The development environment can also be run in docker containers, which includes
     - [docker](https://docs.docker.com/get-docker/)
     - [docker compose](https://docs.docker.com/compose/install/)
 
-    Running the services outside of docker is possible, but not supported in this context.
-
-## Setup
-### 0. Clone repository
-    
-```bash title="Clone repository"
-git clone https://github.com/WGBH-MLA/ov-wag.git
-```
 
 ### 1. Create the backend secrets file
 
-In `ov-wag`, create a file called `.env` with the following contents:
+In the root directory, create a file called `.env` with the following contents:
 
 ```bash title="ov-wag/.env"
 OV_DB_ENGINE=django.db.backends.postgresql
@@ -99,7 +104,5 @@ ov m createsuperuser
 
 Follow the prompts to create an admin user.
 
-### 5. Start the frontend
-
-!!! todo "Add frontend setup instructions"
-    Make this link work! [ov-frontend setup](https://wgbh-mla.github.io/ov-frontend/dev/)
+### Next steps
+See the [maintenance documentation](maintenance.md) for more information on how to run the project, including running tests, building documentation, and more.
