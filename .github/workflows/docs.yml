@@ -23,7 +23,7 @@ jobs:
         run: uv sync --group docs
 
       - name: 🧵 Set version string
-        run: echo VERSION_TITLE=$(mike list | grep latest) >> $GITHUB_ENV
+        run: echo VERSION_TITLE=$(uv run mike list | grep latest) >> $GITHUB_ENV
 
       - name: 🖋️ Configure git user
         run: |
@@ -31,4 +31,4 @@ jobs:
           git config user.email mla-bot@wgbh.org
 
       - name: 🏗️ Deploy docs
-        run: mike deploy --push --update-aliases ${VERSION_TITLE%\[latest\]} latest
+        run: uv run mike deploy --push --update-aliases ${VERSION_TITLE%\[latest\]} latest
