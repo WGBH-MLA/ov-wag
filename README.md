@@ -20,7 +20,7 @@ The published version can be installed using pip:
 
 #### Local installation
 
-For local devopment, install [uv](https://docs.astral.sh/uv/) for dependency management.
+For local development, install [uv](https://docs.astral.sh/uv/) for dependency management.
 
 `pip install uv`
 
