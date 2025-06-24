@@ -1,83 +1,23 @@
 # Development
 
-## `ov`
+This section describes the development environment and how to use it.
 
-The `ov` script is the primary Open Vault command line script. This contains a number of pre-built commands to do basic operations.
+## Run server
+To run the development server, use the following command:
 
-### Usage
-
-`ov COMMAND [args]`
-
-```bash title="ov --help"
-COMMANDS:
-
-  b | build           build the docker images
-  c | cmd             run a compose command
-  cover | coverage    Run the test suite with coverage
-  d | dev             start a development server
-  m | manage          run a wagtail manage.py command
-  s | shell           run a django shell command with the app context
-  t | test            Run the test suite
-  tui                 Run an interactive TUI
-```
-
-### Commands
-
-#### `b` | `build`
-
-: Build the docker images locally.
-
-!!! abstract "Pass options to docker build"
-
-    Additional docker arguments can be passed to this command.
-
-    For example, to force a rebuild of the images:
-
-    ```bash
-    ov b --no-cache
-    ```
-
-#### `c` | `cmd`
-
-: Run a `docker compose` command with the base config files in place.
-
-#### `d` | `dev`
-
-: Run Development Environment
-
-: Run the development environment, with `docker compose`, and follow container logs.
-
-!!! abstract "Pass options to docker compose"
-
-    Additional compose arguments can be passed. For example, to rebuild the containers before running:
-
-    ```bash
-    ov d --build
-    ```
-
-#### `m` | `manage`
-
-: Run a `manage.py` command in the docker context.
-
-#### `s` | `shell`
-
-: Enter into a python django shell interpreter, with the application context loaded.
-
-### Show the logs
-
-Show the docker compose logs
 ```bash
-ov c logs
+./scripts/dev
 ```
 
-Show logs for just the frontend
-```bash
-ov c logs ov-frontend
-```
+This will start a local development server. You can access the Wagtail admin interface at [localhost:8000/admin/](http://localhost:8000/admin/)
+
+## Maintenance
+See the [maintenance guide](./maintenance.md) for instructions on how to maintain the project, including running scripts, tests, and creating lockfiles.
+
+For Docker users, see the [Docker maintenance guide](./docker.md) for instructions on using the `ov` helper tool for running common commands.
+
+## Migrations
+See the [migrations guide](./migrate.md) for instructions on how to manage database migrations.
 
 ## Examples
-
-The following are some useful examples of development commands that might be run:
-
-- [Database migrations](./migrate)
-- [Fix database records](./fix_AAPBRecords)
+Some specific example scripts are included, such as the [`fix_AAPBRecords` notebook](./fix_AAPBRecords.ipynb) which can be used to fix AAPB records in the database. This notebook is a Jupyter notebook and can be run with Jupyter Lab or Jupyter Notebook.

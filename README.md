@@ -20,27 +20,29 @@ The published version can be installed using pip:
 
 #### Local installation
 
-For local devopment, install [PDM](https://pdm.fming.dev/) for dependency management.
+For local development, install [uv](https://docs.astral.sh/uv/) for dependency management.
 
-`pip install pdm`
+`pip install uv`
 
 ##### Clone the repo:
 
 `git clone https://github.com/WGBH-MLA/ov-wag.git`
 
-##### Install the package:
+##### Install development dependencies:
 
-`pdm install`
+```bash
+uv sync
+```
 
-### Init script
+### Scripts
 
-Several common functions can be executed with the `ov` init script (using Docker)
+Common functions can be executed as files in the `scripts/` directory
 
-See `ov -h` for more detailed usage
+See `scripts/` for detailed usage on each.
 
-#### For example
+#### Examples
 
-`ov dev` will start the development server locally.
+`./scripts/dev` will start the development server locally.
 
 _Note_ For most commands, additional args will be passed on to the parent command.
 
