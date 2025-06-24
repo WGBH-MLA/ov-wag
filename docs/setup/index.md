@@ -2,7 +2,7 @@
 
 This section describes how to setup a local development environment. See the [Docker setup guide](docker.md) for instructions on how to use a Docker development environment.
 
-It is hightly recommended to run the development environment locally, for ease of use and speed.
+It is highly recommended to run the development environment locally, for ease of use and speed.
 
 ## Clone repository
     
