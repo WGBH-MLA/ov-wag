@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-wag/1.0/</loc>
+         <lastmod>2025-06-24</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-wag/1.0/setup/</loc>
+         <lastmod>2025-06-24</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-wag/1.0/dev/</loc>
+         <lastmod>2025-06-24</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-wag/1.0/dev/docker/</loc>
+         <lastmod>2025-06-24</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-wag/1.0/dev/fix_AAPBRecords/</loc>
+         <lastmod>2025-06-24</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-wag/1.0/dev/maintenance/</loc>
+         <lastmod>2025-06-24</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-wag/1.0/dev/migrate/</loc>
+         <lastmod>2025-06-24</lastmod>
+    </url>
+    <url>
+         <loc>https://wgbh-mla.github.io/ov-wag/1.0/reference/</loc>
+         <lastmod>2025-06-24</lastmod>
+    </url>
+</urlset>
