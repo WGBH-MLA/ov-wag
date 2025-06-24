@@ -13,14 +13,14 @@ DOCS_VERSION=$(mike list latest | grep -oP '^\d+\.\d+')
 # echo "Current docs version: $DOCS_VERSION"
 
 if [ "$VERSION" == "$DOCS_VERSION" ]; then
-    echo "Documentation version is already up-to-date."
+    echo "Documentation version is already up-to-date"
     exit 0
 fi
 
 # Update the version in the documentation
 mike deploy -up $VERSION latest
 if [ $? -ne 0 ]; then
-    echo "Failed to update the documentation version."
+    echo "Failed to update the documentation version"
     exit 1
 fi
-echo "Documentation version successfully updated to $VERSION."
+echo "Documentation version successfully updated to $VERSION"

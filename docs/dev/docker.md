@@ -75,7 +75,5 @@ Show logs for just the frontend
 ```bash
 ov c logs ov-frontend
 ```
-The following are some useful examples of development commands that might be run:
 
-- [Database migrations](./migrate)
-- [Fix database records](./fix_AAPBRecords)
+See the [maintenance guide](./maintenance.md) for more information on running development commands.
