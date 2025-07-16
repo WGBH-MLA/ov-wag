@@ -3,7 +3,7 @@ name = 'ov-wag'
 dynamic = ['version']
 description = 'WGBH Open Vault Wagtail backend'
 authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
-readme = 'README.md'
+# readme = 'README.md'
 license = { text = 'MIT' }
 dependencies = [
     "Django~=5.2.1",
