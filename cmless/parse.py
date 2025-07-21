@@ -12,9 +12,9 @@ def parse_cmless(file):
 
     md = md.replace('’', "'")  # Replace curly apostrophes with straight ones
     md = md.replace('\\_', '_')  # Replace escaped underscores with plain ones
-    md = re.sub(
-        r"(?<!\n)\n(?!\\n)", " ", md
-    )  # Replace newlines that aren't escaped with spaces
+    # md = re.sub(
+    #     r"(?<!\n)\n(?!\\n)", " ", md
+    # )  # Replace newlines that aren't escaped with spaces
 
     # Extract title from first H1
     title_match = re.search(r"^# (.*)", md)
@@ -45,7 +45,7 @@ def parse_cmless(file):
     for i in range(1, len(parts), 2):
         if i + 1 < len(parts):
             section_name = parts[i].strip()
-            section_content = parts[i + 1].strip()
+            section_content = parts[i + 1].lstrip().rstrip()
             results[section_name] = section_content or None
 
     return results
