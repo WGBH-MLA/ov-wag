@@ -15,9 +15,36 @@ from .blocks import AAPBRecordsBlock
 
 
 class CollectionPage(HeadlessMixin, Page):
-    """Generic collection page model for OV and AAPB collections."""
-
     introduction = RichTextField(blank=True)
+
+    content = StreamField(
+        [
+            ('interviews', AAPBRecordsBlock(label='Interviews', icon='openquote')),
+            (
+                'archival_footage',
+                AAPBRecordsBlock(label='Archival Footage', icon='clipboard-list'),
+            ),
+            ('photographs', AAPBRecordsBlock(label='Photographs', icon='copy')),
+            (
+                'original_footage',
+                AAPBRecordsBlock(label='Original Footage', icon='doc-full-inverse'),
+            ),
+            ('programs', AAPBRecordsBlock(label='Programs', icon='desktop')),
+            (
+                'related_content',
+                AAPBRecordsBlock(label='Related Content', icon='table'),
+            ),
+            ('credits', RichTextBlock(icon='form')),
+            (
+                'heading',
+                RichTextBlock(
+                    form_classname='title', features=['italic'], icon='title'
+                ),
+            ),
+            ('text', RichTextBlock()),
+            ('html', RawHTMLBlock(label='HTML')),
+        ],
+    )
 
     cover_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -60,6 +87,7 @@ class CollectionPage(HeadlessMixin, Page):
         MultiFieldPanel(
             [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
         ),
+        FieldPanel('content'),
     ]
 
     promote_panels: ClassVar[list[FieldPanel]] = [
@@ -86,46 +114,5 @@ class CollectionPage(HeadlessMixin, Page):
             'hero_thumb',
             serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
-    ]
-
-
-class Collection(CollectionPage):
-    """OV Collection model."""
-
-    content = StreamField(
-        [
-            ('interviews', AAPBRecordsBlock(label='Interviews', icon='openquote')),
-            (
-                'archival_footage',
-                AAPBRecordsBlock(label='Archival Footage', icon='clipboard-list'),
-            ),
-            ('photographs', AAPBRecordsBlock(label='Photographs', icon='copy')),
-            (
-                'original_footage',
-                AAPBRecordsBlock(label='Original Footage', icon='doc-full-inverse'),
-            ),
-            ('programs', AAPBRecordsBlock(label='Programs', icon='desktop')),
-            (
-                'related_content',
-                AAPBRecordsBlock(label='Related Content', icon='table'),
-            ),
-            ('credits', RichTextBlock(icon='form')),
-            (
-                'heading',
-                RichTextBlock(
-                    form_classname='title', features=['italic'], icon='title'
-                ),
-            ),
-            ('text', RichTextBlock()),
-            ('html', RawHTMLBlock(label='HTML')),
-        ],
-    )
-
-    content_panels: ClassVar[list[FieldPanel]] = [
-        *CollectionPage.content_panels,
-        FieldPanel('content'),
-    ]
-    api_fields: ClassVar[list[APIField]] = [
-        *CollectionPage.api_fields,
         APIField('content'),
     ]

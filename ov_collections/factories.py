@@ -1,7 +1,7 @@
 from factory import SubFactory
 from wagtail_factories import ImageChooserBlockFactory, PageFactory
 
-from .models import Collection
+from .models import CollectionPage
 
 
 class CollectionPageFactory(PageFactory):
@@ -9,4 +9,4 @@ class CollectionPageFactory(PageFactory):
     hero_image = SubFactory(ImageChooserBlockFactory)
 
     class Meta:
-        model = Collection
+        model = CollectionPage
