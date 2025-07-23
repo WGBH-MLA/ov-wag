@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("ov_collections", "0021_remove_collection_cover_image_and_more"),
+        ("ov_collections", "0021_add_collection_page_model"),
     ]
 
     operations = [
