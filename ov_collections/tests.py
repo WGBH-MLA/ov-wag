@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from ov_collections.factories import CollectionPageFactory
-from ov_collections.models import CollectionPage
+from ov_collections.factories import OpenVaultCollectionFactory
+from ov_collections.models import OpenVaultCollection
 
 
 # Create your tests here.
@@ -10,4 +10,4 @@ class ExhibitPageTests(TestCase):
         """
         ExhibitPageFactory creates ExhibitPage model instances
         """
-        self.assertIsInstance(CollectionPageFactory.create(), CollectionPage)
+        self.assertIsInstance(OpenVaultCollectionFactory.create(), OpenVaultCollection)
