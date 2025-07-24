@@ -14,7 +14,7 @@ from wagtail_headless_preview.models import HeadlessMixin
 from .blocks import AAPBRecordsBlock
 
 
-class BaseOpenVaultCollection(HeadlessMixin, Page):
+class BaseCollection(HeadlessMixin, Page):
     """Abstract base class for collection pages."""
 
     class Meta:
@@ -92,7 +92,7 @@ class BaseOpenVaultCollection(HeadlessMixin, Page):
     ]
 
 
-class OpenVaultCollection(BaseOpenVaultCollection):
+class OpenVaultCollection(BaseCollection):
     """Original collection page with OV-specific content blocks."""
 
     content = StreamField(
@@ -125,13 +125,13 @@ class OpenVaultCollection(BaseOpenVaultCollection):
     )
 
     content_panels: ClassVar[list[FieldPanel]] = [
-        *BaseOpenVaultCollection.content_panels,
+        *BaseCollection.content_panels,
         FieldPanel('content'),
     ]
 
-    promote_panels: ClassVar[list[FieldPanel]] = BaseOpenVaultCollection.promote_panels
+    promote_panels: ClassVar[list[FieldPanel]] = BaseCollection.promote_panels
 
     api_fields: ClassVar[list[APIField]] = [
-        *BaseOpenVaultCollection.api_fields,
+        *BaseCollection.api_fields,
         APIField('content'),
     ]

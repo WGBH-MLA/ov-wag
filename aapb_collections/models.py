@@ -1,4 +1,4 @@
-from ov_collections.models import BaseOpenVaultCollection
+from ov_collections.models import BaseCollection
 from wagtail.fields import RichTextField, StreamField
 from django.db import models
 from wagtail.blocks import RawHTMLBlock, RichTextBlock
@@ -18,7 +18,7 @@ class SortOrder(models.TextChoices):
     DESCENDING = 'desc', 'Descending'
 
 
-class AAPBCollection(BaseOpenVaultCollection):
+class AAPBCollection(BaseCollection):
     """
     AAPB Collection model.
     """
@@ -49,16 +49,16 @@ class AAPBCollection(BaseOpenVaultCollection):
     )
 
     content_panels: ClassVar[list[FieldPanel]] = [
-        *BaseOpenVaultCollection.content_panels,
+        *BaseCollection.content_panels,
         FieldPanel('content'),
         FieldPanel('sort_by'),
         FieldPanel('sort_order'),
     ]
 
-    promote_panels: ClassVar[list[FieldPanel]] = BaseOpenVaultCollection.promote_panels
+    promote_panels: ClassVar[list[FieldPanel]] = BaseCollection.promote_panels
 
     api_fields: ClassVar[list[APIField]] = [
-        *BaseOpenVaultCollection.api_fields,
+        *BaseCollection.api_fields,
         APIField('content'),
         APIField('sort_by'),
         APIField('sort_order'),
