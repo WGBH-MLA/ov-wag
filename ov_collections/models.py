@@ -15,7 +15,7 @@ from .blocks import AAPBRecordsBlock
 
 
 class BaseCollection(HeadlessMixin, Page):
-    """Abstract base class for collection pages."""
+    """Abstract base class for collection pages"""
 
     class Meta:
         abstract = True
@@ -94,6 +94,13 @@ class BaseCollection(HeadlessMixin, Page):
 
 class OpenVaultCollection(BaseCollection):
     """Original collection page with OV-specific content blocks."""
+
+    class Meta:
+        verbose_name = "Open Vault Collection"
+        verbose_name_plural = "Open Vault Collections"
+
+    parent_page_types: ClassVar[list[str]] = ['home.OpenVaultHomePage']
+    subpage_types: ClassVar[list[str]] = []
 
     content = StreamField(
         [

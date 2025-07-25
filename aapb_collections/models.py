@@ -21,8 +21,17 @@ class SortOrder(models.TextChoices):
 
 class AAPBCollection(BaseCollection):
     """
-    AAPB Collection model.
+    AAPB Collection model
     """
+
+    class Meta:
+        verbose_name = "AAPB Collection"
+        verbose_name_plural = "AAPB Collections"
+
+    parent_page_types: ClassVar[list[str]] = ['home.AAPBHomePage']
+    subpage_types: ClassVar[list[str]] = []
+
+    # Fields
 
     content = StreamField(
         [
