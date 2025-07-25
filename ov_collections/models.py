@@ -96,8 +96,8 @@ class OpenVaultCollection(BaseCollection):
     """Original collection page with OV-specific content blocks."""
 
     class Meta:
-        verbose_name = "Open Vault Collection"
-        verbose_name_plural = "Open Vault Collections"
+        verbose_name = 'Open Vault Collection'
+        verbose_name_plural = 'Open Vault Collections'
 
     parent_page_types: ClassVar[list[str]] = ['home.OpenVaultHomePage']
     subpage_types: ClassVar[list[str]] = []

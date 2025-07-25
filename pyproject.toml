@@ -62,7 +62,7 @@ build-backend = 'pdm.backend'
 extend-exclude = 'migrations'
 
 [tool.ruff]
-extend-exclude = ['migrations', 'docs/**/*.ipynb']
+extend-exclude = ['migrations', 'docs/**/*.ipynb', 'cmless']
 
 [tool.pdm]
 version = { source = 'file', path = 'ov_wag/_version.py' }

@@ -1,8 +1,8 @@
 from ov_collections.blocks import AAPBRecordsBlock
 from ov_collections.models import BaseCollection
-from wagtail.fields import RichTextField, StreamField
+from wagtail.fields import StreamField
 from django.db import models
-from wagtail.blocks import RawHTMLBlock, RichTextBlock
+from wagtail.blocks import RichTextBlock
 from typing import ClassVar
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.api import APIField
@@ -25,8 +25,8 @@ class AAPBCollection(BaseCollection):
     """
 
     class Meta:
-        verbose_name = "AAPB Collection"
-        verbose_name_plural = "AAPB Collections"
+        verbose_name = 'AAPB Collection'
+        verbose_name_plural = 'AAPB Collections'
 
     parent_page_types: ClassVar[list[str]] = ['home.AAPBHomePage']
     subpage_types: ClassVar[list[str]] = []
@@ -48,7 +48,7 @@ class AAPBCollection(BaseCollection):
         [
             ('records', AAPBRecordsBlock(icon='doc-full-inverse')),
         ],
-        help_text="Featured items in the collection, such as records or exhibits.",
+        help_text='Featured items in the collection, such as records or exhibits.',
         blank=True,
     )
 
@@ -56,7 +56,7 @@ class AAPBCollection(BaseCollection):
         max_length=8,
         choices=SortChoices.choices,
         default=SortChoices.TITLE,
-        help_text="Choose how to sort the collection items.",
+        help_text='Choose how to sort the collection items.',
         blank=True,
         null=True,
     )
@@ -65,7 +65,7 @@ class AAPBCollection(BaseCollection):
         max_length=4,
         choices=SortOrder.choices,
         default=SortOrder.ASCENDING,
-        help_text="Choose the order of the sorted items.",
+        help_text='Choose the order of the sorted items.',
         blank=True,
         null=True,
     )
@@ -78,7 +78,7 @@ class AAPBCollection(BaseCollection):
         MultiFieldPanel(
             [FieldPanel('featured_items')],
             heading='Featured Items',
-            help_text="Featured items in the collection, such as records or exhibits.",
+            help_text='Featured items in the collection, such as records or exhibits.',
         ),
         MultiFieldPanel(
             [
@@ -86,7 +86,7 @@ class AAPBCollection(BaseCollection):
                 FieldPanel('sort_order'),
             ],
             heading='Sorting Options',
-            help_text="Choose how to sort the collection items.",
+            help_text='Choose how to sort the collection items.',
         ),
     ]
 

@@ -22,7 +22,7 @@ class BaseHomePage(HeadlessMixin, Page):
 
     api_fields: ClassVar[list[APIField]] = [APIField('body')]
 
-    parent_page_type = ['wagtailcore.Page']
+    parent_page_type: ClassVar[list[str]] = ['wagtailcore.Page']
 
 
 class OpenVaultHomePage(BaseHomePage):
@@ -32,8 +32,8 @@ class OpenVaultHomePage(BaseHomePage):
     """
 
     class Meta:
-        verbose_name = "Open Vault Home Page"
-        verbose_name_plural = "Open Vault Home Pages"
+        verbose_name = 'Open Vault Home Page'
+        verbose_name_plural = 'Open Vault Home Pages'
 
     subpage_types: ClassVar[list[str]] = [
         'ov_collections.OpenVaultCollection',
@@ -48,8 +48,8 @@ class AAPBHomePage(BaseHomePage):
     """
 
     class Meta:
-        verbose_name = "AAPB Home Page"
-        verbose_name_plural = "AAPB Home Pages"
+        verbose_name = 'AAPB Home Page'
+        verbose_name_plural = 'AAPB Home Pages'
 
     subpage_types: ClassVar[list[str]] = [
         'aapb_collections.AAPBCollection',

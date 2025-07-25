@@ -2,13 +2,14 @@
 import re
 from .models import Collection
 import markdown as md
+from os import listdir, path
 
 
 def parse_cmless(file):
-    with open(file, 'r', encoding='utf-8') as f:
+    with open(file, encoding='utf-8') as f:
         md = f.read()
     md = md.lstrip()  # Remove leading whitespace
-    assert md.startswith('#'), "This is not a valid cmless file"
+    assert md.startswith('#'), 'This is not a valid cmless file'
 
     md = md.replace('’', "'")  # Replace curly apostrophes with straight ones
     md = md.replace('\\_', '_')  # Replace escaped underscores with plain ones
@@ -17,8 +18,8 @@ def parse_cmless(file):
     # )  # Replace newlines that aren't escaped with spaces
 
     # Extract title from first H1
-    title_match = re.search(r"^# (.*)", md)
-    title = title_match.group(1).strip() if title_match else ""
+    title_match = re.search(r'^# (.*)', md)
+    title = title_match.group(1).strip() if title_match else ''
 
     # Split by H2 sections - use word boundary to capture just the heading text
     pattern = r'^## (.+?)(?=\s|$)'
@@ -58,7 +59,6 @@ def parse_dir(directory):
     :param directory: The directory to parse
     :return: A dictionary of parsed cmless files
     """
-    from os import listdir, path
 
     results = []
     files = [f for f in listdir(directory) if f.endswith('.md')]
@@ -68,7 +68,7 @@ def parse_dir(directory):
             parsed['Slug'] = file.replace('.md', '')
             parsed = Collection(**parsed)  # Validate with Collection model
         except Exception as e:
-            print(f"Error parsing {file}: {e}")
+            print(f'Error parsing {file}: {e}')
             continue
 
         results.append(parsed)
@@ -87,8 +87,7 @@ if __name__ == '__main__':
 
 
 def parse_markdown(text: str) -> dict:
-    html = md.markdown(text)
-    return html
+    return md.markdown(text)
 
 
 def markdownify(text: str) -> str:

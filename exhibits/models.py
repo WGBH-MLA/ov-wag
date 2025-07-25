@@ -132,8 +132,8 @@ class ExhibitPage(HeadlessMixin, Page):
     """Exhibit page model for Open Vault"""
 
     class Meta:
-        verbose_name = "Open Vault Exhibit Page"
-        verbose_name_plural = "Open Vault Exhibit Pages"
+        verbose_name = 'Open Vault Exhibit Page'
+        verbose_name_plural = 'Open Vault Exhibit Pages'
 
     parent_page_types: ClassVar[list[str]] = ['home.OpenVaultHomePage']
     subpage_types: ClassVar[list[str]] = []
