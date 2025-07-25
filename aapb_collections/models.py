@@ -1,3 +1,4 @@
+from ov_collections.blocks import AAPBRecordsBlock
 from ov_collections.models import BaseCollection
 from wagtail.fields import RichTextField, StreamField
 from django.db import models
@@ -26,12 +27,20 @@ class AAPBCollection(BaseCollection):
     content = StreamField(
         [
             ('background', RichTextBlock(icon='doc-full-inverse')),
-            ('featured', RichTextBlock(icon='star')),
             ('funders', RichTextBlock(icon='group')),
             ('help', RichTextBlock(icon='help')),
+            ('resources', RichTextBlock(icon='doc-full-inverse')),
             ('terms', RichTextBlock(icon='doc-full-inverse')),
             ('timeline', RichTextBlock(icon='clock')),
         ]
+    )
+
+    featured_items = StreamField(
+        [
+            ('records', AAPBRecordsBlock(icon='doc-full-inverse')),
+        ],
+        help_text="Featured items in the collection, such as records or exhibits.",
+        blank=True,
     )
 
     sort_by = models.CharField(
@@ -39,6 +48,8 @@ class AAPBCollection(BaseCollection):
         choices=SortChoices.choices,
         default=SortChoices.TITLE,
         help_text="Choose how to sort the collection items.",
+        blank=True,
+        null=True,
     )
 
     sort_order = models.CharField(
@@ -46,20 +57,38 @@ class AAPBCollection(BaseCollection):
         choices=SortOrder.choices,
         default=SortOrder.ASCENDING,
         help_text="Choose the order of the sorted items.",
+        blank=True,
+        null=True,
     )
+
+    # Panels
 
     content_panels: ClassVar[list[FieldPanel]] = [
         *BaseCollection.content_panels,
         FieldPanel('content'),
-        FieldPanel('sort_by'),
-        FieldPanel('sort_order'),
+        MultiFieldPanel(
+            [FieldPanel('featured_items')],
+            heading='Featured Items',
+            help_text="Featured items in the collection, such as records or exhibits.",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('sort_by'),
+                FieldPanel('sort_order'),
+            ],
+            heading='Sorting Options',
+            help_text="Choose how to sort the collection items.",
+        ),
     ]
 
     promote_panels: ClassVar[list[FieldPanel]] = BaseCollection.promote_panels
 
+    # API Fields
+
     api_fields: ClassVar[list[APIField]] = [
         *BaseCollection.api_fields,
         APIField('content'),
+        APIField('featured_items'),
         APIField('sort_by'),
         APIField('sort_order'),
     ]
