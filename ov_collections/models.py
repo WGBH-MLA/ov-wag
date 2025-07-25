@@ -20,6 +20,15 @@ class BaseCollection(HeadlessMixin, Page):
     class Meta:
         abstract = True
 
+    # Fields
+
+    display_title = RichTextField(
+        blank=True,
+        verbose_name='Display Title',
+        help_text='Use this field to override the page title as displayed (e.g., with italics).',  # noqa: E501
+        features=['italic'],
+    )
+
     introduction = RichTextField(blank=True)
 
     cover_image = models.ForeignKey(
@@ -40,6 +49,7 @@ class BaseCollection(HeadlessMixin, Page):
 
     featured = models.BooleanField(default=False)
 
+    # Methods
     def get_hero_thumb_url(self):
         if self.hero_image:
 
@@ -49,6 +59,7 @@ class BaseCollection(HeadlessMixin, Page):
             return url
         return ''
 
+    # Search and indexing
     search_fields: ClassVar[list[index.SearchField]] = [
         *Page.search_fields,
         index.AutocompleteField('introduction'),
@@ -57,9 +68,16 @@ class BaseCollection(HeadlessMixin, Page):
         index.SearchField('get_hero_thumb_url'),
     ]
 
+    # Panels
     content_panels: ClassVar[list[FieldPanel]] = [
         *Page.content_panels,
-        FieldPanel('introduction'),
+        MultiFieldPanel(
+            [
+                FieldPanel('display_title'),
+                FieldPanel('introduction'),
+            ],
+            heading='Intro',
+        ),
         MultiFieldPanel(
             [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
         ),
@@ -74,8 +92,10 @@ class BaseCollection(HeadlessMixin, Page):
         *Page.promote_panels,
     ]
 
+    # API Fields
     api_fields: ClassVar[list[APIField]] = [
         APIField('title'),
+        APIField('display_title'),
         APIField('introduction'),
         APIField(
             'cover_image',

@@ -48,7 +48,7 @@ class AAPBCollection(BaseCollection):
         [
             ('records', AAPBRecordsBlock(icon='doc-full-inverse')),
         ],
-        help_text='Featured items in the collection, such as records or exhibits.',
+        help_text='Featured items in the collection',
         blank=True,
     )
 
