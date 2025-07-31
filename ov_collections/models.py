@@ -24,6 +24,7 @@ class BaseCollection(HeadlessMixin, Page):
 
     display_title = RichTextField(
         blank=True,
+        null=True,
         verbose_name='Display Title',
         help_text='Use this field to override the page title as displayed (e.g., with italics).',  # noqa: E501
         features=['italic'],
