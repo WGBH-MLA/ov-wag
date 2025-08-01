@@ -53,5 +53,5 @@ class AAPBHomePage(BaseHomePage):
 
     subpage_types: ClassVar[list[str]] = [
         'aapb_collections.AAPBCollection',
-        # 'exhibits.ExhibitPage',
+        'aapb_exhibits.AAPBExhibit',
     ]

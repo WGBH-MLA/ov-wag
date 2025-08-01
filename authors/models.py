@@ -12,12 +12,11 @@ from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
 
 
-class AuthorsOrderable(Orderable):
+class BaseAuthorsOrderable(Orderable):
 
     class Meta:
-        unique_together = ('page', 'author')
+        abstract = True
 
-    page = ParentalKey('exhibits.OpenVaultExhibit', related_name='authors')
     author = models.ForeignKey(
         'authors.Author',
         on_delete=models.CASCADE,
@@ -43,6 +42,22 @@ class AuthorsOrderable(Orderable):
         APIField('image', serializer=ImageRenditionField('fill-100x100')),
         APIField('bio'),
     ]
+
+
+class AuthorsOrderable(BaseAuthorsOrderable):
+
+    class Meta:
+        unique_together = ('page', 'author')
+
+    page = ParentalKey('exhibits.OpenVaultExhibit', related_name='authors')
+
+
+class AAPBAuthorsOrderable(BaseAuthorsOrderable):
+
+    class Meta:
+        unique_together = ('page', 'author')
+
+    page = ParentalKey('aapb_exhibits.AAPBExhibit', related_name='authors')
 
 
 class Author(models.Model):

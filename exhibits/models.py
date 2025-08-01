@@ -42,12 +42,12 @@ class RichTextFootnotesBlock(RichTextBlockWithFootnotes):
         super().__init__(features=features, **kwargs)
 
 
-class ExhibitsOrderable(Orderable):
+class BaseExhibitsOrderable(Orderable):
     """Ordered list of other exhibits related to this exhibit"""
 
-    page = ParentalKey(
-        'exhibits.OpenVaultExhibit', related_name='other_exhibits', null=True
-    )
+    class Meta:
+        abstract = True
+
     exhibit = models.ForeignKey(
         'exhibits.OpenVaultExhibit',
         blank=False,
@@ -78,6 +78,12 @@ class ExhibitsOrderable(Orderable):
         ),
         APIField('authors', serializer=AuthorSerializer(many=True)),
     ]
+
+
+class ExhibitsOrderable(BaseExhibitsOrderable):
+    page = ParentalKey(
+        'exhibits.OpenVaultExhibit', related_name='other_exhibits', null=True
+    )
 
 
 class OtherExhibitsField(APIField):
