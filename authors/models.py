@@ -17,7 +17,7 @@ class AuthorsOrderable(Orderable):
     class Meta:
         unique_together = ('page', 'author')
 
-    page = ParentalKey('exhibits.ExhibitPage', related_name='authors')
+    page = ParentalKey('exhibits.OpenVaultExhibit', related_name='authors')
     author = models.ForeignKey(
         'authors.Author',
         on_delete=models.CASCADE,

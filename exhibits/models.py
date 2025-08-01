@@ -45,9 +45,11 @@ class RichTextFootnotesBlock(RichTextBlockWithFootnotes):
 class ExhibitsOrderable(Orderable):
     """Ordered list of other exhibits related to this exhibit"""
 
-    page = ParentalKey('exhibits.ExhibitPage', related_name='other_exhibits', null=True)
+    page = ParentalKey(
+        'exhibits.OpenVaultExhibit', related_name='other_exhibits', null=True
+    )
     exhibit = models.ForeignKey(
-        'exhibits.ExhibitPage',
+        'exhibits.OpenVaultExhibit',
         blank=False,
         null=False,
         on_delete=models.CASCADE,
@@ -221,7 +223,7 @@ class BaseExhibitPage(HeadlessMixin, Page):
     ]
 
 
-class ExhibitPage(BaseExhibitPage):
+class OpenVaultExhibit(BaseExhibitPage):
     """Open Vault Exhibit Page"""
 
     class Meta:

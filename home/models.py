@@ -37,7 +37,7 @@ class OpenVaultHomePage(BaseHomePage):
 
     subpage_types: ClassVar[list[str]] = [
         'ov_collections.OpenVaultCollection',
-        'exhibits.ExhibitPage',
+        'exhibits.OpenVaultExhibit',
     ]
 
 
