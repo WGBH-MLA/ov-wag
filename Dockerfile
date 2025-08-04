@@ -13,8 +13,11 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     && rm -rf /var/lib/apt/lists/*
 
 COPY pyproject.toml README.md manage.py ./
+COPY aapb_collections aapb_collections
+COPY aapb_exhibits aapb_exhibits
 COPY authors authors
 COPY cli cli
+COPY cmless cmless
 COPY exhibits exhibits
 COPY home home
 COPY ov_collections ov_collections
