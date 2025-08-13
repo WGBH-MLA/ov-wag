@@ -2,38 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://wgbh-mla.github.io/ov-wag/1.1/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-13</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-wag/1.1/dev/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-13</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-wag/1.1/dev/docker/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-13</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-wag/1.1/dev/fix_AAPBRecords/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-13</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-wag/1.1/dev/maintenance/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-13</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-wag/1.1/dev/migrate/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-13</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-wag/1.1/reference/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-13</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-wag/1.1/setup/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-13</lastmod>
     </url>
     <url>
          <loc>https://wgbh-mla.github.io/ov-wag/1.1/setup/docker/</loc>
-         <lastmod>2025-08-12</lastmod>
+         <lastmod>2025-08-13</lastmod>
     </url>
 </urlset>
