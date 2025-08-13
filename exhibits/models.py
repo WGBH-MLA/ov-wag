@@ -42,12 +42,14 @@ class RichTextFootnotesBlock(RichTextBlockWithFootnotes):
         super().__init__(features=features, **kwargs)
 
 
-class ExhibitsOrderable(Orderable):
+class BaseExhibitsOrderable(Orderable):
     """Ordered list of other exhibits related to this exhibit"""
 
-    page = ParentalKey('exhibits.ExhibitPage', related_name='other_exhibits', null=True)
+    class Meta:
+        abstract = True
+
     exhibit = models.ForeignKey(
-        'exhibits.ExhibitPage',
+        'exhibits.OpenVaultExhibit',
         blank=False,
         null=False,
         on_delete=models.CASCADE,
@@ -76,6 +78,12 @@ class ExhibitsOrderable(Orderable):
         ),
         APIField('authors', serializer=AuthorSerializer(many=True)),
     ]
+
+
+class ExhibitsOrderable(BaseExhibitsOrderable):
+    page = ParentalKey(
+        'exhibits.OpenVaultExhibit', related_name='other_exhibits', null=True
+    )
 
 
 class OtherExhibitsField(APIField):
@@ -128,7 +136,106 @@ class ExhibitPageApiSchema(ExhibitsApiSchema):
     body: list[str]
 
 
-class ExhibitPage(HeadlessMixin, Page):
+class BaseExhibitPage(HeadlessMixin, Page):
+    """Exhibit page model for Open Vault"""
+
+    class Meta:
+        abstract = True
+
+    parent_page_types: ClassVar[list[str]] = ['home.OpenVaultHomePage']
+    subpage_types: ClassVar[list[str]] = []
+
+    # Fields
+
+    cover_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    featured = models.BooleanField(default=False)
+
+    # Methods
+    def get_hero_thumb_url(self):
+        if self.hero_image:
+
+            default_storage.querystring_expire = 604800
+            url = self.hero_image.get_rendition('fill-480x270').url
+            default_storage.querystring_expire = 3600
+            return url
+        return ''
+
+    # Search
+    search_fields: ClassVar[list[index.SearchField]] = [
+        *Page.search_fields,
+        index.FilterField('featured'),
+        index.SearchField('slug'),
+        index.SearchField('get_hero_thumb_url'),
+    ]
+
+    # Panels
+
+    content_panels: ClassVar[list[FieldPanel]] = [
+        *Page.content_panels,
+        MultiFieldPanel(
+            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
+        ),
+        InlinePanel('authors', heading='Author(s)'),
+        InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
+        InlinePanel('footnotes', label='Footnotes'),
+    ]
+
+    promote_panels: ClassVar[list[FieldPanel]] = [
+        FieldPanel(
+            'featured',
+            heading='Featured Exhibit',
+            help_text='Featured exhibits will be displayed on the home page, and as "other exhibits" on other exhibit pages.',  # noqa: E501
+        ),
+        *Page.promote_panels,
+    ]
+
+    api_fields: ClassVar[list[APIField]] = [
+        APIField('title'),
+        APIField(
+            'cover_image',
+            serializer=ImageRenditionField('fill-1920x1080'),
+        ),
+        APIField(
+            'cover_thumb',
+            serializer=ImageRenditionField('fill-480x270', source='cover_image'),
+        ),
+        APIField(
+            'hero_image',
+            serializer=ImageRenditionField('fill-1600x500'),
+        ),
+        APIField(
+            'hero_thumb',
+            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
+        ),
+        APIField('authors'),
+        APIField('footnotes', serializer=FootnotesSerializer()),
+        OtherExhibitsField(
+            'other_exhibits', serializer=OtherExhibitsSerializer(many=True)
+        ),
+    ]
+
+
+class OpenVaultExhibit(BaseExhibitPage):
+    """Open Vault Exhibit Page"""
+
+    class Meta:
+        verbose_name = "Open Vault Exhibit"
+        verbose_name_plural = "Open Vault Exhibits"
+
     body = StreamField(
         [
             ('interviews', AAPBRecordsBlock(label='Interviews', icon='openquote')),
@@ -170,82 +277,39 @@ class ExhibitPage(HeadlessMixin, Page):
         ],
     )
 
-    cover_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-    hero_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    featured = models.BooleanField(default=False)
-
-    def get_hero_thumb_url(self):
-        if self.hero_image:
-
-            default_storage.querystring_expire = 604800
-            url = self.hero_image.get_rendition('fill-480x270').url
-            default_storage.querystring_expire = 3600
-            return url
-        return ''
-
-    search_fields: ClassVar[list[index.SearchField]] = [
-        *Page.search_fields,
-        index.AutocompleteField('body'),
-        index.FilterField('featured'),
-        index.SearchField('slug'),
-        index.SearchField('get_hero_thumb_url'),
-    ]
+    # Panels
 
     content_panels: ClassVar[list[FieldPanel]] = [
         *Page.content_panels,
         MultiFieldPanel(
+            [
+                # FieldPanel('display_title'),
+                InlinePanel('authors', heading='Author(s)'),
+            ],
+            heading='Intro',
+        ),
+        MultiFieldPanel(
             [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
         ),
         FieldPanel('body', classname='collapsed'),
-        InlinePanel('authors', heading='Author(s)'),
-        InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
-        InlinePanel('footnotes', label='Footnotes'),
-    ]
-
-    promote_panels: ClassVar[list[FieldPanel]] = [
-        FieldPanel(
-            'featured',
-            heading='Featured Exhibit',
-            help_text='Featured exhibits will be displayed on the home page, and as "other exhibits" on other exhibit pages.',  # noqa: E501
+        MultiFieldPanel(
+            [
+                InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
+                InlinePanel('footnotes', label='Footnotes'),
+            ],
+            heading='Additional Content',
         ),
-        *Page.promote_panels,
     ]
 
+    # Search
+
+    search_fields: ClassVar[list[index.SearchField]] = [
+        *BaseExhibitPage.search_fields,
+        index.AutocompleteField('body'),
+    ]
+
+    # API
     api_fields: ClassVar[list[APIField]] = [
-        APIField('title'),
+        *BaseExhibitPage.api_fields,
         APIField('body'),
-        APIField(
-            'cover_image',
-            serializer=ImageRenditionField('fill-1920x1080'),
-        ),
-        APIField(
-            'cover_thumb',
-            serializer=ImageRenditionField('fill-480x270', source='cover_image'),
-        ),
-        APIField(
-            'hero_image',
-            serializer=ImageRenditionField('fill-1600x500'),
-        ),
-        APIField(
-            'hero_thumb',
-            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
-        ),
-        APIField('authors'),
-        APIField('footnotes', serializer=FootnotesSerializer()),
-        OtherExhibitsField(
-            'other_exhibits', serializer=OtherExhibitsSerializer(many=True)
-        ),
     ]

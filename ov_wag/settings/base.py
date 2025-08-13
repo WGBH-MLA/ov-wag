@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'exhibits',
     'ov_collections',
     'ov_wag',
+    'aapb_collections',
+    'aapb_exhibits',
     'search',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
