@@ -18,7 +18,7 @@ updates:
     schedule:
       interval: weekly
       day: wednesday
-      time: '06:00'
+      time: '13:00'
       timezone: US/Eastern
     commit-message:
       prefix: ⬆
