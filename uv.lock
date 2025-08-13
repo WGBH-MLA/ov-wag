@@ -1521,6 +1521,7 @@ wheels = [
 
 [[package]]
 name = "ov-wag"
+version = "1.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "django" },
