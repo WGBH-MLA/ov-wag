@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.10, <4"
 resolution-markers = [
     "python_full_version >= '3.12'",
@@ -1614,7 +1614,7 @@ requires-dist = [
     { name = "python-dotenv", specifier = "~=1.1.0" },
     { name = "trogon", marker = "extra == 'cli'", specifier = "~=0.6.0" },
     { name = "typer", marker = "extra == 'cli'", specifier = "~=0.16.0" },
-    { name = "wagtail", specifier = ">=7.0.1,<7.2.0" },
+    { name = "wagtail", git = "https://github.com/laymonage/wagtail?branch=fix%2Fstructblock-custom-template" },
     { name = "wagtail-factories", specifier = "~=4.2.1" },
     { name = "wagtail-footnotes", specifier = "~=0.13.0" },
     { name = "wagtail-headless-preview", specifier = "~=0.8.0" },
@@ -2838,8 +2838,8 @@ wheels = [
 
 [[package]]
 name = "wagtail"
-version = "7.1"
-source = { registry = "https://pypi.org/simple" }
+version = "7.2a0"
+source = { git = "https://github.com/laymonage/wagtail?branch=fix%2Fstructblock-custom-template#176c363c58b592ab1ced6758a34435f1170857c2" }
 dependencies = [
     { name = "anyascii" },
     { name = "beautifulsoup4" },
@@ -2858,10 +2858,6 @@ dependencies = [
     { name = "requests" },
     { name = "telepath" },
     { name = "willow", extra = ["heif"] },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/d6/ea/add56413b037c741facca3fb7ccb09004ef559b7bbb0b8aeca87bb8bf8c7/wagtail-7.1.tar.gz", hash = "sha256:e1de2af82b62cbf4d3b77a93c55779bc67ad7b3179b6b4f824ec4f214d570c01", size = 6771177, upload-time = "2025-08-04T15:25:22.168Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c9/28/d59856235237e405d30cc0d2059a07c17394644d31d0cc6d0e17882d999f/wagtail-7.1-py3-none-any.whl", hash = "sha256:ddffde38873044bf98e2ce77bd7ad728a29633775efb1be7a68a636698a8381e", size = 9263788, upload-time = "2025-08-04T15:25:15.466Z" },
 ]
 
 [[package]]

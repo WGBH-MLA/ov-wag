@@ -98,3 +98,6 @@ testpaths = ['authors', 'exhibits', 'ov_collections', 'ov_wag']
 
 [tool.uv.build-backend]
 module-root = ""
+
+[tool.uv.sources]
+wagtail = { git = "https://github.com/laymonage/wagtail", branch = "fix/structblock-custom-template" }
