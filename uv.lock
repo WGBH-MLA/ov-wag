@@ -1617,7 +1617,7 @@ requires-dist = [
     { name = "typer", marker = "extra == 'cli'", specifier = ">=0.16,<0.20" },
     { name = "wagtail", specifier = "~=7.0.1" },
     { name = "wagtail-factories", specifier = "~=4.2.1" },
-    { name = "wagtail-footnotes", specifier = "~=0.13.0" },
+    { name = "wagtail-footnotes", specifier = ">=0.13,<0.15" },
     { name = "wagtail-headless-preview", specifier = "~=0.8.0" },
 ]
 provides-extras = ["cli", "production", "test"]
@@ -2879,15 +2879,15 @@ wheels = [
 
 [[package]]
 name = "wagtail-footnotes"
-version = "0.13.0"
+version = "0.14.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "django" },
     { name = "wagtail" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1e/b3/b281e50b99d3bc8166ceb44a8c6485aa0981922f3e4466d89538e3f377e6/wagtail_footnotes-0.13.0.tar.gz", hash = "sha256:6a01851915641047bb9a9b2c06ca38688b0cee43e932cb4fd59e1f4373fe4d04", size = 15156, upload-time = "2024-10-18T16:19:01.632Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a4/f4/d2efc74a0803d0509eae64ec5b2ca2331836970f71ca4b9555572709f6ce/wagtail_footnotes-0.14.0.tar.gz", hash = "sha256:6355b396799537154b9c8bbaa54a800d82f58b345f87e987b32693f92d9c3f9d", size = 15445, upload-time = "2025-09-11T15:59:38.189Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/c1/51/3cab6005eeb91213016504b73f6479326d4e4c795d85764e39c584e1ecbc/wagtail_footnotes-0.13.0-py3-none-any.whl", hash = "sha256:88ba2e5c7568096a4973e5be6d73535fa2a764649b8a58ea43d51d776b21c3c4", size = 21943, upload-time = "2024-10-18T16:19:00.524Z" },
+    { url = "https://files.pythonhosted.org/packages/87/22/15b30e7d6e77db1d133d78dfbf9ecb90b1e1a9dffbad3617863cc982084c/wagtail_footnotes-0.14.0-py3-none-any.whl", hash = "sha256:a48da455d8d3587b89728f8c497c6b3f5cf00a51600117a4870dcbe681ccffd3", size = 24049, upload-time = "2025-09-11T15:59:35.584Z" },
 ]
 
 [[package]]
