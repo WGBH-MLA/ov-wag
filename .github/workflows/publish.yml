@@ -20,7 +20,7 @@ jobs:
         run: uv build
 
       - name: 🛫 Export build files
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: dist
           path: dist
@@ -29,12 +29,16 @@ jobs:
     name: 🗞 Publish package
     needs: build
     runs-on: ubuntu-latest
-    environment: pypi
+    environment:
+      name: pypi
+      url: https://pypi.org/p/ov-wag
     permissions:
       id-token: write
     steps:
       - name: 🛬 Download artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
+        with:
+          path: dist
 
       - name: 🗞 Publish package
         uses: pypa/gh-action-pypi-publish@release/v1
