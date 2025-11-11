@@ -8,7 +8,7 @@ license = { text = 'MIT' }
 requires-python = '>=3.10, <4'
 dependencies = [
     "Django~=5.2.1",
-    "wagtail~=7.0.1",
+    "wagtail>=7.0.1,<7.3.0",
     "wagtail-factories~=4.2.1",
     "pydantic>=2.11.5,<2.13.0",
     "psycopg2-binary>=2.9.10",
