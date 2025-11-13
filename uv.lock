@@ -1554,7 +1554,6 @@ dependencies = [
     { name = "pydantic" },
     { name = "python-dotenv" },
     { name = "wagtail" },
-    { name = "wagtail-factories" },
     { name = "wagtail-footnotes" },
     { name = "wagtail-headless-preview" },
 ]
@@ -1577,6 +1576,7 @@ test = [
     { name = "pytest-django" },
     { name = "pytest-sugar" },
     { name = "pytest-xdist" },
+    { name = "wagtail-factories" },
 ]
 
 [package.dev-dependencies]
@@ -1616,7 +1616,7 @@ requires-dist = [
     { name = "trogon", marker = "extra == 'cli'", specifier = "~=0.6.0" },
     { name = "typer", marker = "extra == 'cli'", specifier = ">=0.16,<0.20" },
     { name = "wagtail", specifier = ">=7.0.1,<7.2.0" },
-    { name = "wagtail-factories", specifier = ">=4.2.1,<4.4.0" },
+    { name = "wagtail-factories", marker = "extra == 'test'", specifier = ">=4.2.1,<4.4.0" },
     { name = "wagtail-footnotes", specifier = ">=0.13,<0.15" },
     { name = "wagtail-headless-preview", specifier = "~=0.8.0" },
 ]
