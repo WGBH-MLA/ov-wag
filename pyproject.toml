@@ -1,6 +1,6 @@
 [project]
 name = 'ov-wag'
-version = "1.1.1"
+version = "1.1.2"
 description = 'WGBH Open Vault Wagtail backend'
 authors = [{ name = 'WGBH-MLA', email = 'ryan_harbert@wgbh.org' }]
 # readme = 'README.md'
