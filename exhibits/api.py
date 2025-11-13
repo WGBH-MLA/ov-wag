@@ -2,11 +2,11 @@ from typing import ClassVar
 
 from wagtail.api.v2.views import PagesAPIViewSet
 
-from .models import ExhibitPage
+from .models import BaseExhibitPage
 
 
 class ExhibitsAPIViewSet(PagesAPIViewSet):
-    model = ExhibitPage
+    model = BaseExhibitPage
 
     meta_fields: ClassVar[list[str]] = [
         *PagesAPIViewSet.meta_fields,
