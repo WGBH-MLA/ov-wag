@@ -23,6 +23,6 @@ if [ ! -f "$DUMP_FILE" ]; then
   exit 1
 fi
 
-# psql "postgresql://$OV_DB_USER:$OV_DB_PASSWORD@$OV_DB_HOST:$OV_DB_PORT/$OV_DB_NAME" -f "$DUMP_FILE"
+psql "postgresql://$OV_DB_USER:$OV_DB_PASSWORD@$OV_DB_HOST:$OV_DB_PORT/$OV_DB_NAME" -f "$DUMP_FILE"
 export PG_PASSWORD=$OV_DB_PASSWORD
-pg_restore -d $OV_DB_NAME -U $OV_DB_USER -h $OV_DB_HOST "$DUMP_FILE"
+# pg_restore -d $OV_DB_NAME -U $OV_DB_USER -h $OV_DB_HOST "$DUMP_FILE"
