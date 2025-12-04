@@ -18,27 +18,20 @@ class DjangoHostsSiteMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # Get the host match from django-hosts middleware
-        host = getattr(request, 'host', None)
+        # Get the hostname from the request
+        hostname = request.host.name
 
-        if host:
-            # Determine which site to use based on the host name
-            if host.name == 'aapb':
-                # Look up AAPB site by root page type
-                site = Site.objects.filter(
-                    root_page__content_type__model='aapbhomepage'
-                ).first()
-            else:
-                # Look up OV site by root page type
-                site = Site.objects.filter(
-                    root_page__content_type__model='openvaulthomepage'
-                ).first()
+        # Try exact match first (most efficient)
+        site = Site.objects.filter(hostname=hostname).first()
 
-            if site:
-                # Set the site on the request so Wagtail uses it
-                request.site = site
-                # Also set _wagtail_site for compatibility
-                request._wagtail_site = site
+        if not site:
+            site = Site.objects.filter(is_default_site=True).first()
+
+        if site:
+            # Set the site on the request so Wagtail uses it
+            request.site = site
+            # Also set _wagtail_site for compatibility
+            request._wagtail_site = site
 
         response = self.get_response(request)
         return response

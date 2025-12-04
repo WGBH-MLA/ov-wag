@@ -17,6 +17,7 @@ dependencies = [
     "django-allauth>=65.9,<65.11",
     "elasticsearch~=8.18.1",
     "wagtail-footnotes>=0.13,<0.15",
+    "django-hosts>=7.0.0",
 ]
 
 [dependency-groups]

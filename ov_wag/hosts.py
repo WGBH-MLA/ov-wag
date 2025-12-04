@@ -25,11 +25,14 @@ from django_hosts import patterns, host
 from django.conf import settings
 
 # Get hostname patterns from environment variables
+# Note: django-hosts uses Python's re.match() which matches from the start of the string
 aapb_pattern = env.get('AAPB_HOST_PATTERN', r'aapb(.+)*')
-ov_pattern = env.get('OV_HOST_PATTERN', r'.*')
+ov_pattern = env.get('OV_HOST_PATTERN', r'ov(.+)*')
 
 host_patterns = patterns(
     '',
+    # Match any hostname starting with 'aapb' (e.g., aapb.wgbh.org, aapb-staging.org)
     host(aapb_pattern, 'ov_wag.urls', name='aapb'),
+    # Match everything else (empty pattern matches all)
     host(ov_pattern, 'ov_wag.urls', name='ov'),
 )
