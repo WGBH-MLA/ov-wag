@@ -73,6 +73,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django_hosts.middleware.HostsRequestMiddleware',
+    'ov_wag.middleware.DjangoHostsSiteMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
