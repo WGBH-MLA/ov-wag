@@ -1,7 +1,3 @@
-"""
-Custom middleware for Open Vault project.
-"""
-
 from django.conf import settings
 from wagtail.models import Site
 
