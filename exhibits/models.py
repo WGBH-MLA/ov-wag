@@ -8,7 +8,7 @@ from rest_framework import serializers
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
 from wagtail.blocks import RawHTMLBlock, RichTextBlock
-from wagtail.fields import StreamField
+from wagtail.fields import StreamField, RichTextField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
@@ -146,6 +146,14 @@ class BaseExhibitPage(HeadlessMixin, Page):
     subpage_types: ClassVar[list[str]] = []
 
     # Fields
+
+    display_title = RichTextField(
+        blank=True,
+        null=True,
+        verbose_name='Display Title',
+        help_text='Use this field to override the page title as displayed (e.g., with italics).',  # noqa: E501
+        features=['italic'],
+    )
 
     cover_image = models.ForeignKey(
         'wagtailimages.Image',

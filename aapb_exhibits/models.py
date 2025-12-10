@@ -53,8 +53,9 @@ class AAPBExhibit(BaseExhibitPage):
         *Page.content_panels,
         MultiFieldPanel(
             [
-                # FieldPanel('display_title'),
+                FieldPanel('display_title'),
                 InlinePanel('authors', heading='Author(s)'),
+                FieldPanel('introduction', heading='Introduction'),
             ],
             heading='Intro',
         ),

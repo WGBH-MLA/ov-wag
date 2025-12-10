@@ -74,7 +74,7 @@ class BaseCollection(HeadlessMixin, Page):
         *Page.content_panels,
         MultiFieldPanel(
             [
-                FieldPanel('display_title'),
+                FieldPanel('display_title', icon='italic'),
                 FieldPanel('introduction'),
             ],
             heading='Intro',
