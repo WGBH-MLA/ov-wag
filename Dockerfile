@@ -17,7 +17,6 @@ COPY aapb_collections aapb_collections
 COPY aapb_exhibits aapb_exhibits
 COPY authors authors
 COPY cli cli
-COPY cmless cmless
 COPY exhibits exhibits
 COPY home home
 COPY ov_collections ov_collections
