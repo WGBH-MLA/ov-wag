@@ -65,6 +65,8 @@ class Author(models.Model):
 
     name = models.CharField(max_length=100, help_text='Author name')
 
+    title = models.CharField(max_length=200, blank=True, help_text='Author title')
+
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
