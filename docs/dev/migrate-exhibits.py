@@ -69,14 +69,9 @@ from cmless.parse import (
 
 from bs4 import BeautifulSoup
 
+
 # %%
-from aapb_exhibits.models import AAPBExhibit
-from authors.models import Author, AAPBAuthorsOrderable
-
-
-def create_exhibit_page(exhibit: Exhibit) -> AAPBExhibit:
-    from re import split
-
+def extract_subheadings(md: str) -> list[tuple[str, str]]:
     # First split by main headings (###)
     main_heading_pattern = r'###\s+(.+?)\s*\n'
     main_parts = split(main_heading_pattern, exhibit.main)
@@ -117,25 +112,38 @@ def create_exhibit_page(exhibit: Exhibit) -> AAPBExhibit:
             else:
                 # No subheadings, just add the content as text
                 sections.append(('text', markdownify(content)))
-    body = sections
+    return sections
+
+
+# %%
+from aapb_exhibits.models import AAPBExhibit
+from authors.models import Author, AAPBAuthorsOrderable
+
+
+def create_exhibit_page(exhibit: Exhibit) -> AAPBExhibit:
+    from re import split
+
+    body = []
+    if exhibit.main:
+        body += extract_subheadings(exhibit.main)
     if exhibit.extended:
         body.append(('heading', 'Extended'))
-        body.append(('text', markdownify(exhibit.extended)))
+        body += extract_subheadings(exhibit.extended)
     if exhibit.resources:
         body.append(('heading', 'Resources'))
         body.append(('text', markdownify(exhibit.resources)))
     if exhibit.records:
-        body.append(('heading', 'Records'))
-        body.append(
-            ('records', {'guids': '\n'.join(parse_records_markdown(exhibit.records))})
-        )
+        records = parse_records_markdown(exhibit.records)
+        if records:
+            body.append(('heading', 'Records'))
+            body.append(('records', {'guids': '\n'.join(records)}))
 
     if exhibit.title.find('<em>') >= 0 or exhibit.title.find('*') >= 0:
         display_title = markdownify(exhibit.title)
     title = exhibit.title.replace('<em>', '').replace('</em>', '').replace('*', '')
 
     if exhibit.cover:
-        cover = BeautifulSoup(exhibit.cover, 'html.parser')
+        cover = BeautifulSoup(exhibit.cover)
         if cover.img:
             cover_image = download_image(
                 url=cover.img.get('src'),
@@ -146,7 +154,7 @@ def create_exhibit_page(exhibit: Exhibit) -> AAPBExhibit:
         title=title,
         display_title=(display_title if 'display_title' in locals() else None),
         slug=exhibit.slug,
-        introduction=markdownify(exhibit.summary),
+        introduction=markdownify(exhibit.summary) if exhibit.summary else '',
         body=body,
         cover_image=(cover_image if 'cover_image' in locals() else None),
         # gallery = exhibit.gallery,
@@ -212,3 +220,8 @@ for exhibit in exhibits:
     page = create_exhibit_page(exhibit)
     aapb.add_child(instance=page)
     page.save_revision().publish()
+    for child in exhibit.children:
+        print(f'  Creating child page {child.page}: {child.title}')
+        child_page = create_exhibit_page(child)
+        page.add_child(instance=child_page)
+        child_page.save_revision().publish()
