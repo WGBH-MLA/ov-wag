@@ -60,8 +60,12 @@ class AAPBExhibit(BaseExhibitPage):
         ),
         FieldPanel('body', classname='collapsed'),
         MultiFieldPanel(
+            [InlinePanel('child_order')],
+            heading='Exhibit Pages Order',
+            classname="collapsed",
+        ),
+        MultiFieldPanel(
             [
-                InlinePanel('child_order', heading='Exhibit pages order'),
                 InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
                 InlinePanel('footnotes', label='Footnotes'),
             ],
