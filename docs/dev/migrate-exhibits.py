@@ -116,7 +116,7 @@ def extract_subheadings(md: str) -> list[tuple[str, str]]:
 
 
 # %%
-from aapb_exhibits.models import AAPBExhibit
+from aapb_exhibits.models import AAPBExhibit, AAPBExhibitsChildOrder
 from authors.models import Author, AAPBAuthorsOrderable
 
 
@@ -220,8 +220,17 @@ for exhibit in exhibits:
     page = create_exhibit_page(exhibit)
     aapb.add_child(instance=page)
     page.save_revision().publish()
+    child_pages = []
     for child in exhibit.children:
         print(f'  Creating child page {child.page}: {child.title}')
         child_page = create_exhibit_page(child)
         page.add_child(instance=child_page)
         child_page.save_revision().publish()
+        # Add child order entry
+        child_order_entry = AAPBExhibitsChildOrder(
+            exhibit=child_page,
+            page=page,
+        )
+        child_pages.append(child_order_entry)
+    page.child_order.set(child_pages)
+    page.save_revision().publish()

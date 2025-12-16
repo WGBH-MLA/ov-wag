@@ -1,6 +1,11 @@
 # Commands for migrating AAPB in stage
 
-POD=ov-wag-pr-258-backend-54fc85cf78-j74md
+# drop old db
+k -n ov exec -it ov-db-cluster-1 -- psql -c 'drop database "ov-wag-pr-258";'
+k -n ov delete database ov-wag-pr-258-database
+k -n ov create database ov-wag-pr-258-database
+
+POD=ov-wag-pr-258-backend-76d568d9f6-s6vbz
 
 k -n ov cp ~/gbh/aapb/AAPB2/collections.json $POD:collections.json
 k -n ov cp docs/dev/migrate-collections.py $POD:migrate-collections.py
