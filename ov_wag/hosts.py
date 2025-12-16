@@ -26,11 +26,12 @@ from django_hosts import patterns, host
 # Get hostname patterns from environment variables
 # Match any hostname starting with 'aapb' (e.g., aapb-pr-123)
 aapb_pattern = env.get('AAPB_HOST_PATTERN', r'aapb(.+)*')
-# Match everything else (empty pattern matches all)
 ov_pattern = env.get('OV_HOST_PATTERN', r'ov(.+)*')
 
 host_patterns = patterns(
     '',
     host(aapb_pattern, 'ov_wag.urls', name='aapb'),
     host(ov_pattern, 'ov_wag.urls', name='ov'),
+    # Match all other hostnames to no host
+    host(r'.*', 'ov_wag.urls', name=None),
 )

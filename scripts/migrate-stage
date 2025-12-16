@@ -1,6 +1,6 @@
 # Commands for migrating AAPB in stage
 
-POD=ov-wag-pr-258-backend-7db9b5f757-dztw6
+POD=ov-wag-pr-258-backend-54fc85cf78-j74md
 
 k -n ov cp ~/gbh/aapb/AAPB2/collections.json $POD:collections.json
 k -n ov cp docs/dev/migrate-collections.py $POD:migrate-collections.py
@@ -18,6 +18,23 @@ pip install git+https://github.com/WGBH-MLA/AAPB2@cmless
 python manage.py migrate
 
 # Create AAPB home page in Wagtail
+python manage.py shell -c '
+from wagtail.models import Page, Site
+from home.models import AAPBHomePage
+
+root = Page.objects.get(id=1)
+
+ov = Page.objects.get(id=3)
+ov.title = "Open Vault"
+ov.specific.save_revision().publish()
+
+aapb = AAPBHomePage(title="AAPB", slug="aapb")
+root.add_child(instance=aapb)
+aapb.save_revision().publish()
+
+aapb_site = Site(hostname="aapb", site_name="American Archive", root_page=aapb)
+aapb_site.save()
+'
 
 # Collections
 python migrate-collections.py
