@@ -1,3 +1,4 @@
+from exhibits import models
 from exhibits.models import BaseExhibitPage, BaseExhibitsOrderable
 from wagtail.fields import StreamField, RichTextField
 from wagtail.blocks import RawHTMLBlock, RichTextBlock
@@ -8,12 +9,7 @@ from wagtail.search import index
 from wagtail.api import APIField
 from wagtail.models import Orderable, Page
 from modelcluster.fields import ParentalKey
-
-
-class AAPBExhibitsOrderable(BaseExhibitsOrderable):
-    page = ParentalKey(
-        'aapb_exhibits.AAPBExhibit', related_name='other_exhibits', null=True
-    )
+from django.db import models
 
 
 class AAPBExhibit(BaseExhibitPage):
@@ -65,6 +61,7 @@ class AAPBExhibit(BaseExhibitPage):
         FieldPanel('body', classname='collapsed'),
         MultiFieldPanel(
             [
+                InlinePanel('child_order', heading='Exhibit pages order'),
                 InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
                 InlinePanel('footnotes', label='Footnotes'),
             ],
@@ -82,3 +79,35 @@ class AAPBExhibit(BaseExhibitPage):
         *BaseExhibitPage.api_fields,
         APIField('body'),
     ]
+
+
+class AAPBOtherExhibits(BaseExhibitsOrderable):
+
+    exhibit = models.ForeignKey(
+        'aapb_exhibits.AAPBExhibit',
+        blank=False,
+        null=False,
+        on_delete=models.CASCADE,
+    )
+
+    page = ParentalKey(
+        'aapb_exhibits.AAPBExhibit', related_name='other_exhibits', null=True
+    )
+
+
+class AAPBExhibitsChildOrder(BaseExhibitsOrderable):
+    """Orderable model to relate AAPBExhibit pages as children of other AAPBExhibit pages"""
+
+    class Meta:
+        verbose_name = 'AAPB Exhibit page'
+        verbose_name_plural = 'AAPB Exhibit pages'
+
+    exhibit = models.ForeignKey(
+        'aapb_exhibits.AAPBExhibit',
+        blank=False,
+        null=False,
+        on_delete=models.CASCADE,
+    )
+    page = ParentalKey(
+        'aapb_exhibits.AAPBExhibit', related_name='child_order', null=True
+    )
