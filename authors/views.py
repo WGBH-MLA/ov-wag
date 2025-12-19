@@ -2,23 +2,37 @@ from django.utils.functional import cached_property
 
 from wagtail.admin.ui.tables import Column, UpdatedAtColumn
 from wagtail.admin.viewsets.chooser import ChooserViewSet
-from wagtail.admin.views.generic.chooser import ChooseView
+from wagtail.admin.views.generic.chooser import ChooseView, ChooseResultsView
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetChooserViewSet
 
 from .widgets import AdminAuthorChooser
 
 
-class AuthorChooseView(ChooseView):
+class AuthorChooseViewMixin:
+    """Mixin for author chooser views with custom template and queryset"""
     results_template_name = "authors/chooser/results.html"
 
     def get_object_list(self):
         return self.model_class.objects.only('name', 'title', 'image')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the chosen_url_name to the template for our custom results display
+        context['chosen_url_name'] = self.chosen_url_name
+        return context
+
+
+class AuthorChooseView(AuthorChooseViewMixin, ChooseView):
     @property
     def columns(self):
-        return super().columns + [  # [UpdatedAtColumn()]
+        return super().columns + [
             Column("title", label="Title"),
         ]
+
+
+class AuthorChooseResultsView(AuthorChooseViewMixin, ChooseResultsView):
+    """Results view for AJAX/pagination requests"""
+    pass
 
 
 class AuthorChooserViewSet(SnippetChooserViewSet):
@@ -29,6 +43,7 @@ class AuthorChooserViewSet(SnippetChooserViewSet):
     choose_another_text = "Choose another author"
 
     choose_view_class = AuthorChooseView
+    choose_results_view_class = AuthorChooseResultsView
 
     @cached_property
     def widget_class(self):
