@@ -1,0 +1,60 @@
+{% extends "wagtailsnippets/chooser/results.html" %} {% load wagtailimages_tags
+%} {% block results %}
+<ul
+  class="author-chooser-results"
+  style="list-style: none; padding: 0; margin: 0"
+>
+  {% for author in results %}
+  <li
+    class="author-chooser-item"
+    data-chooser-item
+    data-chooser-item-pk="{{ author.pk }}"
+    style="
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      border-bottom: 1px solid #e0e0e0;
+      cursor: pointer;
+    "
+    data-controller="w-action"
+    data-action="click->w-action#click"
+    data-w-action-url-value="{% url chosen_url_name author.pk %}"
+  >
+    {% if author.image %} {% image author.image fill-50x50 as author_thumb %}
+    <img
+      src="{{ author_thumb.url }}"
+      alt="{{ author.name }}"
+      style="border-radius: 50%; width: 50px; height: 50px; object-fit: cover"
+    />
+    {% else %}
+    <div
+      style="
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <svg class="icon icon-user" aria-hidden="true">
+        <use href="#icon-user"></use>
+      </svg>
+    </div>
+    {% endif %}
+    <div style="flex: 1">
+      <strong style="display: block">{{ author.name }}</strong>
+      {% if author.title %}
+      <span style="color: #666; font-size: 0.9em">{{ author.title }}</span>
+      {% endif %}
+    </div>
+  </li>
+  {% empty %}
+  <li style="padding: 20px; text-align: center; color: #666">
+    No authors found.
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

@@ -3,13 +3,12 @@ from typing import ClassVar
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.admin.ui.tables import UpdatedAtColumn
 from wagtail.api import APIField
 from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable
-from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSet
+
+from .widgets import AdminAuthorChooser
 
 
 class BaseAuthorsOrderable(Orderable):
@@ -22,7 +21,9 @@ class BaseAuthorsOrderable(Orderable):
         on_delete=models.CASCADE,
     )
 
-    panels: ClassVar[list[FieldPanel]] = [FieldPanel('author')]
+    panels: ClassVar[list[FieldPanel]] = [
+        FieldPanel('author', widget=AdminAuthorChooser),
+    ]
 
     @property
     def name(self):
@@ -78,7 +79,14 @@ class Author(models.Model):
     bio = RichTextField(blank=True, help_text='Brief author bio')
 
     panels: ClassVar[list[FieldPanel]] = [
-        MultiFieldPanel([FieldPanel('name'), FieldPanel('image'), FieldPanel('bio')])
+        MultiFieldPanel(
+            [
+                FieldPanel('name'),
+                FieldPanel('image'),
+                FieldPanel('title'),
+                FieldPanel('bio'),
+            ]
+        )
     ]
 
     api_fields: ClassVar[list[APIField]] = [
@@ -91,19 +99,3 @@ class Author(models.Model):
     def __str__(self):
         """str representation of this Author"""
         return self.name
-
-
-class AuthorAdmin(SnippetViewSet):
-    """Author admin page"""
-
-    model = Author
-    menu_label = 'Authors'
-    icon = 'group'
-    list_display = ('name', 'image', 'bio', UpdatedAtColumn())
-    add_to_settings_menu = False
-    exclude_from_explorer = False
-    search_fields = ('name', 'bio')
-    add_to_admin_menu = True
-
-
-register_snippet(Author, viewset=AuthorAdmin)
