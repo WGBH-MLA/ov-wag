@@ -50,7 +50,7 @@ jobs:
 
     steps:
       - name: 📰 Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: 🚧 Install dependencies
         run: pip install ${{ inputs.pip_args }}
