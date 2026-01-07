@@ -1,4 +1,4 @@
-"""
+r"""
 Django-hosts configuration for Open Vault multi-tenancy.
 
 This module configures host-based routing for OV and AAPB sites.

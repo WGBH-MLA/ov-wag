@@ -1,4 +1,3 @@
-from exhibits import models
 from exhibits.models import BaseExhibitPage, BaseExhibitsOrderable
 from wagtail.fields import StreamField, RichTextField
 from wagtail.blocks import RawHTMLBlock, RichTextBlock
@@ -7,7 +6,7 @@ from ov_collections.blocks import AAPBRecordsBlock
 from typing import ClassVar
 from wagtail.search import index
 from wagtail.api import APIField
-from wagtail.models import Orderable, Page
+from wagtail.models import Page
 from modelcluster.fields import ParentalKey
 from django.db import models
 
@@ -19,8 +18,11 @@ class AAPBExhibit(BaseExhibitPage):
         verbose_name = 'AAPB Exhibit'
         verbose_name_plural = 'AAPB Exhibits'
 
-    parent_page_types = ['home.AAPBHomePage', 'aapb_exhibits.AAPBExhibit']
-    subpage_types = ['aapb_exhibits.AAPBExhibit']
+    parent_page_types: ClassVar[list[str]] = [
+        'home.AAPBHomePage',
+        'aapb_exhibits.AAPBExhibit',
+    ]
+    subpage_types: ClassVar[list[str]] = ['aapb_exhibits.AAPBExhibit']
 
     # Fields
 
@@ -62,7 +64,7 @@ class AAPBExhibit(BaseExhibitPage):
         MultiFieldPanel(
             [InlinePanel('child_order')],
             heading='Exhibit Pages Order',
-            classname="collapsed",
+            classname='collapsed',
         ),
         MultiFieldPanel(
             [
@@ -100,7 +102,8 @@ class AAPBOtherExhibits(BaseExhibitsOrderable):
 
 
 class AAPBExhibitsChildOrder(BaseExhibitsOrderable):
-    """Orderable model to relate AAPBExhibit pages as children of other AAPBExhibit pages"""
+    """Orderable model to relate AAPBExhibit pages
+    as children of other AAPBExhibit pages"""
 
     class Meta:
         verbose_name = 'AAPB Exhibit page'

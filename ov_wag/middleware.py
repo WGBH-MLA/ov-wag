@@ -28,5 +28,4 @@ class DjangoHostsSiteMiddleware:
             # Also set _wagtail_site for compatibility
             request._wagtail_site = site
 
-        response = self.get_response(request)
-        return response
+        return self.get_response(request)

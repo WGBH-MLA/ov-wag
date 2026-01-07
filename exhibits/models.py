@@ -241,8 +241,8 @@ class OpenVaultExhibit(BaseExhibitPage):
     """Open Vault Exhibit Page"""
 
     class Meta:
-        verbose_name = "Open Vault Exhibit"
-        verbose_name_plural = "Open Vault Exhibits"
+        verbose_name = 'Open Vault Exhibit'
+        verbose_name_plural = 'Open Vault Exhibits'
 
     body = StreamField(
         [
@@ -291,7 +291,7 @@ class OpenVaultExhibit(BaseExhibitPage):
         *Page.content_panels,
         MultiFieldPanel(
             [
-                # FieldPanel('display_title'),
+                FieldPanel('display_title'),
                 InlinePanel('authors', heading='Author(s)'),
             ],
             heading='Intro',

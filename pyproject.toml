@@ -63,7 +63,7 @@ build-backend = "uv_build"
 extend-exclude = 'migrations'
 
 [tool.ruff]
-extend-exclude = ['migrations', 'docs/**/*.ipynb', 'cmless']
+extend-exclude = ['migrations', 'docs/**/*.ipynb', 'docs/dev']
 
 [tool.ruff.lint]
 select = [

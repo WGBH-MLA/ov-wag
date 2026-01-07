@@ -1,7 +1,7 @@
+from typing import ClassVar
 from django.utils.functional import cached_property
 
 from wagtail.admin.ui.tables import Column, UpdatedAtColumn
-from wagtail.admin.viewsets.chooser import ChooserViewSet
 from wagtail.admin.views.generic.chooser import ChooseView, ChooseResultsView
 from wagtail.snippets.views.snippets import SnippetViewSet, SnippetChooserViewSet
 
@@ -10,7 +10,8 @@ from .widgets import AdminAuthorChooser
 
 class AuthorChooseViewMixin:
     """Mixin for author chooser views with custom template and queryset"""
-    results_template_name = "authors/chooser/results.html"
+
+    results_template_name = 'authors/chooser/results.html'
 
     def get_object_list(self):
         return self.model_class.objects.only('name', 'title', 'image')
@@ -25,22 +26,19 @@ class AuthorChooseViewMixin:
 class AuthorChooseView(AuthorChooseViewMixin, ChooseView):
     @property
     def columns(self):
-        return super().columns + [
-            Column("title", label="Title"),
-        ]
+        return [*super().columns, Column('title', label='Title')]
 
 
 class AuthorChooseResultsView(AuthorChooseViewMixin, ChooseResultsView):
     """Results view for AJAX/pagination requests"""
-    pass
 
 
 class AuthorChooserViewSet(SnippetChooserViewSet):
-    icon = "user"
+    icon = 'user'
 
-    form_fields = ['name', 'title']
-    choose_one_text = "Choose an author"
-    choose_another_text = "Choose another author"
+    form_fields: ClassVar[list[str]] = ['name', 'title']
+    choose_one_text = 'Choose an author'
+    choose_another_text = 'Choose another author'
 
     choose_view_class = AuthorChooseView
     choose_results_view_class = AuthorChooseResultsView
