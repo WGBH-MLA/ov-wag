@@ -92,6 +92,10 @@ class AAPBRecordsBlock(StructBlock):
         access_level: Required: access level for the group. Default: online
     """
 
+    class Meta:
+        icon = 'doc-full'
+        label_format = '{title}'
+
     guids = TextBlock(
         required=True,
         help_text='AAPB record IDs, separated by whitespace',
