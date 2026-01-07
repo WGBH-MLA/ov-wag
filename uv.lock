@@ -516,13 +516,16 @@ wheels = [
 
 [[package]]
 name = "django-allauth"
-version = "65.10.0"
+version = "65.13.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e1/9e/271e3b8ea27c089ddf3431140cf4aa86df86556ec102e360da5af62c3a99/django_allauth-65.10.0.tar.gz", hash = "sha256:47daa3b0e11a1d75724ea32995de37bd2b8963e9e4cce2b3a7fd64eb6d3b3c48", size = 1897777, upload-time = "2025-07-10T11:32:44.098Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e0/b7/42a048ba1dedbb6b553f5376a6126b1c753c10c70d1edab8f94c560c8066/django_allauth-65.13.1.tar.gz", hash = "sha256:2af0d07812f8c1a8e3732feaabe6a9db5ecf3fad6b45b6a0f7fd825f656c5a15", size = 1983857, upload-time = "2025-11-20T16:34:40.811Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d8/98/9d44ae1468abfdb521d651fb67f914165c7812dfdd97be16190c9b1cc246/django_allauth-65.13.1-py3-none-any.whl", hash = "sha256:2887294beedfd108b4b52ebd182e0ed373deaeb927fc5a22f77bbde3174704a6", size = 1787349, upload-time = "2025-11-20T16:34:37.354Z" },
+]
 
 [[package]]
 name = "django-cors-headers"
@@ -1608,7 +1611,7 @@ docs = [
 requires-dist = [
     { name = "coverage", marker = "extra == 'test'", specifier = ">=7.8.2,<7.11.0" },
     { name = "django", specifier = "~=5.2.1" },
-    { name = "django-allauth", specifier = ">=65.9,<65.11" },
+    { name = "django-allauth", specifier = ">=65.9,<65.14" },
     { name = "django-cors-headers", specifier = ">=4.7,<4.10" },
     { name = "django-storages", extras = ["s3"], marker = "extra == 'production'", specifier = "~=1.14.6" },
     { name = "elasticsearch", specifier = "~=8.18.1" },
