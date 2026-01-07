@@ -35,10 +35,16 @@ class AAPBCollection(BaseCollection):
 
     content = StreamField(
         [
-            ('background', RichTextBlock(icon='doc-full-inverse')),
+            (
+                'background',
+                RichTextBlock(label='Collection Background', icon='doc-full-inverse'),
+            ),
             ('funders', RichTextBlock(icon='group')),
             ('help', RichTextBlock(icon='help')),
-            ('resources', RichTextBlock(icon='doc-full-inverse')),
+            (
+                'resources',
+                RichTextBlock(label='Other Resources', icon='doc-full-inverse'),
+            ),
             ('terms', RichTextBlock(icon='doc-full-inverse')),
             ('timeline', RichTextBlock(icon='clock')),
         ]
