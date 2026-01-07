@@ -15,7 +15,7 @@ dependencies = [
     "wagtail-headless-preview~=0.8.0",
     "django-cors-headers>=4.7,<4.10",
     "django-allauth>=65.9,<65.11",
-    "elasticsearch~=8.18.1",
+    "elasticsearch>=8.18.1,<9.3.0",
     "wagtail-footnotes>=0.13,<0.15",
 ]
 
