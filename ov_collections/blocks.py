@@ -94,11 +94,20 @@ class AAPBRecordsBlock(StructBlock):
 
     class Meta:
         icon = 'doc-full'
-        label_format = '{title}'
+        label_format = '{title} - {guids}'
+        form_template = 'ov_collections/block_forms/aapb_records_block.html'
+
+    title = RichTextBlock(
+        required=False,
+        max_length=1024,
+        help_text='The title of this group',
+        features=['italic'],
+    )
 
     guids = TextBlock(
         required=True,
         help_text='AAPB record IDs, separated by whitespace',
+        form_classname='w-field--scrollable-textarea',
     )
 
     special_collections = TextBlock(required=False, help_text='Special collections IDs')
@@ -113,13 +122,6 @@ class AAPBRecordsBlock(StructBlock):
 
     show_sidebar = BooleanBlock(
         required=False, help_text='Include title in sidebar', default=True
-    )
-
-    title = RichTextBlock(
-        required=False,
-        max_length=1024,
-        help_text='The title of this group',
-        features=['italic'],
     )
 
     start_time = DurationBlock(
