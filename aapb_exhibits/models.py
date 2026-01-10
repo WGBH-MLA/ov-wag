@@ -6,7 +6,6 @@ from ov_collections.blocks import AAPBRecordsBlock
 from typing import ClassVar
 from wagtail.search import index
 from wagtail.api import APIField
-from wagtail.models import Page
 from modelcluster.fields import ParentalKey
 from django.db import models
 

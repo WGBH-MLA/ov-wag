@@ -1,4 +1,6 @@
 from wagtail.snippets.widgets import AdminSnippetChooser
+from wagtail.images.models import SourceImageIOError
+from contextlib import suppress
 
 
 class AdminAuthorChooser(AdminSnippetChooser):
@@ -20,7 +22,9 @@ class AdminAuthorChooser(AdminSnippetChooser):
         data['author_title'] = instance.title or ''
         data['image_url'] = None
         if instance.image:
-            data['image_url'] = instance.image.get_rendition('fill-40x40').url
+            with suppress(SourceImageIOError):
+                # TODO: Log error or handle missing image file as needed
+                data['image_url'] = instance.image.get_rendition('fill-40x40').url
         return data
 
     def get_context(self, name, value_data, attrs):
