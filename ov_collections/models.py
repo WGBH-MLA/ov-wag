@@ -48,7 +48,16 @@ class BaseCollection(HeadlessMixin, Page):
         related_name='+',
     )
 
-    featured = models.BooleanField(default=False)
+    featured = models.BooleanField(
+        default=False,
+        help_text='Feature this collection on the home page.',
+    )
+
+    special_collections = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Special collections IDs, separated by whitespace',
+    )
 
     # Methods
     def get_hero_thumb_url(self):
@@ -90,6 +99,7 @@ class BaseCollection(HeadlessMixin, Page):
             heading='Featured Collection',
             help_text='Featured collections will be displayed on the home page, and listed first on the collections page.',  # noqa: E501
         ),
+        FieldPanel('special_collections', heading='Special Collections IDs'),
         *Page.promote_panels,
     ]
 

@@ -48,17 +48,13 @@ class AAPBExhibit(BaseExhibitPage):
         ]
     )
     content_panels: ClassVar[list[FieldPanel]] = [
-        *Page.content_panels,
+        *BaseExhibitPage.content_panels,
         MultiFieldPanel(
             [
-                FieldPanel('display_title'),
                 InlinePanel('authors', heading='Author(s)'),
                 FieldPanel('introduction', heading='Introduction'),
             ],
-            heading='Intro',
-        ),
-        MultiFieldPanel(
-            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
+            heading='Introduction',
         ),
         FieldPanel('body', classname='collapsed'),
         MultiFieldPanel(
@@ -83,6 +79,7 @@ class AAPBExhibit(BaseExhibitPage):
     # API
     api_fields: ClassVar[list[APIField]] = [
         *BaseExhibitPage.api_fields,
+        APIField('introduction'),
         APIField('body'),
     ]
 

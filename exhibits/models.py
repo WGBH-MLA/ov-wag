@@ -172,6 +172,12 @@ class BaseExhibitPage(HeadlessMixin, Page):
 
     featured = models.BooleanField(default=False)
 
+    special_collections = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Special collections IDs, separated by whitespace',
+    )
+
     # Methods
     def get_hero_thumb_url(self):
         if self.hero_image:
@@ -197,9 +203,6 @@ class BaseExhibitPage(HeadlessMixin, Page):
         MultiFieldPanel(
             [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
         ),
-        InlinePanel('authors', heading='Author(s)'),
-        InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
-        InlinePanel('footnotes', label='Footnotes'),
     ]
 
     promote_panels: ClassVar[list[FieldPanel]] = [
@@ -208,6 +211,8 @@ class BaseExhibitPage(HeadlessMixin, Page):
             heading='Featured Exhibit',
             help_text='Featured exhibits will be displayed on the home page, and as "other exhibits" on other exhibit pages.',  # noqa: E501
         ),
+        FieldPanel('special_collections', heading='Special Collections IDs'),
+        FieldPanel('display_title'),
         *Page.promote_panels,
     ]
 
@@ -288,17 +293,8 @@ class OpenVaultExhibit(BaseExhibitPage):
     # Panels
 
     content_panels: ClassVar[list[FieldPanel]] = [
-        *Page.content_panels,
-        MultiFieldPanel(
-            [
-                FieldPanel('display_title'),
-                InlinePanel('authors', heading='Author(s)'),
-            ],
-            heading='Intro',
-        ),
-        MultiFieldPanel(
-            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
-        ),
+        *BaseExhibitPage.content_panels,
+        InlinePanel('authors', heading='Author(s)'),
         FieldPanel('body', classname='collapsed'),
         MultiFieldPanel(
             [

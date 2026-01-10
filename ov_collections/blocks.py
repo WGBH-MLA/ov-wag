@@ -94,7 +94,6 @@ class AAPBRecordsBlock(StructBlock):
 
     class Meta:
         icon = 'doc-full'
-        label_format = '{title} - {guids}'
         form_template = 'ov_collections/block_forms/aapb_records_block.html'
 
     title = RichTextBlock(
