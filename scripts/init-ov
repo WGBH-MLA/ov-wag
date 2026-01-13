@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Load and export environment variables from .env file
+set -a && . .env && set +a
+
+# python manage.py createsuperuser --username h --email harpo@wgbh.org
+
+# Load the db
+./scripts/db-restore 2025-12-05_aapb_collections.sql
+
+# 2025-12-09
+./scripts/migrate
+python manage.py shell -c '
+def rename_slug(old_slug, new_slug):
+    try:
+        p = Page.objects.get(slug=old_slug)
+        p.slug = new_slug
+        p.save()
+    except Page.DoesNotExist:
+        print(f"Page with slug {old_slug} does not exist")
+
+rename_slug("zoom", "zoom-collection")
+rename_slug("le-show", "le-show-collection")
+'
+
+# Start the development server
+
+./scripts/dev
