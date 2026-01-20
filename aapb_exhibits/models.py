@@ -57,14 +57,14 @@ class AAPBExhibit(BaseExhibitPage):
         ),
         FieldPanel('body', classname='collapsed'),
         MultiFieldPanel(
-            [InlinePanel('child_order')],
-            heading='Exhibit Pages Order',
-            classname='collapsed',
-        ),
-        MultiFieldPanel(
             [
                 InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
                 InlinePanel('footnotes', label='Footnotes'),
+                InlinePanel(
+                    'child_order',
+                    label='Child Exhibit page order',
+                    classname='collapsed',
+                ),
             ],
             heading='Additional Content',
         ),

@@ -22,11 +22,10 @@ exhibits = [Exhibit(**exhibit) for exhibit in exhibits]
 # %%
 pages = 0
 for exhibit in exhibits:
-    # exhibit = Exhibit(**exhibit)
-    print(exhibit.title, len(exhibit.children))
+    # print(exhibit.title, len(exhibit.children))
     pages += len(exhibit.children)
-    for n, p in enumerate(exhibit.children):
-        print(f'  {n+1}: {p.title} - {p.page}')
+    # for n, p in enumerate(exhibit.children):
+    # print(f'  {n+1}: {p.title} - {p.page}')
 
 pages
 
@@ -74,7 +73,10 @@ from bs4 import BeautifulSoup
 def extract_subheadings(md: str) -> list[tuple[str, str]]:
     # First split by main headings (###)
     main_heading_pattern = r'###\s+(.+?)\s*\n'
-    main_parts = split(main_heading_pattern, exhibit.main)
+    main_parts = split(main_heading_pattern, md)
+
+    if len(main_parts) == 1:
+        return [('text', markdownify(md))]
 
     sections = []
     # Skip the first element (content before any heading) and pair up headings with content
@@ -118,16 +120,15 @@ def extract_subheadings(md: str) -> list[tuple[str, str]]:
 # %%
 from aapb_exhibits.models import AAPBExhibit, AAPBExhibitsChildOrder
 from authors.models import Author, AAPBAuthorsOrderable
+from re import split
 
 
 def create_exhibit_page(exhibit: Exhibit) -> AAPBExhibit:
-    from re import split
 
     body = []
     if exhibit.main:
         body += extract_subheadings(exhibit.main)
     if exhibit.extended:
-        body.append(('heading', 'Extended'))
         body += extract_subheadings(exhibit.extended)
     if exhibit.resources:
         body.append(('heading', 'Resources'))
@@ -135,7 +136,7 @@ def create_exhibit_page(exhibit: Exhibit) -> AAPBExhibit:
     if exhibit.records:
         records = parse_records_markdown(exhibit.records)
         if records:
-            body.append(('heading', 'Records'))
+            # body.append(('heading', 'Records'))
             body.append(('records', {'guids': '\n'.join(records)}))
 
     if exhibit.title.find('<em>') >= 0 or exhibit.title.find('*') >= 0:

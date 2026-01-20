@@ -1,0 +1,74 @@
+#!/bin/bash
+
+APP_NAME="ov-wag-pr-258"
+
+### drop dev db
+kubectl -n ov exec -it ov-db-cluster-1 -- psql -c "drop database \"$APP_NAME\";"
+
+### delete the database resource
+kubectl -n ov delete database "$APP_NAME-database"
+
+### Sync the ArgoCD app to recreate the database
+### Wait for the init-db job to complete
+
+### Get the pod name
+POD=$(kubectl -n ov get pods --selector app.kubernetes.io/controller=backend,app.kubernetes.io/instance=$APP_NAME -o name | head -n 1 | cut -d'/' -f2)
+
+### Install CMLess migration dependencies
+kubectl -n ov exec -it $POD -- bash -c '
+    apt update && \
+    apt install -y git && \
+    pip install markdown git+https://github.com/WGBH-MLA/AAPB2@cmless
+'
+
+### Apply new migrations
+kubectl -n ov exec -it $POD -- python manage.py migrate
+
+### Create the AAPB Home page and rename the existing Home page to "Open Vault"
+kubectl -n ov exec -it $POD -- python manage.py shell -c '
+from wagtail.models import Page, Site
+from home.models import AAPBHomePage
+
+root = Page.objects.get(id=1)
+
+ov = Page.objects.get(id=3)
+ov.title = "Open Vault"
+ov.specific.save_revision().publish()
+
+aapb = AAPBHomePage(title="AAPB", slug="aapb")
+root.add_child(instance=aapb)
+aapb.save_revision().publish()
+
+aapb_site = Site(hostname="aapb", site_name="American Archive", root_page=aapb)
+aapb_site.save()
+'
+
+### Copy files to pod
+#### Collections
+kubectl -n ov cp ~/gbh/aapb/AAPB2/collections.json $POD:collections.json
+kubectl -n ov cp docs/dev/migrate-collections.py $POD:migrate-collections.py
+#### Exhibits
+kubectl -n ov cp docs/dev/migrate-exhibits.py $POD:migrate-exhibits.py
+kubectl -n ov cp ~/gbh/aapb/AAPB2/exhibits.json $POD:exhibits.json
+
+
+### Migrate collections
+kubectl -n ov exec -it $POD -- python migrate-collections.py
+
+
+### Rename slugs for "zoom" and "le-show" because Wagtail can't handle slug conflicts
+kubectl -n ov exec -it $POD -- python manage.py shell -c '
+def rename_slug(old_slug, new_slug):
+    try:
+        p = Page.objects.get(slug=old_slug)
+        p.slug = new_slug
+        p.save()
+    except Page.DoesNotExist:
+        print(f"Page with slug {old_slug} does not exist")
+
+rename_slug("zoom", "zoom-collection")
+rename_slug("le-show", "le-show-collection")
+'
+
+### Migrate exhibits
+kubectl -n ov exec -it $POD -- python migrate-exhibits.py
