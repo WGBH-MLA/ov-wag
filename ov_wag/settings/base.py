@@ -226,7 +226,11 @@ WAGTAIL_BASE_URL = env.get('OV_BASE_URL')
 WAGTAILADMIN_BASE_URL = env.get('OV_ADMIN_BASE_URL', '')
 
 WAGTAIL_HEADLESS_PREVIEW = {
-    'CLIENT_URLS': {'default': env.get('OV_PREVIEW_URL')},
+    'CLIENT_URLS': {
+        'default':env.get('OV_PREVIEW_URL'),
+        'localhost':env.get('OV_PREVIEW_URL'),
+        'aapb':'https://aapb-pr-16.dev.wgbh-mla.org/preview'
+    },
 }
 
 # TODO: Set this to a real limit once we create pagination for the frontend endpoints
