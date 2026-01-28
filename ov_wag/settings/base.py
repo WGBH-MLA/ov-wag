@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 # Build paths inside the project like this: path.join(BASE_DIR, ...)
+from json import JSONDecodeError, dumps, loads
 from os import path, environ as env
 
 from dotenv import load_dotenv
@@ -214,27 +215,40 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-# API settings
+# URL settings
+
+WAGTAIL_BASE_URL = env.get('OV_BASE_URL')
+WAGTAILADMIN_BASE_URL = env.get('OV_ADMIN_BASE_URL', '')
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILAPI_BASE_URL = env.get('OV_API_URL')
 
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 10**5
 
-WAGTAIL_BASE_URL = env.get('OV_BASE_URL')
-WAGTAILADMIN_BASE_URL = env.get('OV_ADMIN_BASE_URL', '')
-
-WAGTAIL_HEADLESS_PREVIEW = {
-    'CLIENT_URLS': {
-        'default':env.get('OV_PREVIEW_URL'),
-        'localhost':env.get('OV_PREVIEW_URL'),
-        'aapb':'https://aapb-pr-16.dev.wgbh-mla.org/preview'
-    },
-}
+# API settings
 
 # TODO: Set this to a real limit once we create pagination for the frontend endpoints
 WAGTAILAPI_LIMIT_MAX = None
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10**5
+
+# Wagtail Headless Preview settings
+# Set $PREVIEW_CLIENT_URLS to a JSON object mapping Wagtail site IDs to client URLs.
+# See https://github.com/torchbox/wagtail-headless-preview#multi-site-setup for details.
+
+try:
+    client_urls = loads(
+        env.get('PREVIEW_CLIENT_URLS', dumps({'default': WAGTAIL_BASE_URL}))
+    )
+
+    WAGTAIL_HEADLESS_PREVIEW = {
+        'CLIENT_URLS': client_urls,
+    }
+except JSONDecodeError:
+    print(
+        "Warning: PREVIEW_CLIENT_URLS is not valid JSON. Preview URLs will not be set."
+    )
+
 
 # OIDC Provider settings
 SITE_ID = 1
