@@ -32,8 +32,12 @@ from home.models import AAPBHomePage
 root = Page.objects.get(id=1)
 
 ov = Page.objects.get(id=3)
-ov.title = "Open Vault"
+ov.specific.title = "OV"
 ov.specific.save_revision().publish()
+
+ov_site = Site.objects.get(hostname="localhost")
+ov_site.site_name = "Open Vault"
+ov_site.save()
 
 aapb = AAPBHomePage(title="AAPB", slug="aapb")
 root.add_child(instance=aapb)

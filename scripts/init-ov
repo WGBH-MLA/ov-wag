@@ -6,26 +6,14 @@ DB_FILE="2026-01-20_ov.sql"
 # Load and export environment variables from .env file
 set -a && . .env && set +a
 
-# python manage.py createsuperuser --username h --email harpo@wgbh.org
-
 # Load the db
 ./scripts/db-restore "$DB_FILE"
 
-# 2025-12-09
-./scripts/migrate
-python manage.py shell -c '
-def rename_slug(old_slug, new_slug):
-    try:
-        p = Page.objects.get(slug=old_slug)
-        p.slug = new_slug
-        p.save()
-    except Page.DoesNotExist:
-        print(f"Page with slug {old_slug} does not exist")
+# python manage.py createsuperuser --username h --email harpo@wgbh.org
 
-rename_slug("zoom", "zoom-collection")
-rename_slug("le-show", "le-show-collection")
-'
+# 2025-12-09
+# Run new migrations
+./scripts/migrate
 
 # Start the development server
-
 ./scripts/dev
