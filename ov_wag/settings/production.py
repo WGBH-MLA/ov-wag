@@ -25,7 +25,6 @@ AWS_ACCESS_KEY_ID = env.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = env.get('AWS_SECRET_ACCESS_KEY')
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_REGION_NAME = env.get('AWS_S3_REGION_NAME', 'us-east-1')
-STATICFILES_STORAGE = 'storages.backends.s3.S3Storage'
 
 STORAGES = {
     'default': {
@@ -36,6 +35,8 @@ STORAGES = {
         'BACKEND': 'storages.backends.s3.S3Storage',
         'OPTIONS': {
             'location': 'static',
+            'querystring_auth': False,
+            'default_acl': 'public-read',
         },
     },
 }
