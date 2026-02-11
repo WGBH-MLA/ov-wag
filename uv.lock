@@ -516,13 +516,16 @@ wheels = [
 
 [[package]]
 name = "django-allauth"
-version = "65.10.0"
+version = "65.13.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "asgiref" },
     { name = "django" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e1/9e/271e3b8ea27c089ddf3431140cf4aa86df86556ec102e360da5af62c3a99/django_allauth-65.10.0.tar.gz", hash = "sha256:47daa3b0e11a1d75724ea32995de37bd2b8963e9e4cce2b3a7fd64eb6d3b3c48", size = 1897777, upload-time = "2025-07-10T11:32:44.098Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e0/b7/42a048ba1dedbb6b553f5376a6126b1c753c10c70d1edab8f94c560c8066/django_allauth-65.13.1.tar.gz", hash = "sha256:2af0d07812f8c1a8e3732feaabe6a9db5ecf3fad6b45b6a0f7fd825f656c5a15", size = 1983857, upload-time = "2025-11-20T16:34:40.811Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d8/98/9d44ae1468abfdb521d651fb67f914165c7812dfdd97be16190c9b1cc246/django_allauth-65.13.1-py3-none-any.whl", hash = "sha256:2887294beedfd108b4b52ebd182e0ed373deaeb927fc5a22f77bbde3174704a6", size = 1787349, upload-time = "2025-11-20T16:34:37.354Z" },
+]
 
 [[package]]
 name = "django-cors-headers"
@@ -1608,7 +1611,7 @@ docs = [
 requires-dist = [
     { name = "coverage", marker = "extra == 'test'", specifier = ">=7.8.2,<7.11.0" },
     { name = "django", specifier = "~=5.2.1" },
-    { name = "django-allauth", specifier = ">=65.9,<65.11" },
+    { name = "django-allauth", specifier = ">=65.9,<65.14" },
     { name = "django-cors-headers", specifier = ">=4.7,<4.10" },
     { name = "django-storages", extras = ["s3"], marker = "extra == 'production'", specifier = "~=1.14.6" },
     { name = "elasticsearch", specifier = "~=8.18.1" },
@@ -1626,7 +1629,7 @@ requires-dist = [
     { name = "trogon", marker = "extra == 'cli'", specifier = "~=0.6.0" },
     { name = "typer", marker = "extra == 'cli'", specifier = ">=0.16,<0.20" },
     { name = "wagtail", specifier = ">=7.0.1,<7.2.0" },
-    { name = "wagtail-factories", marker = "extra == 'test'", specifier = ">=4.2.1,<4.4.0" },
+    { name = "wagtail-factories", marker = "extra == 'test'", specifier = ">=4.2.1,<4.5.0" },
     { name = "wagtail-footnotes", specifier = ">=0.13,<0.15" },
     { name = "wagtail-headless-preview", specifier = "~=0.8.0" },
 ]
@@ -2915,15 +2918,15 @@ wheels = [
 
 [[package]]
 name = "wagtail-factories"
-version = "4.3.0"
+version = "4.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "factory-boy" },
     { name = "wagtail" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/cb/0f/f00ce36a1eaea91075817c65c0c4f6644dc20138e397aafd89afe2e2c3e3/wagtail_factories-4.3.0.tar.gz", hash = "sha256:27c19078ceade5e408aef0edfa3378b7992e5bed4d4c7e8216cbdd53f9732464", size = 9613, upload-time = "2025-08-15T08:49:46.4Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/42/8c/2ece22c2757bb3f6ef34f36cf185246b136134cf594b7b1dde92cb0a331f/wagtail_factories-4.4.0.tar.gz", hash = "sha256:c77c13d438a2e999a9220ff1829f060116013aa519a81944577353f460ba8cba", size = 9939, upload-time = "2026-02-10T15:14:13.7Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2e/5c/dc0bcc00512d27423e3bb2b4eee44f3bcbd1c1569910d01d17b6e0e0cc27/wagtail_factories-4.3.0-py2.py3-none-any.whl", hash = "sha256:6d3129244642a400462344e35168e5eb89598d5b63a4cfb7f26a5a6052f50d95", size = 10513, upload-time = "2025-08-15T08:49:45.549Z" },
+    { url = "https://files.pythonhosted.org/packages/4c/85/bd5aeaa54a10b6defca927f75bc3890acb7c3a9a23df8e10f3aa42e75807/wagtail_factories-4.4.0-py2.py3-none-any.whl", hash = "sha256:be0abb96d36bf0e3c733d7520fc1944441a379ab06d93af447fc4e71b67e2a01", size = 10754, upload-time = "2026-02-10T15:14:12.773Z" },
 ]
 
 [[package]]
