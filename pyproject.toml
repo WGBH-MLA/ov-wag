@@ -41,7 +41,7 @@ test = [
     "pytest-xdist>=3.7,<3.9",
     "nbmake~=1.5.5",
     "coverage>=7.8.2,<7.11.0",
-    "wagtail-factories>=4.2.1,<4.4.0",
+    "wagtail-factories>=4.2.1,<4.5.0",
 ]
 
 
