@@ -41,7 +41,7 @@ test = [
     "pytest-xdist>=3.7,<3.9",
     "nbmake~=1.5.5",
     "coverage>=7.8.2,<7.11.0",
-    "wagtail-factories>=4.2.1,<4.4.0",
+    "wagtail-factories>=4.2.1,<4.5.0",
 ]
 
 
@@ -55,7 +55,7 @@ ov = 'cli:app'
 ov-docs = 'mkdocs.commands:serve.serve'
 
 [build-system]
-requires = ["uv_build>=0.8.9,<0.10.0"]
+requires = ["uv_build>=0.8.9,<0.11.0"]
 build-backend = "uv_build"
 
 [tool.black]
