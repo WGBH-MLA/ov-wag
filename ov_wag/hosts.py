@@ -1,0 +1,37 @@
+r"""
+Django-hosts configuration for Open Vault multi-tenancy.
+
+This module configures host-based routing for OV and AAPB sites.
+The DjangoHostsSiteMiddleware (in middleware.py) uses these patterns
+to set the correct Wagtail Site on each request.
+
+Environment Variables:
+    AAPB_HOST_PATTERN: Regex pattern for AAPB hostnames (default: r'aapb(.+)*')
+                       Examples: 'aapb.wgbh.org', 'aapb-staging.wgbh.org'
+
+    OV_HOST_PATTERN: Regex pattern for OV hostnames (default: r'.*')
+                     Matches all non-AAPB hostnames
+
+    DEFAULT_HOST: Default host name when pattern doesn't match (default: 'ov')
+
+Usage:
+    Set at deployment time via environment variables:
+    export AAPB_HOST_PATTERN='aapb\.production\.org'
+    export OV_HOST_PATTERN='openvault\.production\.org'
+"""
+
+from os import environ as env
+from django_hosts import patterns, host
+
+# Get hostname patterns from environment variables
+# Match any hostname starting with 'aapb' (e.g., aapb-pr-123)
+aapb_pattern = env.get('AAPB_HOST_PATTERN', r'aapb(.+)*')
+ov_pattern = env.get('OV_HOST_PATTERN', r'ov(.+)*')
+
+host_patterns = patterns(
+    '',
+    host(aapb_pattern, 'ov_wag.urls', name='aapb'),
+    host(ov_pattern, 'ov_wag.urls', name='ov'),
+    # Match all other hostnames to no host
+    host(r'.*', 'ov_wag.urls', name=None),
+)

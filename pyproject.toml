@@ -17,6 +17,7 @@ dependencies = [
     "django-allauth>=65.14.3,<65.15",
     "elasticsearch~=8.18.1",
     "wagtail-footnotes>=0.13,<0.15",
+    "django-hosts>=7.0.0",
 ]
 
 [dependency-groups]
@@ -62,7 +63,7 @@ build-backend = "uv_build"
 extend-exclude = 'migrations'
 
 [tool.ruff]
-extend-exclude = ['migrations', 'docs/**/*.ipynb']
+extend-exclude = ['migrations', 'docs/**/*.ipynb', 'docs/dev']
 
 [tool.ruff.lint]
 select = [
