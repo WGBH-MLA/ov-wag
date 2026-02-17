@@ -246,7 +246,7 @@ try:
     }
 except JSONDecodeError:
     print(
-        "Warning: PREVIEW_CLIENT_URLS is not valid JSON. Preview URLs will not be set."
+        'Warning: PREVIEW_CLIENT_URLS is not valid JSON. Preview URLs will not be set.'
     )
 
 
