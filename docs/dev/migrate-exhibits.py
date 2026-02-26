@@ -4,8 +4,8 @@ import django
 django.setup()
 from wagtail.models import Page
 
-ov = Page.objects.get(id=3)
-aapb = Page.objects.get(id=59)
+ov = Page.objects.get(title="OV")
+aapb = Page.objects.get(title="AAPB")
 
 # %%
 import json

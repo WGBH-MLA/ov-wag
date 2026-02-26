@@ -2,29 +2,33 @@
 
 APP_NAME="ov-wag-pr-258"
 
-### drop dev db
+echo dropping database $APP_NAME
 kubectl -n ov exec -it ov-db-cluster-1 -- psql -c "drop database \"$APP_NAME\";"
 
-### delete the database resource
+echo deleting the database resource for $APP_NAME
 kubectl -n ov delete database "$APP_NAME-database"
 
-### Sync the ArgoCD app to recreate the database
-### Wait for the init-db job to complete
+echo "Syncing ArgoCD app $APP_NAME to recreate the database..."
+kubectl -n argo-cd exec -it deploy/argo-cd-argocd-server -- argocd app sync "$APP_NAME"
 
-### Get the pod name
+echo "Waiting for init-db job $APP_NAME-init-db to complete (timeout: 120s)..."
+kubectl -n ov wait --for=condition=complete --timeout=120s job/"$APP_NAME-init-db"
+
+echo "Getting backend pod name for $APP_NAME..."
 POD=$(kubectl -n ov get pods --selector app.kubernetes.io/controller=backend,app.kubernetes.io/instance=$APP_NAME -o name | head -n 1 | cut -d'/' -f2)
+echo "Using pod: $POD"
 
-### Install CMLess migration dependencies
+echo "Installing CMLess migration dependencies (git, markdown, AAPB2@cmless) on $POD..."
 kubectl -n ov exec -it $POD -- bash -c '
     apt update && \
     apt install -y git && \
     pip install markdown git+https://github.com/WGBH-MLA/AAPB2@cmless
 '
 
-### Apply new migrations
+echo "Applying new migrations on $POD..."
 kubectl -n ov exec -it $POD -- python manage.py migrate
 
-### Create the AAPB Home page and rename the existing Home page to "Open Vault"
+echo "Creating AAPB Home page on $POD and renaming existing Home page to 'Open Vault'..."
 kubectl -n ov exec -it $POD -- python manage.py shell -c '
 from wagtail.models import Page, Site
 from home.models import AAPBHomePage
@@ -47,20 +51,18 @@ aapb_site = Site(hostname="aapb", site_name="American Archive", root_page=aapb)
 aapb_site.save()
 '
 
-### Copy files to pod
-#### Collections
+echo "Copying collections and exhibits files to pod $POD..."
 kubectl -n ov cp ~/gbh/aapb/AAPB2/collections.json $POD:collections.json
 kubectl -n ov cp docs/dev/migrate-collections.py $POD:migrate-collections.py
-#### Exhibits
 kubectl -n ov cp docs/dev/migrate-exhibits.py $POD:migrate-exhibits.py
 kubectl -n ov cp ~/gbh/aapb/AAPB2/exhibits.json $POD:exhibits.json
 
 
-### Migrate collections
+echo "Migrating collections on $POD..."
 kubectl -n ov exec -it $POD -- python migrate-collections.py
 
 
-### Rename slugs for "zoom" and "le-show" because Wagtail can't handle slug conflicts
+echo "Renaming slugs for 'zoom' and 'le-show' on $POD to avoid Wagtail slug conflicts..."
 kubectl -n ov exec -it $POD -- python manage.py shell -c '
 def rename_slug(old_slug, new_slug):
     try:
@@ -74,5 +76,5 @@ rename_slug("zoom", "zoom-collection")
 rename_slug("le-show", "le-show-collection")
 '
 
-### Migrate exhibits
+echo "Migrating exhibits on $POD..."
 kubectl -n ov exec -it $POD -- python migrate-exhibits.py
