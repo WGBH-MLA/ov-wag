@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ..models import ExhibitPage
+from ..models import OpenVaultExhibit
 from .factories import ExhibitPageFactory
 
 
@@ -9,4 +9,4 @@ class ExhibitPageTests(TestCase):
         """
         ExhibitPageFactory creates ExhibitPage model instances
         """
-        self.assertIsInstance(ExhibitPageFactory.create(), ExhibitPage)
+        self.assertIsInstance(ExhibitPageFactory.create(), OpenVaultExhibit)

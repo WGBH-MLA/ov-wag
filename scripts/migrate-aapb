@@ -1,0 +1,80 @@
+#!/bin/bash
+
+APP_NAME="ov-wag-pr-258"
+
+echo dropping database $APP_NAME
+kubectl -n ov exec -it ov-db-cluster-1 -- psql -c "drop database \"$APP_NAME\";"
+
+echo deleting the database resource for $APP_NAME
+kubectl -n ov delete database "$APP_NAME-database"
+
+echo "Syncing ArgoCD app $APP_NAME to recreate the database..."
+kubectl -n argo-cd exec -it deploy/argo-cd-argocd-server -- argocd app sync "$APP_NAME"
+
+echo "Waiting for init-db job $APP_NAME-init-db to complete (timeout: 120s)..."
+kubectl -n ov wait --for=condition=complete --timeout=120s job/"$APP_NAME-init-db"
+
+echo "Getting backend pod name for $APP_NAME..."
+POD=$(kubectl -n ov get pods --selector app.kubernetes.io/controller=backend,app.kubernetes.io/instance=$APP_NAME -o name | head -n 1 | cut -d'/' -f2)
+echo "Using pod: $POD"
+
+echo "Installing CMLess migration dependencies (git, markdown, AAPB2@cmless) on $POD..."
+kubectl -n ov exec -it $POD -- bash -c '
+    apt update && \
+    apt install -y git && \
+    pip install markdown git+https://github.com/WGBH-MLA/AAPB2@cmless
+'
+
+echo "Applying new migrations on $POD..."
+kubectl -n ov exec -it $POD -- python manage.py migrate
+
+echo "Creating AAPB Home page on $POD and renaming existing Home page to 'Open Vault'..."
+kubectl -n ov exec -it $POD -- python manage.py shell -c '
+from wagtail.models import Page, Site
+from home.models import AAPBHomePage
+
+root = Page.objects.get(id=1)
+
+ov = Page.objects.get(id=3)
+ov.specific.title = "OV"
+ov.specific.save_revision().publish()
+
+ov_site = Site.objects.get(hostname="localhost")
+ov_site.site_name = "Open Vault"
+ov_site.save()
+
+aapb = AAPBHomePage(title="AAPB", slug="aapb")
+root.add_child(instance=aapb)
+aapb.save_revision().publish()
+
+aapb_site = Site(hostname="aapb", site_name="American Archive", root_page=aapb)
+aapb_site.save()
+'
+
+echo "Copying collections and exhibits files to pod $POD..."
+kubectl -n ov cp ~/gbh/aapb/AAPB2/collections.json $POD:collections.json
+kubectl -n ov cp docs/dev/migrate-collections.py $POD:migrate-collections.py
+kubectl -n ov cp docs/dev/migrate-exhibits.py $POD:migrate-exhibits.py
+kubectl -n ov cp ~/gbh/aapb/AAPB2/exhibits.json $POD:exhibits.json
+
+
+echo "Migrating collections on $POD..."
+kubectl -n ov exec -it $POD -- python migrate-collections.py
+
+
+echo "Renaming slugs for 'zoom' and 'le-show' on $POD to avoid Wagtail slug conflicts..."
+kubectl -n ov exec -it $POD -- python manage.py shell -c '
+def rename_slug(old_slug, new_slug):
+    try:
+        p = Page.objects.get(slug=old_slug)
+        p.slug = new_slug
+        p.save()
+    except Page.DoesNotExist:
+        print(f"Page with slug {old_slug} does not exist")
+
+rename_slug("zoom", "zoom-collection")
+rename_slug("le-show", "le-show-collection")
+'
+
+echo "Migrating exhibits on $POD..."
+kubectl -n ov exec -it $POD -- python migrate-exhibits.py

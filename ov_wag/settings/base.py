@@ -10,16 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+# Build paths inside the project like this: path.join(BASE_DIR, ...)
+from json import JSONDecodeError, dumps, loads
+from os import path, environ as env
 
 from dotenv import load_dotenv
 
 # take environment variables from .env.
 load_dotenv()
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+PROJECT_DIR = path.dirname(path.dirname(path.abspath(__file__)))
+BASE_DIR = path.dirname(PROJECT_DIR)
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,6 +35,8 @@ INSTALLED_APPS = [
     'exhibits',
     'ov_collections',
     'ov_wag',
+    'aapb_collections',
+    'aapb_exhibits',
     'search',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -58,6 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_hosts',
     'wagtail_headless_preview',
     'wagtail.contrib.search_promotions',
     'wagtail_footnotes',
@@ -69,6 +73,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
+    'ov_wag.middleware.DjangoHostsSiteMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -80,15 +86,19 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'django_hosts.middleware.HostsResponseMiddleware',
 ]
 
+# django-hosts settings
 ROOT_URLCONF = 'ov_wag.urls'
+ROOT_HOSTCONF = 'ov_wag.hosts'
+DEFAULT_HOST = env.get('DEFAULT_HOST', 'ov')
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates'),
+            path.join(PROJECT_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -108,15 +118,16 @@ WSGI_APPLICATION = 'ov_wag.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('OV_DB_ENGINE', 'django.db.backends.postgresql'),
-        'HOST': os.environ.get('OV_DB_HOST'),
-        'PORT': os.environ.get('OV_DB_PORT'),
-        'NAME': os.environ.get('OV_DB_NAME'),
-        'USER': os.environ.get('OV_DB_USER'),
-        'PASSWORD': os.environ.get('OV_DB_PASSWORD'),
+        'ENGINE': env.get('OV_DB_ENGINE', 'django.db.backends.postgresql'),
+        'HOST': env.get('OV_DB_HOST'),
+        'PORT': env.get('OV_DB_PORT'),
+        'NAME': env.get('OV_DB_NAME'),
+        'USER': env.get('OV_DB_USER'),
+        'PASSWORD': env.get('OV_DB_PASSWORD'),
     }
 }
 
@@ -166,7 +177,7 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static'),
+    path.join(PROJECT_DIR, 'static'),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
@@ -174,10 +185,10 @@ STATICFILES_DIRS = [
 # See https://docs.djangoproject.com/en/3.2/ref/contrib/staticfiles/#manifeststaticfilesstorage
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
@@ -190,37 +201,54 @@ WAGTAIL_SITE_NAME = 'Open Vault'
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.elasticsearch8',
-        'URLS': [os.environ.get('ES_URL', 'https://localhost:9200')],
-        'INDEX': os.environ.get('ES_INDEX', 'wagtail'),
+        'URLS': [env.get('ES_URL', 'https://localhost:9200')],
+        'INDEX': env.get('ES_INDEX', 'wagtail'),
         'TIMEOUT': 5,
         'OPTIONS': {
-            'verify_certs': os.environ.get('ES_VERIFY_CERTS', 'true') == 'true',
+            'verify_certs': env.get('ES_VERIFY_CERTS', 'true') == 'true',
             'basic_auth': [
-                os.environ.get('ES_USER', 'elastic'),
-                os.environ.get('ES_PASSWORD'),
+                env.get('ES_USER', 'elastic'),
+                env.get('ES_PASSWORD'),
             ],
         },
         'INDEX_SETTINGS': {},
     }
 }
 
-# API settings
+# URL settings
+
+WAGTAIL_BASE_URL = env.get('OV_BASE_URL')
+WAGTAILADMIN_BASE_URL = env.get('OV_ADMIN_BASE_URL', '')
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILAPI_BASE_URL = os.environ.get('OV_API_URL')
+WAGTAILAPI_BASE_URL = env.get('OV_API_URL')
 
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 10**5
 
-WAGTAIL_BASE_URL = os.environ.get('OV_BASE_URL')
-WAGTAILADMIN_BASE_URL = os.environ.get('OV_ADMIN_BASE_URL', '')
-
-WAGTAIL_HEADLESS_PREVIEW = {
-    'CLIENT_URLS': {'default': os.environ.get('OV_PREVIEW_URL')},
-}
+# API settings
 
 # TODO: Set this to a real limit once we create pagination for the frontend endpoints
 WAGTAILAPI_LIMIT_MAX = None
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10**5
+
+# Wagtail Headless Preview settings
+# Set $PREVIEW_CLIENT_URLS to a JSON object mapping Wagtail site IDs to client URLs.
+# See https://github.com/torchbox/wagtail-headless-preview#multi-site-setup for details.
+
+try:
+    client_urls = loads(
+        env.get('PREVIEW_CLIENT_URLS', dumps({'default': WAGTAIL_BASE_URL}))
+    )
+
+    WAGTAIL_HEADLESS_PREVIEW = {
+        'CLIENT_URLS': client_urls,
+    }
+except JSONDecodeError:
+    print(
+        'Warning: PREVIEW_CLIENT_URLS is not valid JSON. Preview URLs will not be set.'
+    )
+
 
 # OIDC Provider settings
 SITE_ID = 1
@@ -232,14 +260,14 @@ AUTHENTICATION_BACKENDS = [
 ]
 SOCIALACCOUNT_PROVIDERS = {
     'auth0': {
-        'AUTH0_URL': os.environ.get('AUTH0_URL'),
+        'AUTH0_URL': env.get('AUTH0_URL'),
         'OAUTH_PKCE_ENABLED': True,
         'APP': {
-            'client_id': os.environ.get('AUTH0_CLIENT_ID'),
-            'secret': os.environ.get('AUTH0_CLIENT_SECRET'),
+            'client_id': env.get('AUTH0_CLIENT_ID'),
+            'secret': env.get('AUTH0_CLIENT_SECRET'),
         },
     }
 }
-GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_ID = env.get('GOOGLE_CLIENT_ID')
 LOGIN_CALLBACK_URL = WAGTAILADMIN_BASE_URL + '/auth0/login/callback/'
 LOGIN_REDIRECT_URL = WAGTAILADMIN_BASE_URL + '/admin/'

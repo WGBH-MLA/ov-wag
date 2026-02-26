@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# DB_FILE="2025-12-05_aapb_collections.sql"
+DB_FILE="2026-01-20_ov.sql"
+
+# Load and export environment variables from .env file
+set -a && . .env && set +a
+
+# Load the db
+./scripts/db-restore "$DB_FILE"
+
+# python manage.py createsuperuser --username h --email harpo@wgbh.org
+
+# 2025-12-09
+# Run new migrations
+./scripts/migrate
+
+# Start the development server
+./scripts/dev
