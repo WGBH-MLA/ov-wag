@@ -61,6 +61,6 @@ jobs:
       - name: 📈 Uploade coverage report
         # run this step, even if the tests fail
         if: success() || failure()
-        uses: codecov/codecov-action@v5
+        uses: codecov/codecov-action@v6
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
