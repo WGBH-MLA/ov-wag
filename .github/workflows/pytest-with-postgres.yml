@@ -56,9 +56,12 @@ jobs:
 
     - name: 😎 Install uv
       uses: astral-sh/setup-uv@v7
+    
+    - name: 🔄 Install dependencies
+      run: uv sync --no-dev --extra test
 
     - name: 🧪 Run pytest suite
-      run: pytest -v --cov --cov-report lcov ${{ inputs.pytest_args }}
+      run: uv run pytest -v --cov --cov-report lcov ${{ inputs.pytest_args }}
 
     - name: 📈 Uploade coverage report
       # run this step, even if the tests fail

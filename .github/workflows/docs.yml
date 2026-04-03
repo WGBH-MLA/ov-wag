@@ -22,6 +22,9 @@ jobs:
     - name: 😎 Install uv
       uses: astral-sh/setup-uv@v7
 
+    - name: 🔄 Install dependencies
+      run: uv sync --no-dev --extra docs
+
     - name: 🧵 Set version string
       run: echo VERSION_TITLE=$(uv run mike list | grep latest) >> $GITHUB_ENV
 
