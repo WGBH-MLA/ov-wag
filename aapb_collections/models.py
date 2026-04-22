@@ -1,6 +1,7 @@
 from ov_collections.blocks import AAPBRecordsBlock
 from ov_collections.models import BaseCollection
 from wagtail.fields import StreamField
+from wagtail.images.api.fields import ImageRenditionField
 from django.db import models
 from wagtail.blocks import RichTextBlock
 from typing import ClassVar
