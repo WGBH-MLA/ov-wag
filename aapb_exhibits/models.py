@@ -80,6 +80,15 @@ class AAPBExhibit(BaseExhibitPage):
         *BaseExhibitPage.api_fields,
         APIField('introduction'),
         APIField('body'),
+        APIField('cover_image'),
+        APIField(
+            'cover_medium',
+            serializer=ImageRenditionField('fill-800x800', source='cover_image'),
+        ),
+        APIField(
+            'cover_small',
+            serializer=ImageRenditionField('fill-400x400', source='cover_image'),
+        ),
     ]
 
 

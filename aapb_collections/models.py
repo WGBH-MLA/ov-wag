@@ -94,6 +94,14 @@ class AAPBCollection(BaseCollection):
             heading='Sorting Options',
             help_text='Choose how to sort the collection items.',
         ),
+        APIField(
+            'cover_medium',
+            serializer=ImageRenditionField('fill-800x800', source='cover_image'),
+        ),
+        APIField(
+            'cover_small',
+            serializer=ImageRenditionField('fill-400x400', source='cover_image'),
+        ),
     ]
 
     promote_panels: ClassVar[list[FieldPanel]] = BaseCollection.promote_panels
