@@ -1,7 +1,7 @@
 from exhibits.models import BaseExhibitPage, BaseExhibitsOrderable
 from wagtail.fields import StreamField, RichTextField
-from wagtail.blocks import RawHTMLBlock, RichTextBloc
-from wagtail.images.api.fields import ImageRenditionFieldk
+from wagtail.blocks import RawHTMLBlock, RichTextBlock
+from wagtail.images.api.fields import ImageRenditionField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from ov_collections.blocks import AAPBRecordsBlock
 from typing import ClassVar
