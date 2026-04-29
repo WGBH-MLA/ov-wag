@@ -16,7 +16,7 @@ dependencies = [
     "django-cors-headers>=4.7,<4.10",
     "django-allauth>=65.14.3,<65.15",
     "elasticsearch~=8.18.1",
-    "wagtail-footnotes>=0.13,<0.15",
+    "wagtail-footnotes>=0.13,<0.16",
 ]
 
 [dependency-groups]
