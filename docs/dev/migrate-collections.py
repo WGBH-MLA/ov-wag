@@ -168,7 +168,7 @@ def create_collection_page(collection):
         featured_items=featured_items if 'featured_items' in locals() else None,
         sort_by=sort_by if 'sort_by' in locals() else None,
         sort_order=sort_order if 'sort_order' in locals() else None,
-        hero_image=thumbnail if 'thumbnail' in locals() else None,
+        cover_image=thumbnail if 'thumbnail' in locals() else None,
     )
     return page
 

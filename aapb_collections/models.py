@@ -46,7 +46,10 @@ class AAPBCollection(BaseCollection):
                 'resources',
                 RichTextBlock(label='Other Resources', icon='doc-full-inverse'),
             ),
-            ('terms', RichTextBlock(icon='doc-full-inverse')),
+            (
+                'terms',
+                RichTextBlock(label='Suggested Searches', icon='doc-full-inverse'),
+            ),
             ('timeline', RichTextBlock(icon='clock')),
         ]
     )
