@@ -5,6 +5,7 @@ from wagtail.models import Site
 
 from exhibits.models import ExhibitPageApiSchema, ExhibitsApiSchema
 from exhibits.tests.factories import ExhibitPageFactory
+from aapb_exhibits.tests.factories import AAPBExhibitPageFactory
 
 
 class ApiTests(APITestCase):
@@ -59,6 +60,38 @@ class ApiTests(APITestCase):
         json = response.json()
         for item in json['items']:
             assert ExhibitsApiSchema(**item)
+
+    def test_exhibits_listing_defaults_to_open_vault(self):
+        """
+        GET /api/v2/exhibits returns only OpenVaultExhibit pages by default
+        """
+        ov_exhibit = ExhibitPageFactory.create(
+            parent=self.__home_page(), title='OV Exhibit', slug='ov-exhibit'
+        )
+        AAPBExhibitPageFactory.create(
+            parent=self.__home_page(), title='AAPB Exhibit', slug='aapb-exhibit'
+        )
+        response = self.client.get('/api/v2/exhibits/', format='json')
+        ids = [item['id'] for item in response.json()['items']]
+        self.assertIn(ov_exhibit.id, ids)
+        self.assertEqual(len(ids), 1)
+
+    def test_exhibits_listing_aapb_site(self):
+        """
+        GET /api/v2/exhibits on the aapb host returns only AAPBExhibit pages
+        """
+        ov_exhibit = ExhibitPageFactory.create(
+            parent=self.__home_page(), title='OV Exhibit', slug='ov-exhibit'
+        )
+        aapb_exhibit = AAPBExhibitPageFactory.create(
+            parent=self.__home_page(), title='AAPB Exhibit', slug='aapb-exhibit'
+        )
+        response = self.client.get(
+            '/api/v2/exhibits/', format='json', HTTP_HOST='aapb.example.com'
+        )
+        ids = [item['id'] for item in response.json()['items']]
+        self.assertIn(aapb_exhibit.id, ids)
+        self.assertNotIn(ov_exhibit.id, ids)
 
     def __home_page(self):
         return Site.objects.filter(is_default_site=True).first().root_page
