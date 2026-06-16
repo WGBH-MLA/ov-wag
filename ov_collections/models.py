@@ -70,7 +70,9 @@ class BaseCollection(HeadlessMixin, Page):
         return ''
 
     # Search and indexing
-    search_fields: ClassVar[list[index.SearchField]] = [
+    search_fields: ClassVar[
+        list[index.SearchField | index.FilterField | index.AutocompleteField]
+    ] = [
         *Page.search_fields,
         index.AutocompleteField('introduction'),
         index.FilterField('featured'),
@@ -79,7 +81,7 @@ class BaseCollection(HeadlessMixin, Page):
     ]
 
     # Panels
-    content_panels: ClassVar[list[FieldPanel]] = [
+    content_panels: ClassVar[list[FieldPanel | MultiFieldPanel]] = [
         *Page.content_panels,
         MultiFieldPanel(
             [

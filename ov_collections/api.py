@@ -2,11 +2,11 @@ from typing import ClassVar
 
 from wagtail.api.v2.views import PagesAPIViewSet
 
-from .models import OpenVaultCollection
+from .models import BaseCollection
 
 
 class OpenVaultCollectionAPIViewSet(PagesAPIViewSet):
-    model = OpenVaultCollection
+    model = BaseCollection
 
     meta_fields: ClassVar[list[str]] = [
         *PagesAPIViewSet.meta_fields,
