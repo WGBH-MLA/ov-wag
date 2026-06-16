@@ -6,6 +6,8 @@ from wagtail.models import Site
 from exhibits.models import ExhibitPageApiSchema, ExhibitsApiSchema
 from exhibits.tests.factories import ExhibitPageFactory
 from aapb_exhibits.tests.factories import AAPBExhibitPageFactory
+from ov_collections.factories import OpenVaultCollectionFactory
+from aapb_collections.factories import AAPBCollectionFactory
 
 
 class ApiTests(APITestCase):
@@ -92,6 +94,38 @@ class ApiTests(APITestCase):
         ids = [item['id'] for item in response.json()['items']]
         self.assertIn(aapb_exhibit.id, ids)
         self.assertNotIn(ov_exhibit.id, ids)
+
+    def test_collections_listing_defaults_to_open_vault(self):
+        """
+        GET /api/v2/collections returns only OpenVaultCollection pages by default
+        """
+        ov_collection = OpenVaultCollectionFactory.create(
+            parent=self.__home_page(), title='OV Collection', slug='ov-collection'
+        )
+        AAPBCollectionFactory.create(
+            parent=self.__home_page(), title='AAPB Collection', slug='aapb-collection'
+        )
+        response = self.client.get('/api/v2/collections/', format='json')
+        ids = [item['id'] for item in response.json()['items']]
+        self.assertIn(ov_collection.id, ids)
+        self.assertEqual(len(ids), 1)
+
+    def test_collections_listing_aapb_site(self):
+        """
+        GET /api/v2/collections on the aapb host returns only AAPBCollection pages
+        """
+        ov_collection = OpenVaultCollectionFactory.create(
+            parent=self.__home_page(), title='OV Collection', slug='ov-collection'
+        )
+        aapb_collection = AAPBCollectionFactory.create(
+            parent=self.__home_page(), title='AAPB Collection', slug='aapb-collection'
+        )
+        response = self.client.get(
+            '/api/v2/collections/', format='json', HTTP_HOST='aapb.example.com'
+        )
+        ids = [item['id'] for item in response.json()['items']]
+        self.assertIn(aapb_collection.id, ids)
+        self.assertNotIn(ov_collection.id, ids)
 
     def __home_page(self):
         return Site.objects.filter(is_default_site=True).first().root_page
