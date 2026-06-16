@@ -2,7 +2,9 @@ from typing import ClassVar
 
 from wagtail.api.v2.views import PagesAPIViewSet
 
-from .models import BaseExhibitPage
+from aapb_exhibits.models import AAPBExhibit
+
+from .models import BaseExhibitPage, OpenVaultExhibit
 
 
 class ExhibitsAPIViewSet(PagesAPIViewSet):
@@ -27,5 +29,15 @@ class ExhibitsAPIViewSet(PagesAPIViewSet):
     ]
 
     def get_queryset(self):
-        """Sort by featured, then most recent last_published_at"""
-        return self.model.objects.live().order_by('-featured', '-last_published_at')
+        """Return live exhibits for the current site.
+
+        For the ``aapb`` site, return only ``AAPBExhibit`` pages; otherwise
+        return only ``OpenVaultExhibit`` pages. Sorted by featured, then most
+        recent ``last_published_at``.
+        """
+        host = getattr(self.request, 'host', None)
+        if host is not None and host.name == 'aapb':
+            model = AAPBExhibit
+        else:
+            model = OpenVaultExhibit
+        return model.objects.live().order_by('-featured', '-last_published_at')
