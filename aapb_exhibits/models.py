@@ -15,14 +15,14 @@ class AAPBExhibit(BaseExhibitPage):
     """AAPB Exhibit Page model"""
 
     class Meta:
-        verbose_name = 'AAPB Exhibit'
-        verbose_name_plural = 'AAPB Exhibits'
+        verbose_name = "AAPB Exhibit"
+        verbose_name_plural = "AAPB Exhibits"
 
     parent_page_types: ClassVar[list[str]] = [
-        'home.AAPBHomePage',
-        'aapb_exhibits.AAPBExhibit',
+        "home.AAPBHomePage",
+        "aapb_exhibits.AAPBExhibit",
     ]
-    subpage_types: ClassVar[list[str]] = ['aapb_exhibits.AAPBExhibit']
+    subpage_types: ClassVar[list[str]] = ["aapb_exhibits.AAPBExhibit"]
 
     # Fields
 
@@ -31,79 +31,78 @@ class AAPBExhibit(BaseExhibitPage):
     body = StreamField(
         [
             (
-                'heading',
+                "heading",
                 RichTextBlock(
-                    form_classname='title', features=['italic'], icon='title'
+                    form_classname="title", features=["italic"], icon="title"
                 ),
             ),
             (
-                'subheading',
+                "subheading",
                 RichTextBlock(
-                    form_classname='title', features=['italic'], icon='title'
+                    form_classname="title", features=["italic"], icon="title"
                 ),
             ),
-            ('text', RichTextBlock()),
-            ('html', RawHTMLBlock()),
-            ('records', AAPBRecordsBlock()),
+            ("text", RichTextBlock()),
+            ("html", RawHTMLBlock()),
+            ("records", AAPBRecordsBlock()),
         ]
     )
     content_panels: ClassVar[list[FieldPanel]] = [
         *BaseExhibitPage.content_panels,
         MultiFieldPanel(
             [
-                InlinePanel('authors', heading='Author(s)'),
-                FieldPanel('introduction', heading='Introduction'),
+                InlinePanel("authors", heading="Author(s)"),
+                FieldPanel("introduction", heading="Introduction"),
             ],
-            heading='Introduction',
+            heading="Introduction",
         ),
-        FieldPanel('body', classname='collapsed'),
+        FieldPanel("body", classname="collapsed"),
         MultiFieldPanel(
             [
-                InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
-                InlinePanel('footnotes', label='Footnotes'),
+                InlinePanel("other_exhibits", heading="Other Exhibits", max_num=3),
+                InlinePanel("footnotes", label="Footnotes"),
                 InlinePanel(
-                    'child_order',
-                    label='Child Exhibit page order',
-                    classname='collapsed',
+                    "child_order",
+                    label="Child Exhibit page order",
+                    classname="collapsed",
                 ),
             ],
-            heading='Additional Content',
+            heading="Additional Content",
         ),
     ]
 
     search_fields: ClassVar[list[index.SearchField]] = [
         *BaseExhibitPage.search_fields,
-        index.AutocompleteField('body'),
+        index.AutocompleteField("body"),
     ]
 
     # API
     api_fields: ClassVar[list[APIField]] = [
         *BaseExhibitPage.api_fields,
-        APIField('introduction'),
-        APIField('body'),
-        APIField('cover_image'),
+        APIField("introduction"),
+        APIField("body"),
+        APIField("cover_image"),
         APIField(
-            'cover_medium',
-            serializer=ImageRenditionField('fill-800x800', source='cover_image'),
+            "cover_medium",
+            serializer=ImageRenditionField("fill-800x800", source="cover_image"),
         ),
         APIField(
-            'cover_small',
-            serializer=ImageRenditionField('fill-400x400', source='cover_image'),
+            "cover_small",
+            serializer=ImageRenditionField("fill-400x400", source="cover_image"),
         ),
     ]
 
 
 class AAPBOtherExhibits(BaseExhibitsOrderable):
-
     exhibit = models.ForeignKey(
-        'aapb_exhibits.AAPBExhibit',
+        "aapb_exhibits.AAPBExhibit",
         blank=False,
         null=False,
         on_delete=models.CASCADE,
     )
 
     page = ParentalKey(
-        'aapb_exhibits.AAPBExhibit', related_name='other_exhibits', null=True
+        "aapb_exhibits.AAPBExhibit", related_name="other_exhibits", null=True
     )
 
 
@@ -112,15 +111,15 @@ class AAPBExhibitsChildOrder(BaseExhibitsOrderable):
     as children of other AAPBExhibit pages"""
 
     class Meta:
-        verbose_name = 'AAPB Exhibit page'
-        verbose_name_plural = 'AAPB Exhibit pages'
+        verbose_name = "AAPB Exhibit page"
+        verbose_name_plural = "AAPB Exhibit pages"
 
     exhibit = models.ForeignKey(
-        'aapb_exhibits.AAPBExhibit',
+        "aapb_exhibits.AAPBExhibit",
         blank=False,
         null=False,
         on_delete=models.CASCADE,
     )
     page = ParentalKey(
-        'aapb_exhibits.AAPBExhibit', related_name='child_order', null=True
+        "aapb_exhibits.AAPBExhibit", related_name="child_order", null=True
     )
