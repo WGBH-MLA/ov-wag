@@ -3,32 +3,35 @@ name: 📚 Docs
 on:
   push:
     branches:
-      - main
-      - docs
+    - main
+    - docs
   workflow_dispatch:
 
 jobs:
   deploy:
     name: 📑 Build and deploy docs
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: 📰 Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-      - name: 😎 Install uv
-        run: pip install uv
+    - name: 📰 Checkout
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
 
-      - name: 🚧 Install dependencies
-        run: uv sync --group docs
+    - name: 😎 Install uv
+      uses: astral-sh/setup-uv@v7
 
-      - name: 🧵 Set version string
-        run: echo VERSION_TITLE=$(uv run mike list | grep latest) >> $GITHUB_ENV
+    - name: 🔄 Install dependencies
+      run: uv sync --no-dev --group docs
 
-      - name: 🖋️ Configure git user
-        run: |
-          git config user.name mla-bot
-          git config user.email mla-bot@wgbh.org
+    - name: 🧵 Set version string
+      run: echo VERSION_TITLE=$(uv run mike list | grep latest) >> $GITHUB_ENV
 
-      - name: 🏗️ Deploy docs
-        run: uv run mike deploy --push --update-aliases ${VERSION_TITLE%\[latest\]} latest
+    - name: 🛠 Configure Git
+      run: |
+        git config user.name "$GITHUB_ACTOR"
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+    - name: 🏗️ Deploy docs
+      run: uv run mike deploy --push --update-aliases ${VERSION_TITLE%\[latest\]} latest
