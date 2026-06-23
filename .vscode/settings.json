@@ -1,19 +1,25 @@
 {
-    "python.testing.pytestArgs": [
-        "-v",
-    ],
-    "python.testing.pytestEnabled": true,
-    "python.testing.unittestEnabled": false,
-    "[html]": {
-        "editor.formatOnSave": false
-    },
-    "[django-html]": {
-        "editor.formatOnSave": false
-    },
-    "[jinja-html]": {
-        "editor.formatOnSave": false
-    },
-    "files.associations": {
-        "**/templates/**/*.html": "django-html"
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "explicit"
     }
+  },
+  "python.testing.pytestArgs": [
+    "-v",
+  ],
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "[html]": {
+    "editor.formatOnSave": false
+  },
+  "[django-html]": {
+    "editor.formatOnSave": false
+  },
+  "[jinja-html]": {
+    "editor.formatOnSave": false
+  },
+  "files.associations": {
+    "**/templates/**/*.html": "django-html"
+  }
 }
