@@ -3,10 +3,10 @@ name: 🪂 Deploy
 on:
   push:
     branches:
-      - main
+    - main
   pull_request:
     branches:
-      - main
+    - main
   release:
     types: [published, edited, prereleased]
   merge_group:
@@ -15,6 +15,6 @@ on:
 jobs:
   build:
     name: 🔨 Build and deploy docker image
-    uses: WGBH-MLA/.github/.github/workflows/build.yml@main
+    uses: WGBH-MLA/.github/.github/workflows/build.yml@v1
     with:
       target: production
