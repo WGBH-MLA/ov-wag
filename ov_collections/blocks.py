@@ -99,13 +99,19 @@ class AAPBRecordsBlock(StructBlock):
     title = RichTextBlock(
         required=False,
         max_length=1024,
-        help_text='The title of this group',
         features=['italic'],
+    )
+
+    description = RichTextBlock(
+        required=False,
+        max_length=1024,
+        features=['italic', 'bold'],
+        help_text='For use in Primary Source Sets Only',
     )
 
     guids = TextBlock(
         required=True,
-        help_text='AAPB record IDs, separated by whitespace',
+        help_text='AAPB record ID, separated by whitespace if providing multiple IDs',
         form_classname='w-field--scrollable-textarea',
     )
 
@@ -125,12 +131,12 @@ class AAPBRecordsBlock(StructBlock):
 
     start_time = DurationBlock(
         required=False,
-        help_text='Start time for the group',
+        help_text='Start time for the media',
     )
 
     end_time = DurationBlock(
         required=False,
-        help_text='End time for the group',
+        help_text='End time for the media',
     )
 
     access_level = ChoiceBlock(

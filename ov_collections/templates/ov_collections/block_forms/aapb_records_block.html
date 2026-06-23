@@ -5,9 +5,9 @@
         <p class="help">{{ help_text }}</p>
     {% endif %}
 
-    {# Always-visible fields: title and guids #}
+    {# Always-visible fields: title, description and guids #}
     {% for child in children.values %}
-        {% if child.block.name == 'title' or child.block.name == 'guids' %}
+        {% if child.block.name == 'title' or child.block.name == 'guids' or child.block.name == 'description' %}
             <div class="w-field">
                 <label class="w-field__label">
                     {{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}
@@ -25,7 +25,7 @@
         </summary>
         <div class="w-panel__content">
             {% for child in children.values %}
-                {% if child.block.name != 'title' and child.block.name != 'guids' %}
+                {% if child.block.name != 'title' and child.block.name != 'guids' and child.block.name != 'description' %}
                     <div class="w-field">
                         <label class="w-field__label">
                             {{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}
