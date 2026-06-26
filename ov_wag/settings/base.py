@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'ov_wag',
     'aapb_collections',
     'aapb_exhibits',
+    'aapb_pss',
     'search',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',

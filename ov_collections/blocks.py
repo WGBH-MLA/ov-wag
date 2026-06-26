@@ -20,9 +20,9 @@ class DurationBlock(FieldBlock):
         self, required=True, help_text=None, format=None, validators=(), **kwargs
     ):
         self.field_options = {
-            'required': required,
-            'help_text': help_text,
-            'validators': validators,
+            "required": required,
+            "help_text": help_text,
+            "validators": validators,
         }
         self.format = format
         super().__init__(**kwargs)
@@ -42,7 +42,7 @@ class DurationBlock(FieldBlock):
         return parse_duration(value)
 
     class Meta:
-        icon = 'time'
+        icon = "time"
 
 
 class ContentBlock(StructBlock):
@@ -56,8 +56,8 @@ class ContentBlock(StructBlock):
     title = RichTextBlock(
         required=True,
         max_length=1024,
-        help_text='The title of this content',
-        features=['italic'],
+        help_text="The title of this content",
+        features=["italic"],
     )
     link = URLBlock(required=True)
 
@@ -73,7 +73,7 @@ class ContentImageBlock(ContentBlock):
 
     def get_api_representation(self, value, context=None):
         results = super().get_api_representation(value, context)
-        results['image'] = value.get('image').get_rendition('width-400').attrs_dict
+        results["image"] = value.get("image").get_rendition("width-400").attrs_dict
         return results
 
 
@@ -93,55 +93,61 @@ class AAPBRecordsBlock(StructBlock):
     """
 
     class Meta:
-        icon = 'doc-full'
-        form_template = 'ov_collections/block_forms/aapb_records_block.html'
+        icon = "doc-full"
+        form_template = "ov_collections/block_forms/aapb_records_block.html"
 
     title = RichTextBlock(
         required=False,
         max_length=1024,
-        help_text='The title of this group',
-        features=['italic'],
+        features=["italic"],
+    )
+
+    description = RichTextBlock(
+        required=False,
+        max_length=1024,
+        features=["italic", "bold"],
+        help_text="For use in Primary Source Sets Only",
     )
 
     guids = TextBlock(
         required=True,
-        help_text='AAPB record IDs, separated by whitespace',
-        form_classname='w-field--scrollable-textarea',
+        help_text="AAPB record ID, separated by whitespace if providing multiple IDs",
+        form_classname="w-field--scrollable-textarea",
     )
 
-    special_collections = TextBlock(required=False, help_text='Special collections IDs')
+    special_collections = TextBlock(required=False, help_text="Special collections IDs")
 
     show_title = BooleanBlock(
-        required=False, help_text='Show asset title(s) for this block', default=True
+        required=False, help_text="Show asset title(s) for this block", default=True
     )
 
     show_thumbnail = BooleanBlock(
-        required=False, help_text='Show asset thumbnail(s) for this block', default=True
+        required=False, help_text="Show asset thumbnail(s) for this block", default=True
     )
 
     show_sidebar = BooleanBlock(
-        required=False, help_text='Include title in sidebar', default=True
+        required=False, help_text="Include title in sidebar", default=True
     )
 
     start_time = DurationBlock(
         required=False,
-        help_text='Start time for the group',
+        help_text="Start time for the media",
     )
 
     end_time = DurationBlock(
         required=False,
-        help_text='End time for the group',
+        help_text="End time for the media",
     )
 
     access_level = ChoiceBlock(
         required=True,
-        help_text='Access level for AAPB search links in this block',
+        help_text="Access level for AAPB search links in this block",
         choices=[
-            ('all', 'All'),
-            ('digitized', 'Digitized'),
-            ('online', 'Online'),
+            ("all", "All"),
+            ("digitized", "Digitized"),
+            ("online", "Online"),
         ],
-        default='online',
+        default="online",
     )
 
     def clean(self, value):
@@ -149,25 +155,24 @@ class AAPBRecordsBlock(StructBlock):
 
         # Ensure that start_time is before end_time
         if (
-            data.get('start_time')
-            and data.get('end_time')
-            and data['start_time'] > data['end_time']
+            data.get("start_time")
+            and data.get("end_time")
+            and data["start_time"] > data["end_time"]
         ):
-
-            raise ValidationError('Start time must be before end time')
+            raise ValidationError("Start time must be before end time")
         return data
 
     def get_api_representation(self, value, context=None):
         results = super().get_api_representation(value, context)
-        results['guids'] = value.get('guids').split()
+        results["guids"] = value.get("guids").split()
         return results
 
 
 AAPB_BLOCK_TYPES = [
-    'interviews',
-    'archival_footage',
-    'photographs',
-    'original_footage',
-    'programs',
-    'related_content',
+    "interviews",
+    "archival_footage",
+    "photographs",
+    "original_footage",
+    "programs",
+    "related_content",
 ]

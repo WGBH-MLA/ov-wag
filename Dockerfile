@@ -15,6 +15,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 COPY pyproject.toml README.md manage.py ./
 COPY aapb_collections aapb_collections
 COPY aapb_exhibits aapb_exhibits
+COPY aapb_pss aapb_pss
 COPY authors authors
 COPY cli cli
 COPY exhibits exhibits

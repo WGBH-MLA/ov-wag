@@ -54,4 +54,5 @@ class AAPBHomePage(BaseHomePage):
     subpage_types: ClassVar[list[str]] = [
         'aapb_collections.AAPBCollection',
         'aapb_exhibits.AAPBExhibit',
+        'aapb_pss.AAPBPrimarySourceSet',
     ]

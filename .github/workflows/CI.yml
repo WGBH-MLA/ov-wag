@@ -12,8 +12,8 @@ jobs:
       pg_db: ov
   lint:
     name: 👕 Lint
-    uses: WGBH-MLA/.github/.github/workflows/lint.yml@main
+    uses: WGBH-MLA/.github/.github/workflows/lint.yml@v1
 
   black:
     name: 🖤 Black
-    uses: WGBH-MLA/.github/.github/workflows/black.yml@main
+    uses: WGBH-MLA/.github/.github/workflows/black.yml@v1
