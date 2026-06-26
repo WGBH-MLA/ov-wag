@@ -34,6 +34,11 @@ class AAPBCollection(BaseCollection):
 
     # Fields
 
+    video_embed = models.URLField(
+        blank=True,
+        help_text="Youtube, Vimeo, or other video embed URL",
+    )
+
     content = StreamField(
         [
             (
@@ -51,6 +56,11 @@ class AAPBCollection(BaseCollection):
             ),
             ("timeline", RichTextBlock(icon="clock")),
         ]
+    )
+
+    other_embeds = models.TextField(
+        blank=True,
+        help_text="Paste iframe code for embeds you want to appear within collection Summary (maps, video, etc.)",
     )
 
     featured_items = StreamField(
@@ -83,11 +93,14 @@ class AAPBCollection(BaseCollection):
 
     content_panels: ClassVar[list[FieldPanel]] = [
         *BaseCollection.content_panels,
-        FieldPanel("content"),
+        FieldPanel("video_embed"),
+        FieldPanel(
+            "content",
+            help_text="Background, funders, resources, suggested searches, and timeline",
+        ),
+        FieldPanel("other_embeds"),
         MultiFieldPanel(
             [FieldPanel("featured_items")],
-            heading="Featured Items",
-            help_text="Featured items in the collection, such as records or exhibits.",
         ),
         MultiFieldPanel(
             [
@@ -105,7 +118,9 @@ class AAPBCollection(BaseCollection):
 
     api_fields: ClassVar[list[APIField]] = [
         *BaseCollection.api_fields,
+        APIField("video_embed"),
         APIField("content"),
+        APIField("other_embed"),
         APIField("featured_items"),
         APIField("sort_by"),
         APIField("sort_order"),
