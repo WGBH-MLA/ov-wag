@@ -12,6 +12,7 @@ from wagtail.blocks import (
     URLBlock,
     ChoiceBlock,
 )
+from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.blocks import ImageBlock
 
 
@@ -44,38 +45,16 @@ class DurationBlock(FieldBlock):
     class Meta:
         icon = 'time'
 
-
-class ContentBlock(StructBlock):
-    """Generic External link block
-
-    Attributes:
-        title: RichTextBlock with italics only
-        link: URLBlock
-    """
-
-    title = RichTextBlock(
-        required=True,
-        max_length=1024,
-        help_text='The title of this content',
-        features=['italic'],
-    )
-    link = URLBlock(required=True)
-
-
-class ContentImageBlock(ContentBlock):
-    """Generic external link block with image
-
-    Attributes:
-        image: ImageBlock. Required.
-    """
-
-    image = ImageBlock(required=True)
-
+class CustomImageBlock(ImageBlock):
+    """Custom ImageBlock that allows specifying a rendition for the API representation."""
+    def __init__(self, rendition=None, *args, **kwargs):
+        self.rendition = rendition
+        super().__init__(*args, **kwargs)
+        
     def get_api_representation(self, value, context=None):
-        results = super().get_api_representation(value, context)
-        results['image'] = value.get('image').get_rendition('width-400').attrs_dict
-        return results
-
+        if value:
+            return ImageRenditionField(self.rendition).to_representation(value)
+        return None
 
 class AAPBRecordsBlock(StructBlock):
     """AAPB Records block
@@ -101,6 +80,12 @@ class AAPBRecordsBlock(StructBlock):
         max_length=1024,
         help_text='The title of this group',
         features=['italic'],
+    )
+
+    thumbnail = CustomImageBlock(
+        required=False,
+        help_text='Optional thumbnail for the group. If not provided, the first record will be used as the thumbnail.',
+        rendition='width-400',
     )
 
     guids = TextBlock(
