@@ -3,7 +3,7 @@ from wagtail.fields import StreamField, RichTextField
 from wagtail.blocks import RawHTMLBlock, RichTextBlock
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from ov_collections.blocks import AAPBRecordsBlock
+from ov_collections.blocks import AAPBRecordsBlock, VimeoVideoBlock, YouTubeVideoBlock
 from typing import ClassVar
 from wagtail.search import index
 from wagtail.api import APIField
@@ -55,6 +55,8 @@ class AAPBExhibit(BaseExhibitPage):
             ('text', RichTextBlock()),
             ('html', RawHTMLBlock()),
             ('records', AAPBRecordsBlock()),
+            ('vimeo', VimeoVideoBlock(label='Vimeo')),
+            ('youtube', YouTubeVideoBlock(label='YouTube')),
         ]
     )
 

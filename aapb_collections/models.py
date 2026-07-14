@@ -1,4 +1,4 @@
-from ov_collections.blocks import AAPBRecordsBlock
+from ov_collections.blocks import AAPBRecordsBlock, VimeoVideoBlock, YouTubeVideoBlock
 from ov_collections.models import BaseCollection
 from wagtail.fields import StreamField
 from wagtail.images.api.fields import ImageRenditionField
@@ -62,6 +62,8 @@ class AAPBCollection(BaseCollection):
                 RichTextBlock(label='Suggested Searches', icon='doc-full-inverse'),
             ),
             ('timeline', RichTextBlock(icon='clock')),
+            ('vimeo', VimeoVideoBlock(label='Vimeo')),
+            ('youtube', YouTubeVideoBlock(label='YouTube')),
         ]
     )
 

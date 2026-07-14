@@ -18,7 +18,7 @@ from wagtail_headless_preview.models import HeadlessMixin
 from taggit.models import TaggedItemBase
 
 from authors.serializers import AuthorSerializer
-from ov_collections.blocks import AAPBRecordsBlock
+from ov_collections.blocks import AAPBRecordsBlock, VimeoVideoBlock, YouTubeVideoBlock
 from ov_wag.serializers import FootnotesSerializer
 
 
@@ -297,6 +297,8 @@ class OpenVaultExhibit(BaseExhibitPage):
                 ),
             ),
             ('html', RawHTMLBlock(label='HTML')),
+            ('vimeo', VimeoVideoBlock(label='Vimeo')),
+            ('youtube', YouTubeVideoBlock(label='YouTube')),
         ],
     )
 

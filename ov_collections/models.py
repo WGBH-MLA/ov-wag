@@ -11,7 +11,7 @@ from wagtail.models import Page
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessMixin
 
-from .blocks import AAPBRecordsBlock
+from .blocks import AAPBRecordsBlock, YouTubeVideoBlock, VimeoVideoBlock
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
@@ -167,6 +167,8 @@ class OpenVaultCollection(BaseCollection):
             ),
             ('text', RichTextBlock()),
             ('html', RawHTMLBlock(label='HTML')),
+            ('vimeo', VimeoVideoBlock(label='Vimeo')),
+            ('youtube', YouTubeVideoBlock(label='YouTube')),
         ],
     )
 

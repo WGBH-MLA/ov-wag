@@ -46,7 +46,11 @@ class DurationBlock(FieldBlock):
         icon = 'time'
 
 class CustomImageBlock(ImageBlock):
-    """Custom ImageBlock that allows specifying a rendition for the API representation."""
+    """Custom ImageBlock that allows specifying a rendition for the API representation.
+    
+    Note: this is not used directly in Wagtail, but is used by the AAPBRecordsBlock to specify a rendition for the thumbnail field.
+
+    """
     def __init__(self, rendition=None, *args, **kwargs):
         self.rendition = rendition
         super().__init__(*args, **kwargs)
@@ -147,7 +151,6 @@ class AAPBRecordsBlock(StructBlock):
         results['guids'] = value.get('guids').split()
         return results
 
-
 AAPB_BLOCK_TYPES = [
     'interviews',
     'archival_footage',
@@ -156,3 +159,47 @@ AAPB_BLOCK_TYPES = [
     'programs',
     'related_content',
 ]
+
+class ExternalVideoBlock(StructBlock):
+    """External Video block
+
+    A block for embedding an external video, such as YouTube or Vimeo.
+
+    Attributes:
+        url: required. The URL of the external video
+        title: Optional title of the video
+    """
+
+    class Meta:
+        icon = 'media'
+
+    url = URLBlock(
+        required=True,
+        help_text='The URL of the video',
+    )
+
+    title = RichTextBlock(
+        required=False,
+        max_length=1024,
+        help_text='The title of this video',
+        features=['italic'],
+    )
+
+class VimeoVideoBlock(ExternalVideoBlock):
+    """Vimeo Video block
+
+    A block for embedding a Vimeo video.
+    """
+
+    class Meta:
+        icon = 'vimeo'
+
+
+class YouTubeVideoBlock(ExternalVideoBlock):
+    """YouTube Video block
+
+    A block for embedding a YouTube video.eo
+    """
+
+    class Meta:
+        icon = 'youtube'
