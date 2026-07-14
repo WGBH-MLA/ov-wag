@@ -7,6 +7,9 @@ from wagtail.blocks import RichTextBlock
 from typing import ClassVar
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.api import APIField
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
 
 
 class SortChoices(models.TextChoices):
@@ -18,6 +21,14 @@ class SortChoices(models.TextChoices):
 class SortOrder(models.TextChoices):
     ASCENDING = 'asc', 'Ascending'
     DESCENDING = 'desc', 'Descending'
+
+
+class AAPBCollectionTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'aapb_collections.AAPBCollection',
+        on_delete=models.CASCADE,
+        related_name='tagged_items',
+    )
 
 
 class AAPBCollection(BaseCollection):
@@ -80,6 +91,8 @@ class AAPBCollection(BaseCollection):
         null=True,
     )
 
+    tags = ClusterTaggableManager(through=AAPBCollectionTag, blank=True)
+
     # Panels
 
     content_panels: ClassVar[list[FieldPanel]] = [
@@ -100,7 +113,10 @@ class AAPBCollection(BaseCollection):
         ),
     ]
 
-    promote_panels: ClassVar[list[FieldPanel]] = BaseCollection.promote_panels
+    promote_panels: ClassVar[list[FieldPanel]] = [
+        FieldPanel('tags', heading='Tags'),
+        *BaseCollection.promote_panels,
+    ]
 
     # API Fields
 
@@ -110,6 +126,7 @@ class AAPBCollection(BaseCollection):
         APIField('featured_items'),
         APIField('sort_by'),
         APIField('sort_order'),
+        APIField('tags'),
         APIField(
             'cover_medium',
             serializer=ImageRenditionField('fill-800x800', source='cover_image'),

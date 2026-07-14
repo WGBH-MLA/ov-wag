@@ -53,6 +53,7 @@ class AuthorAdminViewSet(SnippetViewSet):
 
     model = 'authors.Author'
     menu_label = 'Authors'
+    menu_order = 200
     icon = 'group'
     list_display = ('name', 'image', 'title', UpdatedAtColumn())
     add_to_settings_menu = False

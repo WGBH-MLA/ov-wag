@@ -2,6 +2,7 @@ from typing import ClassVar
 
 from django.core.files.storage import default_storage
 from django.db import models
+from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from pydantic import BaseModel
 from rest_framework import serializers
@@ -14,6 +15,7 @@ from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail_footnotes.blocks import RichTextBlockWithFootnotes
 from wagtail_headless_preview.models import HeadlessMixin
+from taggit.models import TaggedItemBase
 
 from authors.serializers import AuthorSerializer
 from ov_collections.blocks import AAPBRecordsBlock
@@ -242,6 +244,14 @@ class BaseExhibitPage(HeadlessMixin, Page):
     ]
 
 
+class OpenVaultExhibitTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'exhibits.OpenVaultExhibit',
+        on_delete=models.CASCADE,
+        related_name='tagged_items',
+    )
+
+
 class OpenVaultExhibit(BaseExhibitPage):
     """Open Vault Exhibit Page"""
 
@@ -290,6 +300,8 @@ class OpenVaultExhibit(BaseExhibitPage):
         ],
     )
 
+    tags = ClusterTaggableManager(through=OpenVaultExhibitTag, blank=True)
+
     # Panels
 
     content_panels: ClassVar[list[FieldPanel]] = [
@@ -305,6 +317,11 @@ class OpenVaultExhibit(BaseExhibitPage):
         ),
     ]
 
+    promote_panels: ClassVar[list[FieldPanel]] = [
+        FieldPanel('tags', heading='Tags'),
+        *BaseExhibitPage.promote_panels,
+    ]
+
     # Search
 
     search_fields: ClassVar[list[index.SearchField]] = [
@@ -316,4 +333,5 @@ class OpenVaultExhibit(BaseExhibitPage):
     api_fields: ClassVar[list[APIField]] = [
         *BaseExhibitPage.api_fields,
         APIField('body'),
+        APIField('tags'),
     ]

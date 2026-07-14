@@ -7,8 +7,18 @@ from ov_collections.blocks import AAPBRecordsBlock
 from typing import ClassVar
 from wagtail.search import index
 from wagtail.api import APIField
+from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
+from taggit.models import TaggedItemBase
 from django.db import models
+
+
+class AAPBExhibitTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'aapb_exhibits.AAPBExhibit',
+        on_delete=models.CASCADE,
+        related_name='tagged_items',
+    )
 
 
 class AAPBExhibit(BaseExhibitPage):
@@ -47,6 +57,9 @@ class AAPBExhibit(BaseExhibitPage):
             ('records', AAPBRecordsBlock()),
         ]
     )
+
+    tags = ClusterTaggableManager(through=AAPBExhibitTag, blank=True)
+
     content_panels: ClassVar[list[FieldPanel]] = [
         *BaseExhibitPage.content_panels,
         MultiFieldPanel(
@@ -71,6 +84,11 @@ class AAPBExhibit(BaseExhibitPage):
         ),
     ]
 
+    promote_panels: ClassVar[list[FieldPanel]] = [
+        FieldPanel('tags', heading='Tags'),
+        *BaseExhibitPage.promote_panels,
+    ]
+
     search_fields: ClassVar[list[index.SearchField]] = [
         *BaseExhibitPage.search_fields,
         index.AutocompleteField('body'),
@@ -81,6 +99,7 @@ class AAPBExhibit(BaseExhibitPage):
         *BaseExhibitPage.api_fields,
         APIField('introduction'),
         APIField('body'),
+        APIField('tags'),
         APIField('cover_image'),
         APIField(
             'cover_medium',
