@@ -12,6 +12,12 @@ from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessMixin
 
 from .blocks import AAPBRecordsBlock
+from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
+
+class OVCollectionTag(TaggedItemBase):
+    content_object = ParentalKey('ov_collections.OpenVaultCollection', on_delete=models.CASCADE, related_name='tagged_items')
 
 
 class BaseCollection(HeadlessMixin, Page):
@@ -164,14 +170,20 @@ class OpenVaultCollection(BaseCollection):
         ],
     )
 
+    tags = ClusterTaggableManager(through=OVCollectionTag, blank=True)
+
     content_panels: ClassVar[list[FieldPanel]] = [
         *BaseCollection.content_panels,
         FieldPanel('content'),
     ]
 
-    promote_panels: ClassVar[list[FieldPanel]] = BaseCollection.promote_panels
+    promote_panels: ClassVar[list[FieldPanel]] = [
+        FieldPanel('tags', heading='Tags'),
+        *BaseCollection.promote_panels,
+    ]
 
     api_fields: ClassVar[list[APIField]] = [
         *BaseCollection.api_fields,
         APIField('content'),
+        APIField('tags'),
     ]
