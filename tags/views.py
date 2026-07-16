@@ -1,14 +1,11 @@
-from django.templatetags.static import static
 from django.urls import reverse
-from django.utils.html import format_html
 from wagtail import hooks
 from wagtail.admin.panels import FieldPanel, Panel
 from wagtail.admin.ui.tables import Column
-from wagtail.snippets.models import register_snippet
 from wagtail.snippets.views.snippets import SnippetViewSet
 from taggit.models import Tag
 
-from .models import OVCollectionTag
+from ov_collections.models import OVCollectionTag
 
 
 def _tag_through_models():
@@ -88,12 +85,3 @@ class TagsSnippetViewSet(SnippetViewSet):
     menu_order = 400
     list_display = ["name", "slug", PageCountColumn("page_count", label="Pages")]
     search_fields = ("name",)
-
-register_snippet(TagsSnippetViewSet)
-
-@hooks.register('insert_global_admin_css')
-def global_admin_css():
-    return format_html(
-        '<link rel="stylesheet" href="{}">',
-        static('ov_collections/css/admin.css'),
-    )

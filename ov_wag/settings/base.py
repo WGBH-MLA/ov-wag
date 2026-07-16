@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'exhibits',
     'ov_collections',
     'ov_wag',
+    'tags',
     'aapb_collections',
     'aapb_exhibits',
     'search',

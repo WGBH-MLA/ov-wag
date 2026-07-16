@@ -10,8 +10,8 @@ from authors.api import AuthorsAPIViewSet
 from exhibits.api import ExhibitsAPIViewSet
 from ov_collections.api import OpenVaultCollectionAPIViewSet
 from ov_wag.health import HealthAPIViewSet
+from tags.api import TagsAPIViewSet
 
-# Create the router. 'wagtailapi' is the URL namespace
 api_router = WagtailAPIRouter('wagtailapi')
 
 
@@ -57,3 +57,4 @@ api_router.register_endpoint('health', HealthAPIViewSet)
 api_router.register_endpoint('images', ImagesAPIViewSet)
 api_router.register_endpoint('page_preview', PagePreviewAPIViewSet)
 api_router.register_endpoint('pages', PagesAPIViewSet)
+api_router.register_endpoint('tags', TagsAPIViewSet)
