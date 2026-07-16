@@ -22,6 +22,7 @@ COPY home home
 COPY ov_collections ov_collections
 COPY ov_wag ov_wag
 COPY search search
+COPY tags tags
 
 ### Test ###
 # Build the test image, which includes the test applications
