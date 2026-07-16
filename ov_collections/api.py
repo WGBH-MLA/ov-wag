@@ -51,5 +51,5 @@ class CollectionAPIViewSet(PagesAPIViewSet):
     ]
 
     def get_queryset(self):
-       """Sort by featured, then most recent last_published_at"""
+        """Sort by featured, then most recent last_published_at"""
         return self.model.objects.live().order_by('-featured', '-last_published_at')
