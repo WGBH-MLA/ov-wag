@@ -184,6 +184,15 @@ class OpenVaultCollection(BaseCollection):
         *BaseCollection.promote_panels,
     ]
 
+    # Search and indexing
+    search_fields: ClassVar[
+        list[index.SearchField | index.FilterField | index.AutocompleteField]
+    ] = [
+        *BaseCollection.search_fields,
+        index.SearchField('content'),
+        index.SearchField('tags', partial_match=True),
+    ]
+
     api_fields: ClassVar[list[APIField]] = [
         *BaseCollection.api_fields,
         APIField('content'),

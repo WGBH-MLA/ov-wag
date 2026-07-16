@@ -94,6 +94,7 @@ class AAPBExhibit(BaseExhibitPage):
     search_fields: ClassVar[list[index.SearchField]] = [
         *BaseExhibitPage.search_fields,
         index.AutocompleteField('body'),
+        index.SearchField('tags', partial_match=True),
     ]
 
     # API

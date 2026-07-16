@@ -1,12 +1,13 @@
 from ov_collections.blocks import AAPBRecordsBlock, VimeoVideoBlock, YouTubeVideoBlock
 from ov_collections.models import BaseCollection
-from wagtail.fields import StreamField
-from wagtail.images.api.fields import ImageRenditionField
-from django.db import models
-from wagtail.blocks import RichTextBlock
-from typing import ClassVar
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.api import APIField
+from wagtail.blocks import RichTextBlock
+from wagtail.fields import StreamField
+from wagtail.images.api.fields import ImageRenditionField
+from wagtail.search import index
+from django.db import models
+from typing import ClassVar
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
@@ -118,6 +119,15 @@ class AAPBCollection(BaseCollection):
     promote_panels: ClassVar[list[FieldPanel]] = [
         FieldPanel('tags', heading='Tags'),
         *BaseCollection.promote_panels,
+    ]
+
+    # Search and indexing
+    search_fields: ClassVar[
+        list[index.SearchField | index.FilterField | index.AutocompleteField]
+    ] = [
+        *BaseCollection.search_fields,
+        index.SearchField('content'),
+        index.SearchField('tags', partial_match=True),
     ]
 
     # API Fields
