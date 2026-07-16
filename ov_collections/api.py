@@ -3,12 +3,22 @@ from typing import ClassVar
 from wagtail.api.v2.views import PagesAPIViewSet
 
 from aapb_collections.models import AAPBCollection
+from tags.filters import TagFilter
 
 from .models import BaseCollection, OpenVaultCollection
 
 
 class OpenVaultCollectionAPIViewSet(PagesAPIViewSet):
     model = BaseCollection
+
+    # Enable ?tag=<slug or name> filtering (SearchFilter must stay last).
+    filter_backends: ClassVar[list] = [
+        *PagesAPIViewSet.filter_backends[:-1],
+        TagFilter,
+        *PagesAPIViewSet.filter_backends[-1:],
+    ]
+
+    known_query_parameters = PagesAPIViewSet.known_query_parameters.union(['tag'])
 
     meta_fields: ClassVar[list[str]] = [
         *PagesAPIViewSet.meta_fields,
@@ -24,6 +34,7 @@ class OpenVaultCollectionAPIViewSet(PagesAPIViewSet):
         'hero_image',
         'last_published_at',
         'featured',
+        'tags',
     ]
 
     def get_queryset(self):
