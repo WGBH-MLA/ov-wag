@@ -29,12 +29,10 @@ class ExhibitsAPIViewSet(PagesAPIViewSet):
 
     listing_default_fields: ClassVar[list[str]] = [
         *PagesAPIViewSet.listing_default_fields,
-        'title',
         'last_published_at',
         'cover_image',
         'cover_thumb',
         'hero_image',
-        'hero_thumb',
         'authors',
         'featured',
         'tags',

@@ -70,7 +70,7 @@ class BaseCollection(HeadlessMixin, Page):
         if self.hero_image:
 
             default_storage.querystring_expire = 604800
-            url = self.hero_image.get_rendition('fill-480x270').url
+            url = self.hero_image.get_rendition('fill-400x400').url
             default_storage.querystring_expire = 3600
             return url
         return ''
@@ -118,15 +118,15 @@ class BaseCollection(HeadlessMixin, Page):
         APIField('introduction'),
         APIField(
             'cover_image',
-            serializer=ImageRenditionField('fill-1920x1080'),
+            serializer=ImageRenditionField('max-1920x1080'),
+        ),
+        APIField(
+            'cover_thumb',
+            serializer=ImageRenditionField('fill-400x400', source='cover_image'),
         ),
         APIField(
             'hero_image',
             serializer=ImageRenditionField('fill-1600x500'),
-        ),
-        APIField(
-            'hero_thumb',
-            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
     ]
 

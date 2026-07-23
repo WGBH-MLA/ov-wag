@@ -222,19 +222,15 @@ class BaseExhibitPage(HeadlessMixin, Page):
         APIField('title'),
         APIField(
             'cover_image',
-            serializer=ImageRenditionField('fill-1920x1080'),
+            serializer=ImageRenditionField('max-1920x1080'),
         ),
         APIField(
             'cover_thumb',
-            serializer=ImageRenditionField('fill-480x270', source='cover_image'),
+            serializer=ImageRenditionField('fill-400x400', source='cover_image'),
         ),
         APIField(
             'hero_image',
             serializer=ImageRenditionField('fill-1600x500'),
-        ),
-        APIField(
-            'hero_thumb',
-            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
         ),
         APIField('authors'),
         APIField('footnotes', serializer=FootnotesSerializer()),

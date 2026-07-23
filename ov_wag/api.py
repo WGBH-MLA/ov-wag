@@ -8,7 +8,7 @@ from wagtail_headless_preview.models import PagePreview
 
 from authors.api import AuthorsAPIViewSet
 from exhibits.api import ExhibitsAPIViewSet
-from ov_collections.api import OpenVaultCollectionAPIViewSet
+from ov_collections.api import CollectionsAPIViewSet
 from ov_wag.health import HealthAPIViewSet
 from tags.api import TagsAPIViewSet
 
@@ -50,7 +50,7 @@ class PagePreviewAPIViewSet(PagesAPIViewSet):
 # is used in the URL of the endpoint
 # The second parameter is the endpoint class that handles the requests
 api_router.register_endpoint('authors', AuthorsAPIViewSet)
-api_router.register_endpoint('collections', OpenVaultCollectionAPIViewSet)
+api_router.register_endpoint('collections', CollectionsAPIViewSet)
 api_router.register_endpoint('documents', DocumentsAPIViewSet)
 api_router.register_endpoint('exhibits', ExhibitsAPIViewSet)
 api_router.register_endpoint('health', HealthAPIViewSet)

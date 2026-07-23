@@ -8,7 +8,7 @@ from tags.filters import TagFilter
 from .models import BaseCollection, OpenVaultCollection
 
 
-class OpenVaultCollectionAPIViewSet(PagesAPIViewSet):
+class CollectionsAPIViewSet(PagesAPIViewSet):
     model = BaseCollection
 
     # Enable ?tag=<slug or name> filtering (SearchFilter must stay last).
@@ -28,9 +28,9 @@ class OpenVaultCollectionAPIViewSet(PagesAPIViewSet):
 
     listing_default_fields: ClassVar[list[str]] = [
         *PagesAPIViewSet.listing_default_fields,
-        'title',
         'introduction',
         'cover_image',
+        'cover_thumb',
         'hero_image',
         'last_published_at',
         'featured',
