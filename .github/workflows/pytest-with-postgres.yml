@@ -50,7 +50,7 @@ jobs:
 
     steps:
     - name: 📰 Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
       with:
         fetch-depth: 0
 
@@ -66,6 +66,6 @@ jobs:
     - name: 📈 Uploade coverage report
       # run this step, even if the tests fail
       if: success() || failure()
-      uses: codecov/codecov-action@v6
+      uses: codecov/codecov-action@v7
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
