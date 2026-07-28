@@ -36,6 +36,7 @@ class ExhibitsAPIViewSet(PagesAPIViewSet):
         'authors',
         'featured',
         'tags',
+        'special_collections',
     ]
 
     def get_queryset(self):

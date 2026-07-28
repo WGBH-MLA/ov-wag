@@ -35,6 +35,7 @@ class CollectionsAPIViewSet(PagesAPIViewSet):
         'last_published_at',
         'featured',
         'tags',
+        'special_collections',
     ]
 
     def get_queryset(self):
