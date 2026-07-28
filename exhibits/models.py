@@ -237,6 +237,7 @@ class BaseExhibitPage(HeadlessMixin, Page):
         OtherExhibitsField(
             'other_exhibits', serializer=OtherExhibitsSerializer(many=True)
         ),
+        APIField('special_collections'),
     ]
 
 

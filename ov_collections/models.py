@@ -128,6 +128,7 @@ class BaseCollection(HeadlessMixin, Page):
             'hero_image',
             serializer=ImageRenditionField('fill-1600x500'),
         ),
+        APIField('special_collections'),
     ]
 
 
