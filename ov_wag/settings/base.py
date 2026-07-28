@@ -203,7 +203,7 @@ WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.elasticsearch8',
         'URLS': [env.get('ES_URL', 'https://localhost:9200')],
-        'INDEX': env.get('ES_INDEX', 'wagtail'),
+        'INDEX_PREFIX': env.get('ES_INDEX_PREFIX', 'ov_'),
         'TIMEOUT': 5,
         'OPTIONS': {
             'verify_certs': env.get('ES_VERIFY_CERTS', 'true') == 'true',
