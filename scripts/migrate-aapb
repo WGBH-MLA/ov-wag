@@ -15,7 +15,8 @@ echo "Waiting for init-db job $APP_NAME-init-db to complete (timeout: 120s)..."
 kubectl -n ov wait --for=condition=complete --timeout=120s job/"$APP_NAME-init-db"
 
 echo "Getting backend pod name for $APP_NAME..."
-POD=$(kubectl -n ov get pods --selector app.kubernetes.io/controller=backend,app.kubernetes.io/instance=$APP_NAME -o name | head -n 1 | cut -d'/' -f2)
+POD=$(kubectl -n ov get pods --selector app.kubernetes.io/controller=backend,app.kubernetes.io/instance=$APP_NAME -o name)
+POD=${POD#pod/}
 echo "Using pod: $POD"
 
 echo "Installing CMLess migration dependencies (git, markdown, AAPB2@cmless) on $POD..."
