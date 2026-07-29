@@ -127,7 +127,7 @@ class AAPBCollection(BaseCollection):
     ] = [
         *BaseCollection.search_fields,
         index.SearchField('content'),
-        index.SearchField('tags', partial_match=True),
+        index.RelatedFields('tags', [index.SearchField('name', partial_match=True)]),
     ]
 
     # API Fields
