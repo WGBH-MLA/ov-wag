@@ -1,6 +1,6 @@
 from factory import SubFactory
 from wagtail_factories import ImageChooserBlockFactory, PageFactory
-from exhibits.models import ExhibitPage
+from exhibits.models import OpenVaultExhibit
 
 
 class ExhibitPageFactory(PageFactory):
@@ -9,4 +9,4 @@ class ExhibitPageFactory(PageFactory):
     # other_exhibits =
 
     class Meta:
-        model = ExhibitPage
+        model = OpenVaultExhibit

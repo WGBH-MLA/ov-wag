@@ -12,6 +12,7 @@ from wagtail.blocks import (
     URLBlock,
     ChoiceBlock,
 )
+from wagtail.images.api.fields import ImageRenditionField
 from wagtail.images.blocks import ImageBlock
 
 
@@ -44,38 +45,20 @@ class DurationBlock(FieldBlock):
     class Meta:
         icon = 'time'
 
+class CustomImageBlock(ImageBlock):
+    """Custom ImageBlock that allows specifying a rendition for the API representation.
+    
+    Note: this is not used directly in Wagtail, but is used by the AAPBRecordsBlock to specify a rendition for the thumbnail field.
 
-class ContentBlock(StructBlock):
-    """Generic External link block
-
-    Attributes:
-        title: RichTextBlock with italics only
-        link: URLBlock
     """
-
-    title = RichTextBlock(
-        required=True,
-        max_length=1024,
-        help_text='The title of this content',
-        features=['italic'],
-    )
-    link = URLBlock(required=True)
-
-
-class ContentImageBlock(ContentBlock):
-    """Generic external link block with image
-
-    Attributes:
-        image: ImageBlock. Required.
-    """
-
-    image = ImageBlock(required=True)
-
+    def __init__(self, rendition=None, *args, **kwargs):
+        self.rendition = rendition
+        super().__init__(*args, **kwargs)
+        
     def get_api_representation(self, value, context=None):
-        results = super().get_api_representation(value, context)
-        results['image'] = value.get('image').get_rendition('width-400').attrs_dict
-        return results
-
+        if value:
+            return ImageRenditionField(self.rendition).to_representation(value)
+        return None
 
 class AAPBRecordsBlock(StructBlock):
     """AAPB Records block
@@ -92,9 +75,27 @@ class AAPBRecordsBlock(StructBlock):
         access_level: Required: access level for the group. Default: online
     """
 
+    class Meta:
+        icon = 'doc-full'
+        form_template = 'ov_collections/block_forms/aapb_records_block.html'
+
+    title = RichTextBlock(
+        required=False,
+        max_length=1024,
+        help_text='The title of this group',
+        features=['italic'],
+    )
+
+    thumbnail = CustomImageBlock(
+        required=False,
+        help_text='Optional thumbnail for the group. If not provided, the first record will be used as the thumbnail.',
+        rendition='width-400',
+    )
+
     guids = TextBlock(
         required=True,
         help_text='AAPB record IDs, separated by whitespace',
+        form_classname='w-field--scrollable-textarea',
     )
 
     special_collections = TextBlock(required=False, help_text='Special collections IDs')
@@ -109,13 +110,6 @@ class AAPBRecordsBlock(StructBlock):
 
     show_sidebar = BooleanBlock(
         required=False, help_text='Include title in sidebar', default=True
-    )
-
-    title = RichTextBlock(
-        required=False,
-        max_length=1024,
-        help_text='The title of this group',
-        features=['italic'],
     )
 
     start_time = DurationBlock(
@@ -157,7 +151,6 @@ class AAPBRecordsBlock(StructBlock):
         results['guids'] = value.get('guids').split()
         return results
 
-
 AAPB_BLOCK_TYPES = [
     'interviews',
     'archival_footage',
@@ -166,3 +159,47 @@ AAPB_BLOCK_TYPES = [
     'programs',
     'related_content',
 ]
+
+class ExternalVideoBlock(StructBlock):
+    """External Video block
+
+    A block for embedding an external video, such as YouTube or Vimeo.
+
+    Attributes:
+        url: required. The URL of the external video
+        title: Optional title of the video
+    """
+
+    class Meta:
+        icon = 'media'
+
+    url = URLBlock(
+        required=True,
+        help_text='The URL of the video',
+    )
+
+    title = RichTextBlock(
+        required=False,
+        max_length=1024,
+        help_text='The title of this video',
+        features=['italic'],
+    )
+
+class VimeoVideoBlock(ExternalVideoBlock):
+    """Vimeo Video block
+
+    A block for embedding a Vimeo video.
+    """
+
+    class Meta:
+        icon = 'vimeo'
+
+
+class YouTubeVideoBlock(ExternalVideoBlock):
+    """YouTube Video block
+
+    A block for embedding a YouTube video.eo
+    """
+
+    class Meta:
+        icon = 'youtube'

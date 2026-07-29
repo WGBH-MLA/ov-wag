@@ -1,0 +1,9 @@
+# Django/Jinja templates - Prettier breaks template tags
+*.html
+**/templates/**
+
+# Build artifacts
+*.min.js
+*.min.css
+static/
+site/

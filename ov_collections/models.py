@@ -11,11 +11,136 @@ from wagtail.models import Page
 from wagtail.search import index
 from wagtail_headless_preview.models import HeadlessMixin
 
-from .blocks import AAPBRecordsBlock
+from .blocks import AAPBRecordsBlock, YouTubeVideoBlock, VimeoVideoBlock
+from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from taggit.models import TaggedItemBase
+
+class OVCollectionTag(TaggedItemBase):
+    content_object = ParentalKey('ov_collections.OpenVaultCollection', on_delete=models.CASCADE, related_name='tagged_items')
 
 
-class Collection(HeadlessMixin, Page):
+class BaseCollection(HeadlessMixin, Page):
+    """Abstract base class for collection pages"""
+
+    class Meta:
+        abstract = True
+
+    # Fields
+
+    display_title = RichTextField(
+        blank=True,
+        null=True,
+        verbose_name='Display Title',
+        help_text='Use this field to override the page title as displayed (e.g., with italics).',  # noqa: E501
+        features=['italic'],
+    )
+
     introduction = RichTextField(blank=True)
+
+    cover_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    featured = models.BooleanField(
+        default=False,
+        help_text='Feature this collection on the home page.',
+    )
+
+    special_collections = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Special collections IDs, separated by whitespace',
+    )
+
+    # Methods
+    def get_hero_thumb_url(self):
+        if self.hero_image:
+
+            default_storage.querystring_expire = 604800
+            url = self.hero_image.get_rendition('fill-400x400').url
+            default_storage.querystring_expire = 3600
+            return url
+        return ''
+
+    # Search and indexing
+    search_fields: ClassVar[
+        list[index.SearchField | index.FilterField | index.AutocompleteField]
+    ] = [
+        *Page.search_fields,
+        index.AutocompleteField('introduction'),
+        index.FilterField('featured'),
+        index.SearchField('slug'),
+        index.SearchField('get_hero_thumb_url'),
+    ]
+
+    # Panels
+    content_panels: ClassVar[list[FieldPanel | MultiFieldPanel]] = [
+        *Page.content_panels,
+        MultiFieldPanel(
+            [
+                FieldPanel('display_title', icon='italic'),
+                FieldPanel('introduction', heading='Collection Summary'),
+            ],
+            heading='Intro',
+        ),
+        MultiFieldPanel(
+            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
+        ),
+    ]
+
+    promote_panels: ClassVar[list[FieldPanel]] = [
+        FieldPanel(
+            'featured',
+            heading='Featured Collection',
+            help_text='Featured collections will be displayed on the home page, and listed first on the collections page.',  # noqa: E501
+        ),
+        FieldPanel('special_collections', heading='Special Collections IDs'),
+        *Page.promote_panels,
+    ]
+
+    # API Fields
+    api_fields: ClassVar[list[APIField]] = [
+        APIField('title'),
+        APIField('display_title'),
+        APIField('introduction'),
+        APIField(
+            'cover_image',
+            serializer=ImageRenditionField('max-1920x1080'),
+        ),
+        APIField(
+            'cover_thumb',
+            serializer=ImageRenditionField('fill-400x400', source='cover_image'),
+        ),
+        APIField(
+            'hero_image',
+            serializer=ImageRenditionField('fill-1600x500'),
+        ),
+        APIField('special_collections'),
+    ]
+
+
+class OpenVaultCollection(BaseCollection):
+    """Original collection page with OV-specific content blocks."""
+
+    class Meta:
+        verbose_name = 'Open Vault Collection'
+        verbose_name_plural = 'Open Vault Collections'
+
+    parent_page_types: ClassVar[list[str]] = ['home.OpenVaultHomePage']
+    subpage_types: ClassVar[list[str]] = []
 
     content = StreamField(
         [
@@ -43,76 +168,34 @@ class Collection(HeadlessMixin, Page):
             ),
             ('text', RichTextBlock()),
             ('html', RawHTMLBlock(label='HTML')),
+            ('vimeo', VimeoVideoBlock(label='Vimeo')),
+            ('youtube', YouTubeVideoBlock(label='YouTube')),
         ],
     )
 
-    cover_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    hero_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    featured = models.BooleanField(default=False)
-
-    def get_hero_thumb_url(self):
-        if self.hero_image:
-
-            default_storage.querystring_expire = 604800
-            url = self.hero_image.get_rendition('fill-480x270').url
-            default_storage.querystring_expire = 3600
-            return url
-        return ''
-
-    search_fields: ClassVar[list[index.SearchField]] = [
-        *Page.search_fields,
-        index.AutocompleteField('introduction'),
-        index.FilterField('featured'),
-        index.SearchField('slug'),
-        index.SearchField('get_hero_thumb_url'),
-    ]
+    tags = ClusterTaggableManager(through=OVCollectionTag, blank=True)
 
     content_panels: ClassVar[list[FieldPanel]] = [
-        *Page.content_panels,
-        FieldPanel('introduction'),
-        MultiFieldPanel(
-            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
-        ),
+        *BaseCollection.content_panels,
         FieldPanel('content'),
     ]
 
     promote_panels: ClassVar[list[FieldPanel]] = [
-        FieldPanel(
-            'featured',
-            heading='Featured Collection',
-            help_text='Featured collections will be displayed on the home page, and listed first on the collections page.',  # noqa: E501
-        ),
-        *Page.promote_panels,
+        FieldPanel('tags', heading='Tags'),
+        *BaseCollection.promote_panels,
+    ]
+
+    # Search and indexing
+    search_fields: ClassVar[
+        list[index.SearchField | index.FilterField | index.AutocompleteField]
+    ] = [
+        *BaseCollection.search_fields,
+        index.SearchField('content'),
+        index.RelatedFields('tags', [index.SearchField('name', partial_match=True)]),
     ]
 
     api_fields: ClassVar[list[APIField]] = [
-        APIField('title'),
-        APIField('introduction'),
-        APIField(
-            'cover_image',
-            serializer=ImageRenditionField('fill-1920x1080'),
-        ),
-        APIField(
-            'hero_image',
-            serializer=ImageRenditionField('fill-1600x500'),
-        ),
-        APIField(
-            'hero_thumb',
-            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
-        ),
+        *BaseCollection.api_fields,
         APIField('content'),
+        APIField('tags'),
     ]

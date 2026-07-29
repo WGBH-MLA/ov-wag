@@ -2,21 +2,23 @@ from typing import ClassVar
 
 from django.core.files.storage import default_storage
 from django.db import models
+from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from pydantic import BaseModel
 from rest_framework import serializers
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
 from wagtail.blocks import RawHTMLBlock, RichTextBlock
-from wagtail.fields import StreamField
+from wagtail.fields import StreamField, RichTextField
 from wagtail.images.api.fields import ImageRenditionField
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 from wagtail_footnotes.blocks import RichTextBlockWithFootnotes
 from wagtail_headless_preview.models import HeadlessMixin
+from taggit.models import TaggedItemBase
 
 from authors.serializers import AuthorSerializer
-from ov_collections.blocks import AAPBRecordsBlock
+from ov_collections.blocks import AAPBRecordsBlock, VimeoVideoBlock, YouTubeVideoBlock
 from ov_wag.serializers import FootnotesSerializer
 
 
@@ -42,12 +44,14 @@ class RichTextFootnotesBlock(RichTextBlockWithFootnotes):
         super().__init__(features=features, **kwargs)
 
 
-class ExhibitsOrderable(Orderable):
+class BaseExhibitsOrderable(Orderable):
     """Ordered list of other exhibits related to this exhibit"""
 
-    page = ParentalKey('exhibits.ExhibitPage', related_name='other_exhibits', null=True)
+    class Meta:
+        abstract = True
+
     exhibit = models.ForeignKey(
-        'exhibits.ExhibitPage',
+        'exhibits.OpenVaultExhibit',
         blank=False,
         null=False,
         on_delete=models.CASCADE,
@@ -76,6 +80,12 @@ class ExhibitsOrderable(Orderable):
         ),
         APIField('authors', serializer=AuthorSerializer(many=True)),
     ]
+
+
+class ExhibitsOrderable(BaseExhibitsOrderable):
+    page = ParentalKey(
+        'exhibits.OpenVaultExhibit', related_name='other_exhibits', null=True
+    )
 
 
 class OtherExhibitsField(APIField):
@@ -128,7 +138,124 @@ class ExhibitPageApiSchema(ExhibitsApiSchema):
     body: list[str]
 
 
-class ExhibitPage(HeadlessMixin, Page):
+class BaseExhibitPage(HeadlessMixin, Page):
+    """Exhibit page model for Open Vault"""
+
+    class Meta:
+        abstract = True
+
+    parent_page_types: ClassVar[list[str]] = ['home.OpenVaultHomePage']
+    subpage_types: ClassVar[list[str]] = []
+
+    # Fields
+
+    display_title = RichTextField(
+        blank=True,
+        null=True,
+        verbose_name='Display Title',
+        help_text='Use this field to override the page title as displayed (e.g., with italics).',  # noqa: E501
+        features=['italic'],
+    )
+
+    cover_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    hero_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    featured = models.BooleanField(default=False)
+
+    special_collections = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Special collections IDs, separated by whitespace',
+    )
+
+    # Methods
+    def get_hero_thumb_url(self):
+        if self.hero_image:
+
+            default_storage.querystring_expire = 604800
+            url = self.hero_image.get_rendition('fill-480x270').url
+            default_storage.querystring_expire = 3600
+            return url
+        return ''
+
+    # Search
+    search_fields: ClassVar[list[index.SearchField]] = [
+        *Page.search_fields,
+        index.FilterField('featured'),
+        index.SearchField('slug'),
+        index.SearchField('get_hero_thumb_url'),
+    ]
+
+    # Panels
+
+    content_panels: ClassVar[list[FieldPanel]] = [
+        *Page.content_panels,
+        MultiFieldPanel(
+            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
+        ),
+    ]
+
+    promote_panels: ClassVar[list[FieldPanel]] = [
+        FieldPanel(
+            'featured',
+            heading='Featured Exhibit',
+            help_text='Featured exhibits will be displayed on the home page, and as "other exhibits" on other exhibit pages.',  # noqa: E501
+        ),
+        FieldPanel('special_collections', heading='Special Collections IDs'),
+        FieldPanel('display_title'),
+        *Page.promote_panels,
+    ]
+
+    api_fields: ClassVar[list[APIField]] = [
+        APIField('title'),
+        APIField(
+            'cover_image',
+            serializer=ImageRenditionField('max-1920x1080'),
+        ),
+        APIField(
+            'cover_thumb',
+            serializer=ImageRenditionField('fill-400x400', source='cover_image'),
+        ),
+        APIField(
+            'hero_image',
+            serializer=ImageRenditionField('fill-1600x500'),
+        ),
+        APIField('authors'),
+        APIField('footnotes', serializer=FootnotesSerializer()),
+        OtherExhibitsField(
+            'other_exhibits', serializer=OtherExhibitsSerializer(many=True)
+        ),
+        APIField('special_collections'),
+    ]
+
+
+class OpenVaultExhibitTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'exhibits.OpenVaultExhibit',
+        on_delete=models.CASCADE,
+        related_name='tagged_items',
+    )
+
+
+class OpenVaultExhibit(BaseExhibitPage):
+    """Open Vault Exhibit Page"""
+
+    class Meta:
+        verbose_name = 'Open Vault Exhibit'
+        verbose_name_plural = 'Open Vault Exhibits'
+
     body = StreamField(
         [
             ('interviews', AAPBRecordsBlock(label='Interviews', icon='openquote')),
@@ -167,85 +294,44 @@ class ExhibitPage(HeadlessMixin, Page):
                 ),
             ),
             ('html', RawHTMLBlock(label='HTML')),
+            ('vimeo', VimeoVideoBlock(label='Vimeo')),
+            ('youtube', YouTubeVideoBlock(label='YouTube')),
         ],
     )
 
-    cover_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-    hero_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
+    tags = ClusterTaggableManager(through=OpenVaultExhibitTag, blank=True)
 
-    featured = models.BooleanField(default=False)
-
-    def get_hero_thumb_url(self):
-        if self.hero_image:
-
-            default_storage.querystring_expire = 604800
-            url = self.hero_image.get_rendition('fill-480x270').url
-            default_storage.querystring_expire = 3600
-            return url
-        return ''
-
-    search_fields: ClassVar[list[index.SearchField]] = [
-        *Page.search_fields,
-        index.AutocompleteField('body'),
-        index.FilterField('featured'),
-        index.SearchField('slug'),
-        index.SearchField('get_hero_thumb_url'),
-    ]
+    # Panels
 
     content_panels: ClassVar[list[FieldPanel]] = [
-        *Page.content_panels,
-        MultiFieldPanel(
-            [FieldPanel('cover_image'), FieldPanel('hero_image')], heading='Images'
-        ),
-        FieldPanel('body', classname='collapsed'),
+        *BaseExhibitPage.content_panels,
         InlinePanel('authors', heading='Author(s)'),
-        InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
-        InlinePanel('footnotes', label='Footnotes'),
+        FieldPanel('body', classname='collapsed'),
+        MultiFieldPanel(
+            [
+                InlinePanel('other_exhibits', heading='Other Exhibits', max_num=3),
+                InlinePanel('footnotes', label='Footnotes'),
+            ],
+            heading='Additional Content',
+        ),
     ]
 
     promote_panels: ClassVar[list[FieldPanel]] = [
-        FieldPanel(
-            'featured',
-            heading='Featured Exhibit',
-            help_text='Featured exhibits will be displayed on the home page, and as "other exhibits" on other exhibit pages.',  # noqa: E501
-        ),
-        *Page.promote_panels,
+        FieldPanel('tags', heading='Tags'),
+        *BaseExhibitPage.promote_panels,
     ]
 
+    # Search
+
+    search_fields: ClassVar[list[index.SearchField]] = [
+        *BaseExhibitPage.search_fields,
+        index.AutocompleteField('body'),
+        index.RelatedFields('tags', [index.SearchField('name', partial_match=True)]),
+    ]
+
+    # API
     api_fields: ClassVar[list[APIField]] = [
-        APIField('title'),
+        *BaseExhibitPage.api_fields,
         APIField('body'),
-        APIField(
-            'cover_image',
-            serializer=ImageRenditionField('fill-1920x1080'),
-        ),
-        APIField(
-            'cover_thumb',
-            serializer=ImageRenditionField('fill-480x270', source='cover_image'),
-        ),
-        APIField(
-            'hero_image',
-            serializer=ImageRenditionField('fill-1600x500'),
-        ),
-        APIField(
-            'hero_thumb',
-            serializer=ImageRenditionField('fill-480x270', source='hero_image'),
-        ),
-        APIField('authors'),
-        APIField('footnotes', serializer=FootnotesSerializer()),
-        OtherExhibitsField(
-            'other_exhibits', serializer=OtherExhibitsSerializer(many=True)
-        ),
+        APIField('tags'),
     ]
