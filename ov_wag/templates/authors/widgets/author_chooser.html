@@ -1,0 +1,28 @@
+{% extends "wagtailadmin/widgets/chooser.html" %} {% load wagtailadmin_tags %}
+{% block chosen_icon %}
+<div
+  class="chooser__preview"
+  role="presentation"
+  style="width: 40px; height: 40px; flex-shrink: 0"
+>
+  {% if value and image_url %}
+  <img
+    src="{{ image_url }}"
+    alt=""
+    style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover"
+  />
+  {% else %} {% icon name="user" classname="default" %} {% endif %}
+</div>
+{% endblock chosen_icon %} {% block chosen_state_view %}
+<div
+  class="chooser__title"
+  data-chooser-title
+  id="{{ title_id }}"
+  style="display: flex; flex-direction: column; justify-content: center"
+>
+  <span style="font-weight: bold">{{ display_title }}</span>
+  {% if author_title %}
+  <span style="font-size: 0.85em; color: #666">{{ author_title }}</span>
+  {% endif %}
+</div>
+{% endblock chosen_state_view %}

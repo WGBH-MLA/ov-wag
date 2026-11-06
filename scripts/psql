@@ -1,0 +1,2 @@
+#!/bin/bash
+psql "postgresql://$OV_DB_USER@$OV_DB_HOST:$OV_DB_PORT/$OV_DB_NAME" -W

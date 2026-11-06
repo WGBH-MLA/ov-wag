@@ -1,0 +1,35 @@
+/* Admin styles for ov_collections blocks */
+
+.w-field--scrollable-textarea textarea {
+    max-height: 10rem !important;
+    overflow-y: auto !important;
+}
+
+/* Collapsible panel with chevron */
+.ov-collapsible summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    list-style: none;
+}
+
+.ov-collapsible summary::-webkit-details-marker {
+    display: none;
+}
+
+.ov-collapsible__icon {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+    display: inline-flex;
+}
+
+.ov-collapsible__icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.ov-collapsible[open] > summary .ov-collapsible__icon {
+    transform: rotate(90deg);
+}

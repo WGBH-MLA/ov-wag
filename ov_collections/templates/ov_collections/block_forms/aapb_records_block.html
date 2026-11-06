@@ -1,0 +1,39 @@
+{% load wagtailadmin_tags %}
+
+<div class="{{ classname }}">
+    {% if help_text %}
+        <p class="help">{{ help_text }}</p>
+    {% endif %}
+
+    {# Always-visible fields: title and guids #}
+    {% for child in children.values %}
+        {% if child.block.name == 'title' or child.block.name == 'guids' %}
+            <div class="w-field">
+                <label class="w-field__label">
+                    {{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}
+                </label>
+                {{ child.render_form }}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+    {# Collapsible section for advanced options #}
+    <details class="w-panel w-panel--nested ov-collapsible">
+        <summary class="w-panel__heading w-panel__heading--collapsible">
+            <span class="ov-collapsible__icon">{% include "wagtailadmin/icons/arrow-right.svg" %}</span>
+            <span class="w-panel__heading-text">Advanced Options</span>
+        </summary>
+        <div class="w-panel__content">
+            {% for child in children.values %}
+                {% if child.block.name != 'title' and child.block.name != 'guids' %}
+                    <div class="w-field">
+                        <label class="w-field__label">
+                            {{ child.block.label }}{% if child.block.required %}<span class="w-required-mark">*</span>{% endif %}
+                        </label>
+                        {{ child.render_form }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </details>
+</div>
