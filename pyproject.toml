@@ -31,7 +31,7 @@ docs = [
 ]
 
 [project.optional-dependencies]
-cli = ["typer>=0.24.0,<0.25", "loguru~=0.7.3", "trogon~=0.6.0"]
+cli = ["typer>=0.24.0,<0.28", "loguru~=0.7.3", "trogon~=0.6.0"]
 production = ["gunicorn~=25.1.0", "django-storages[s3]~=1.14.6"]
 test = [
     "pytest>=8.4,<9.1",
