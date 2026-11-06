@@ -123,12 +123,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 DATABASES = {
     'default': {
-        'ENGINE': env.get('OV_DB_ENGINE', 'django.db.backends.postgresql'),
-        'HOST': env.get('OV_DB_HOST'),
-        'PORT': env.get('OV_DB_PORT'),
-        'NAME': env.get('OV_DB_NAME'),
-        'USER': env.get('OV_DB_USER'),
-        'PASSWORD': env.get('OV_DB_PASSWORD'),
+        'ENGINE': env.get('DB_ENGINE', 'django.db.backends.postgresql'),
+        'HOST': env.get('DB_HOST'),
+        'PORT': env.get('DB_PORT'),
+        'NAME': env.get('DB_NAME'),
+        'USER': env.get('DB_USER'),
+        'PASSWORD': env.get('DB_PASSWORD'),
     }
 }
 
@@ -218,12 +218,12 @@ WAGTAILSEARCH_BACKENDS = {
 
 # URL settings
 
-WAGTAIL_BASE_URL = env.get('OV_BASE_URL')
-WAGTAILADMIN_BASE_URL = env.get('OV_ADMIN_BASE_URL', '')
+WAGTAIL_BASE_URL = env.get('WAGTAIL_BASE_URL')
+WAGTAILADMIN_BASE_URL = env.get('WAGTAILADMIN_BASE_URL', '')
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILAPI_BASE_URL = env.get('OV_API_URL')
+WAGTAILAPI_BASE_URL = env.get('WAGTAILAPI_BASE_URL')
 
 
 # API settings
