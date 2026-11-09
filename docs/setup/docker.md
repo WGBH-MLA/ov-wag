@@ -29,8 +29,8 @@ OV_DB_NAME=ov
 OV_DB_USER=postgres
 OV_DB_PASSWORD="YOUR POSTGRES PASSWORD HERE"
 
-OV_BASE_URL=http://localhost:3000
-OV_ADMIN_BASE_URL=http://localhost:8000
+WAGTAIL_BASE_URL=http://localhost:3000
+WAGTAILADMIN_BASE_URL=http://localhost:8000
 ```
 
 ### 2. (Optional) Build the backend

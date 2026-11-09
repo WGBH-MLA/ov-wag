@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   wagtail:
@@ -34,7 +34,7 @@ services:
       context: ../ov-frontend
       target: dev
     environment:
-      - OV_API_URL=http://wagtail:8000
+      - WAGTAILAPI_BASE_URL=http://wagtail:8000
     volumes:
       - ../ov-frontend:/app
     ports:
