@@ -35,7 +35,7 @@ cli = ["typer>=0.24.0,<0.28", "loguru~=0.7.3", "trogon~=0.6.0"]
 production = ["gunicorn~=25.1.0", "django-storages[s3]~=1.14.6"]
 test = [
     "pytest>=8.4,<9.1",
-    "pytest-django~=4.12.0",
+    "pytest-django>=4.12,<4.15",
     "pytest-cov>=7.0.0,<7.2.0",
     "pytest-sugar>=1.0,<1.2",
     "pytest-xdist>=3.7,<3.9",
