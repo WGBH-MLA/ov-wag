@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.auth0',
+    'allauth.socialaccount.providers.openid_connect',
 ]
 
 MIDDLEWARE = [
@@ -230,16 +230,34 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+# Authentik is the OpenID Connect provider. The provider_id is part of the login and
+# callback URLs, and must match the redirect URI in the Authentik blueprint:
+# /accounts/oidc/authentik/login/callback/
 SOCIALACCOUNT_PROVIDERS = {
-    'auth0': {
-        'AUTH0_URL': os.environ.get('AUTH0_URL'),
+    'openid_connect': {
         'OAUTH_PKCE_ENABLED': True,
-        'APP': {
-            'client_id': os.environ.get('AUTH0_CLIENT_ID'),
-            'secret': os.environ.get('AUTH0_CLIENT_SECRET'),
-        },
+        'APPS': [
+            {
+                'provider_id': 'authentik',
+                'name': 'Authentik',
+                'client_id': os.environ.get('OIDC_CLIENT_ID'),
+                'secret': os.environ.get('OIDC_CLIENT_SECRET'),
+                'settings': {
+                    # Authentik issuer URL: https://<authentik>/application/o/<slug>/
+                    # allauth appends /.well-known/openid-configuration, so a
+                    # trailing slash would produce a '//' path that Authentik 404s.
+                    'server_url': (os.environ.get('OIDC_SERVER_URL') or '').rstrip('/'),
+                    'fetch_userinfo': True,
+                    # Log in as the existing user with the same email, so accounts
+                    # created through Auth0 carry over. Safe because Authentik is
+                    # the authority for these users' emails.
+                    'email_authentication': True,
+                },
+            }
+        ],
     }
 }
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
-LOGIN_CALLBACK_URL = WAGTAILADMIN_BASE_URL + '/auth0/login/callback/'
+LOGIN_CALLBACK_URL = WAGTAILADMIN_BASE_URL + '/accounts/oidc/authentik/login/callback/'
 LOGIN_REDIRECT_URL = WAGTAILADMIN_BASE_URL + '/admin/'
