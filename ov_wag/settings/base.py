@@ -263,6 +263,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 SOCIALACCOUNT_ADAPTER = 'ov_wag.auth.SocialAccountAdapter'
+SOCIALACCOUNT_FORMS = {'signup': 'ov_wag.forms.SocialSignupForm'}
 # Authentik groups (the `groups` claim) that grant Wagtail access at sign-in, see
 # ov_wag/auth.py. Access is only ever granted, never revoked, so users managed by
 # hand in Wagtail are unaffected.

@@ -192,6 +192,64 @@ class AuthentikLoginTests(TestCase):
         user.refresh_from_db()
         self.assertTrue(user.has_usable_password())
 
+    def test_signup_page_is_branded_like_the_admin_login(self):
+        with override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False):
+            _, _, callback = self.sign_in()
+            response = self.client.get(callback['Location'])
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<title>Sign up - Open Vault</title>')
+        self.assertContains(response, 'wagtailadmin/css/core.css')
+        self.assertContains(response, 'login-logo')
+        self.assertContains(
+            response, 'Open Vault with your Authentik account (editor@example.test)'
+        )
+        self.assertContains(response, 'name="username"')
+        self.assertNotContains(response, 'name="email"')
+        self.assertNotContains(response, 'Menu:')
+        self.assertNotContains(response, 'example.com')
+        # Wagtail hides field errors inside .login-form, which would hide the
+        # username errors
+        self.assertNotContains(response, 'login-form')
+
+    def test_signup_form_takes_the_email_from_authentik(self):
+        with override_settings(SOCIALACCOUNT_AUTO_SIGNUP=False):
+            _, _, callback = self.sign_in()
+            self.client.post(
+                callback['Location'],
+                {'username': 'chosen', 'email': 'someone-else@example.test'},
+            )
+
+        user = get_user_model().objects.get(username='chosen')
+        self.assertEqual(user.email, 'editor@example.test')
+        self.assertEqual(self.client.session['_auth_user_id'], str(user.pk))
+        self.assertEqual(
+            list(user.emailaddress_set.values_list('email', 'verified')),
+            [('editor@example.test', True)],
+        )
+
+    def test_signup_page_reports_the_email_conflict_up_front(self):
+        users = get_user_model().objects
+        users.create_user('someone', 'editor@example.test', 'pw')
+        providers = copy.deepcopy(settings.SOCIALACCOUNT_PROVIDERS)
+        app = providers['openid_connect']['APPS'][0]['settings']
+        app.update(verified_email=False, email_authentication=False)
+
+        with override_settings(SOCIALACCOUNT_PROVIDERS=providers):
+            _, _, callback = self.sign_in()
+            page = self.client.get(callback['Location'])
+            # No form: the email cannot be changed, so there is nothing to submit
+            posted = self.client.post(
+                callback['Location'],
+                {'username': 'editor', 'email': 'other@example.test'},
+            )
+
+        message = 'An account already exists with the email address editor@example.test'
+        self.assertContains(page, message)
+        self.assertNotContains(page, '<form')
+        self.assertContains(posted, message)
+        self.assertEqual(users.count(), 1)
+
     def test_ambiguous_email_is_not_linked_to_either_user(self):
         users = get_user_model().objects
         first = users.create_user('first', 'Editor@Example.test', 'pw')
