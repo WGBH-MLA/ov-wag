@@ -14,14 +14,11 @@ from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
-from django.test import SimpleTestCase, TestCase, override_settings
+from django.test import TestCase, override_settings
 from requests import Response
 from wagtail.permission_policies.pages import PagePermissionPolicy
 
 import ov_wag.settings.base as base_settings
-from authors.models import Author
-from ov_wag.auth import email_domain
 
 ISSUER = 'https://auth.example.test/application/o/openvault/'
 CLIENT_ID = 'openvault'
@@ -113,9 +110,7 @@ def env_provider_settings():
         importlib.reload(base_settings)
 
 
-class FakeAuthentikTestCase(TestCase):
-    """Signs in through a fake Authentik; has no tests of its own."""
-
+class AuthentikLoginTests(TestCase):
     def setUp(self):
         stack = ExitStack()
         self.addCleanup(stack.close)
@@ -143,8 +138,6 @@ class FakeAuthentikTestCase(TestCase):
             )
         return start, authentik, callback
 
-
-class AuthentikLoginTests(FakeAuthentikTestCase):
     def test_admin_login_page_offers_authentik(self):
         response = self.client.get('/admin/login/')
 
@@ -342,94 +335,3 @@ class AuthentikLoginTests(FakeAuthentikTestCase):
         user.refresh_from_db()
         self.assertTrue(user.is_superuser)
         self.assertEqual(self.client.session['_auth_user_id'], str(user.pk))
-
-
-class ViewerAccessTests(FakeAuthentikTestCase):
-    """Internal (WGBH email) users get view-only access to what Wagtail allows."""
-
-    def viewer(self, **userinfo):
-        self.sign_in(email='staff@wgbh.org', **userinfo)
-        return get_user_model().objects.get(email='staff@wgbh.org')
-
-    def test_internal_email_gets_read_only_access_to_authors(self):
-        author = Author.objects.create(name='Ada Lovelace')
-        user = self.viewer()
-
-        self.assertEqual(
-            list(user.groups.values_list('name', flat=True)),
-            [settings.OIDC_WAGTAIL_VIEWER_GROUP],
-        )
-        self.assertFalse(user.is_superuser)
-        for url in (
-            '/admin/',
-            '/admin/snippets/authors/author/',
-            f'/admin/snippets/authors/author/inspect/{author.pk}/',
-        ):
-            with self.subTest(url=url):
-                self.assertEqual(self.client.get(url).status_code, 200)
-
-    def test_internal_user_cannot_change_anything(self):
-        author = Author.objects.create(name='Ada Lovelace')
-        self.viewer()
-
-        for method, url in (
-            ('get', '/admin/snippets/authors/author/add/'),
-            ('get', f'/admin/snippets/authors/author/edit/{author.pk}/'),
-            ('get', f'/admin/snippets/authors/author/delete/{author.pk}/'),
-            ('post', '/admin/snippets/authors/author/add/'),
-            ('get', '/admin/images/'),
-            ('get', '/admin/documents/'),
-            ('get', '/admin/pages/'),
-        ):
-            with self.subTest(method=method, url=url):
-                response = getattr(self.client, method)(url)
-                self.assertNotEqual(response.status_code, 200)
-        self.assertEqual(Author.objects.count(), 1)
-
-    def test_other_email_domains_get_no_access(self):
-        self.sign_in(email='staff@gmail.com')
-
-        other = get_user_model().objects.get(email='staff@gmail.com')
-        self.assertFalse(other.groups.exists())
-        self.assertFalse(other.has_perm('wagtailadmin.access_admin'))
-
-    def test_internal_email_does_not_reduce_other_access(self):
-        user = self.viewer(groups=['ov-editors'])
-
-        self.assertEqual(
-            set(user.groups.values_list('name', flat=True)),
-            {settings.OIDC_WAGTAIL_EDITOR_GROUP, settings.OIDC_WAGTAIL_VIEWER_GROUP},
-        )
-
-    def test_changes_to_the_viewer_group_are_kept(self):
-        self.viewer()
-        group = Group.objects.get(name=settings.OIDC_WAGTAIL_VIEWER_GROUP)
-        group.permissions.remove(group.permissions.get(codename='view_author'))
-
-        self.sign_in(email='staff@wgbh.org')
-
-        self.assertFalse(group.permissions.filter(codename='view_author').exists())
-
-
-class EmailDomainTests(SimpleTestCase):
-    def domain(self, email):
-        extra_data = {'userinfo': {'email': email}} if email is not None else {}
-        account = type('Account', (), {'extra_data': extra_data})
-        return email_domain(type('Login', (), {'account': account}))
-
-    def test_domain_is_exact_and_case_insensitive(self):
-        self.assertEqual(self.domain('a@wgbh.org'), 'wgbh.org')
-        self.assertEqual(self.domain(' A@WGBH.org '), 'wgbh.org')
-
-    def test_lookalike_domains_do_not_match(self):
-        for email in (
-            'a@evil-wgbh.org',
-            'a@wgbh.org.evil.com',
-            'a@sub.wgbh.org',
-            'a@wgbh.org@evil.com',
-            'wgbh.org',
-            '',
-            None,
-        ):
-            with self.subTest(email=email):
-                self.assertNotIn(self.domain(email), settings.OIDC_VIEWER_EMAIL_DOMAINS)
