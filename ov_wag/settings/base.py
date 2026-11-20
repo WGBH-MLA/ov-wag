@@ -268,9 +268,12 @@ SOCIALACCOUNT_FORMS = {'signup': 'ov_wag.forms.SocialSignupForm'}
 # ov_wag/auth.py. Access is only ever granted, never revoked, so users managed by
 # hand in Wagtail are unaffected.
 OIDC_EDITOR_GROUP = os.environ.get('OIDC_EDITOR_GROUP', 'ov-editors')
+OIDC_MODERATOR_GROUP = os.environ.get('OIDC_MODERATOR_GROUP', 'ov-moderators')
 OIDC_ADMIN_GROUP = os.environ.get('OIDC_ADMIN_GROUP', 'ov-admins')
-# Wagtail group given to members of OIDC_EDITOR_GROUP
+# Wagtail groups given to members of OIDC_EDITOR_GROUP and OIDC_MODERATOR_GROUP.
+# These are Wagtail's built-in groups: Moderators can also publish, Editors cannot.
 OIDC_WAGTAIL_EDITOR_GROUP = 'Editors'
+OIDC_WAGTAIL_MODERATOR_GROUP = 'Moderators'
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
 LOGIN_CALLBACK_URL = WAGTAILADMIN_BASE_URL + '/accounts/oidc/authentik/login/callback/'
 LOGIN_REDIRECT_URL = WAGTAILADMIN_BASE_URL + '/admin/'

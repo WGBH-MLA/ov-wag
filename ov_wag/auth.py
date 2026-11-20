@@ -41,6 +41,16 @@ def claimed_groups(sociallogin):
     return set(claims.get('groups') or [])
 
 
+def add_wagtail_group(user, name):
+    group = Group.objects.filter(name=name).first()
+    if group:
+        user.groups.add(group)
+    else:
+        logger.warning(
+            'Wagtail group %r does not exist, so %s was not added to it', name, user
+        )
+
+
 def grant_wagtail_access(sender, user, sociallogin=None, **kwargs):
     """Give Wagtail access to users who sign in through Authentik groups.
 
@@ -59,15 +69,10 @@ def grant_wagtail_access(sender, user, sociallogin=None, **kwargs):
         user.save(update_fields=['is_superuser', 'is_staff'])
 
     if settings.OIDC_EDITOR_GROUP in groups:
-        editors = Group.objects.filter(name=settings.OIDC_WAGTAIL_EDITOR_GROUP).first()
-        if editors:
-            user.groups.add(editors)
-        else:
-            logger.warning(
-                'Wagtail group %r does not exist, so %s was not given editor access',
-                settings.OIDC_WAGTAIL_EDITOR_GROUP,
-                user,
-            )
+        add_wagtail_group(user, settings.OIDC_WAGTAIL_EDITOR_GROUP)
+
+    if settings.OIDC_MODERATOR_GROUP in groups:
+        add_wagtail_group(user, settings.OIDC_WAGTAIL_MODERATOR_GROUP)
 
 
 def connect_signals():
