@@ -248,9 +248,13 @@ SOCIALACCOUNT_PROVIDERS = {
                     # trailing slash would produce a '//' path that Authentik 404s.
                     'server_url': (os.environ.get('OIDC_SERVER_URL') or '').rstrip('/'),
                     'fetch_userinfo': True,
+                    # Authentik's default email scope always reports email_verified as
+                    # false, so allauth would never link an existing account by email.
+                    # Trust the address instead: only members of the Authentik editor
+                    # and admin groups can sign in, and admins control those.
+                    'verified_email': True,
                     # Log in as the existing user with the same email, so accounts
-                    # created through Auth0 carry over. Safe because Authentik is
-                    # the authority for these users' emails.
+                    # created through Auth0 carry over.
                     'email_authentication': True,
                 },
             }
@@ -258,6 +262,14 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
+SOCIALACCOUNT_ADAPTER = 'ov_wag.auth.SocialAccountAdapter'
+# Authentik groups (the `groups` claim) that grant Wagtail access at sign-in, see
+# ov_wag/auth.py. Access is only ever granted, never revoked, so users managed by
+# hand in Wagtail are unaffected.
+OIDC_EDITOR_GROUP = os.environ.get('OIDC_EDITOR_GROUP', 'ov-editors')
+OIDC_ADMIN_GROUP = os.environ.get('OIDC_ADMIN_GROUP', 'ov-admins')
+# Wagtail group given to members of OIDC_EDITOR_GROUP
+OIDC_WAGTAIL_EDITOR_GROUP = 'Editors'
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
 LOGIN_CALLBACK_URL = WAGTAILADMIN_BASE_URL + '/accounts/oidc/authentik/login/callback/'
 LOGIN_REDIRECT_URL = WAGTAILADMIN_BASE_URL + '/admin/'

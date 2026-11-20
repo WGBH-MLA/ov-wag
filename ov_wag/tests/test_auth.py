@@ -12,6 +12,7 @@ from urllib.parse import parse_qs, urlparse
 import jwt
 from allauth.account.models import EmailAddress
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import TestCase, override_settings
 from requests import Response
@@ -120,7 +121,8 @@ class AuthentikLoginTests(TestCase):
         userinfo = {
             'sub': 'authentik-user-1',
             'email': 'editor@example.test',
-            'email_verified': True,
+            # Authentik's default email scope always reports false
+            'email_verified': False,
             'preferred_username': 'editor',
             **userinfo,
         }
@@ -164,7 +166,19 @@ class AuthentikLoginTests(TestCase):
         self.assertEqual(self.client.session['_auth_user_id'], str(user.pk))
         self.assertEqual(user.socialaccount_set.get().uid, 'authentik-user-1')
 
-    def test_existing_user_is_linked_by_verified_email(self):
+    def test_existing_user_is_linked_by_email(self):
+        """A user made in Wagtail, with a capitalized email, keeps their account."""
+        users = get_user_model().objects
+        user = users.create_user('wagtail-user', 'Editor@Example.test', 'password')
+
+        _, _, callback = self.sign_in()
+
+        self.assertEqual(callback.status_code, 302)
+        self.assertEqual(users.count(), 1)
+        self.assertEqual(self.client.session['_auth_user_id'], str(user.pk))
+        self.assertEqual(user.socialaccount_set.get().uid, 'authentik-user-1')
+
+    def test_existing_auth0_user_keeps_password_when_linked(self):
         users = get_user_model().objects
         user = users.create_user(
             'old-auth0-user', 'editor@example.test', 'local-password'
@@ -175,16 +189,66 @@ class AuthentikLoginTests(TestCase):
 
         self.assertEqual(users.count(), 1)
         self.assertEqual(self.client.session['_auth_user_id'], str(user.pk))
-        self.assertEqual(user.socialaccount_set.get().uid, 'authentik-user-1')
         user.refresh_from_db()
         self.assertTrue(user.has_usable_password())
 
-    def test_unverified_email_does_not_take_over_existing_user(self):
-        user = get_user_model().objects.create_user(
-            'someone', 'editor@example.test', 'pw'
+    def test_ambiguous_email_is_not_linked_to_either_user(self):
+        users = get_user_model().objects
+        first = users.create_user('first', 'Editor@Example.test', 'pw')
+        second = users.create_user('second', 'EDITOR@example.test', 'pw')
+
+        self.sign_in()
+
+        self.assertFalse(first.socialaccount_set.exists())
+        self.assertFalse(second.socialaccount_set.exists())
+
+    def test_user_without_authentik_groups_gets_no_admin_access(self):
+        self.sign_in()
+
+        user = get_user_model().objects.get(email='editor@example.test')
+        self.assertFalse(user.has_perm('wagtailadmin.access_admin'))
+        response = self.client.get('/admin/')
+        self.assertRedirects(
+            response, '/admin/login/?next=/admin/', fetch_redirect_response=False
         )
 
-        self.sign_in(email_verified=False)
+    def test_editors_group_grants_wagtail_editor_access(self):
+        self.sign_in(groups=['ov-editors'])
 
-        self.assertNotEqual(self.client.session.get('_auth_user_id'), str(user.pk))
-        self.assertFalse(user.socialaccount_set.exists())
+        user = get_user_model().objects.get(email='editor@example.test')
+        self.assertEqual(
+            list(user.groups.values_list('name', flat=True)),
+            [settings.OIDC_WAGTAIL_EDITOR_GROUP],
+        )
+        self.assertFalse(user.is_superuser)
+        self.assertEqual(self.client.get('/admin/').status_code, 200)
+
+    def test_admins_group_grants_superuser(self):
+        self.sign_in(groups=['ov-admins'])
+
+        user = get_user_model().objects.get(email='editor@example.test')
+        self.assertTrue(user.is_superuser)
+        self.assertTrue(user.is_staff)
+        self.assertEqual(self.client.get('/admin/').status_code, 200)
+
+    def test_groups_are_applied_to_existing_users_on_next_login(self):
+        users = get_user_model().objects
+        user = users.create_user('old-auth0-user', 'editor@example.test', 'pw')
+        EmailAddress.objects.create(user=user, email=user.email, verified=True)
+
+        self.sign_in(groups=['ov-editors'])
+
+        self.assertTrue(user.groups.filter(name='Editors').exists())
+
+    def test_access_is_never_revoked_at_login(self):
+        users = get_user_model().objects
+        user = users.create_user(
+            'manual-admin', 'editor@example.test', 'pw', is_superuser=True
+        )
+        EmailAddress.objects.create(user=user, email=user.email, verified=True)
+
+        self.sign_in(groups=['something-else'])
+
+        user.refresh_from_db()
+        self.assertTrue(user.is_superuser)
+        self.assertEqual(self.client.session['_auth_user_id'], str(user.pk))
