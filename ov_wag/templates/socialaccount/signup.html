@@ -1,0 +1,45 @@
+{% extends "socialaccount/base_entrance.html" %}
+{% load custom_tags i18n wagtailadmin_tags %}
+
+{% block head_title %}{% trans "Sign up" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Sign up" %}</h1>
+
+    {% if form.email_conflict %}
+        <div class="messages" role="alert">
+            <ul>
+                <li class="error">{{ form.conflict_message }}</li>
+            </ul>
+        </div>
+        <footer class="form-actions">
+            <a class="button" href="{% url 'wagtailadmin_login' %}">{% trans "Back to sign in" %}</a>
+        </footer>
+    {% else %}
+        <p>
+            {% get_setting 'WAGTAIL_SITE_NAME' as site_name %}
+            You are signing in to {{ site_name }} with your {{ account.get_provider.name }} account{% if form.authentik_email %} ({{ form.authentik_email }}){% endif %}.
+            Choose a username to finish setting up your account.
+        </p>
+
+        {% if form.non_field_errors %}
+            <div class="messages" role="alert">
+                <ul>
+                    {% for error in form.non_field_errors %}<li class="error">{{ error }}</li>{% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <form action="{% url 'socialaccount_signup' %}" method="post" novalidate>
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                {% formattedfield field %}
+            {% endfor %}
+            {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+            {{ redirect_field }}
+            <footer class="form-actions">
+                <button type="submit" class="button">{% trans "Sign up" %}</button>
+            </footer>
+        </form>
+    {% endif %}
+{% endblock %}
